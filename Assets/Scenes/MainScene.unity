@@ -121,6 +121,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &47226788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47226789}
+  - component: {fileID: 47226790}
+  m_Layer: 5
+  m_Name: AdManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &47226789
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47226788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1133906316}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &47226790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47226788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58faf59f9c3727246a9f5eb4be216d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139877432
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +482,8 @@ GameObject:
   - component: {fileID: 691785756}
   - component: {fileID: 691785755}
   - component: {fileID: 691785754}
+  - component: {fileID: 691785757}
+  - component: {fileID: 691785758}
   m_Layer: 5
   m_Name: Hp
   m_TagString: Untagged
@@ -523,6 +573,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691785752}
   m_CullTransparentMesh: 0
+--- !u!114 &691785757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691785752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6508b97004ffa4aaa8176072d535cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 91632c10c9b3dbe41a67cbdd26908f20, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 691785754}
+        m_MethodName: UpdateHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &691785758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691785752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6508b97004ffa4aaa8176072d535cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 19e9f56738bb5084ebc1cf93430d8645, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 691785754}
+        m_MethodName: UpdateHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &802792144
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +795,7 @@ RectTransform:
   - {fileID: 139877433}
   - {fileID: 1823693660}
   - {fileID: 691785753}
+  - {fileID: 47226789}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -919,8 +1024,11 @@ GameObject:
   - component: {fileID: 1835750050}
   - component: {fileID: 1835750049}
   - component: {fileID: 1835750048}
-  - component: {fileID: 1835750051}
+  - component: {fileID: 1835750053}
+  - component: {fileID: 1835750054}
+  - component: {fileID: 1835750055}
   - component: {fileID: 1835750052}
+  - component: {fileID: 1835750051}
   m_Layer: 5
   m_Name: MainButton
   m_TagString: Untagged
@@ -990,19 +1098,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 87e674fd44315374c9c67045027ce194, type: 2}
+      - m_Target: {fileID: 11400000, guid: 91632c10c9b3dbe41a67cbdd26908f20, type: 2}
         m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1835750051}
-        m_MethodName: ButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1060,70 +1157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000f98d489beafc40af672f1818b09ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageDealer: {fileID: 1835750052}
-  EnemyData:
-  - EnemySprite: {fileID: 21300000, guid: 6c4d8da2d445d13479a2c7d33c9091bf, type: 3}
-    Hp:
-      UseConstant: 1
-      ConstantValue: 100
-      Variable: {fileID: 0}
-    PunchSounds: []
-    DeathSound: {fileID: 0}
-    RewardCoinsAmount:
-      UseConstant: 1
-      ConstantValue: 15
-      Variable: {fileID: 0}
-  - EnemySprite: {fileID: 21300000, guid: 5e75cc12afec6ba4b8cb125d671abac9, type: 3}
-    Hp:
-      UseConstant: 1
-      ConstantValue: 100
-      Variable: {fileID: 0}
-    PunchSounds: []
-    DeathSound: {fileID: 0}
-    RewardCoinsAmount:
-      UseConstant: 0
-      ConstantValue: 0
-      Variable: {fileID: 0}
-  - EnemySprite: {fileID: 21300000, guid: 6c4d8da2d445d13479a2c7d33c9091bf, type: 3}
-    Hp:
-      UseConstant: 1
-      ConstantValue: 100
-      Variable: {fileID: 0}
-    PunchSounds: []
-    DeathSound: {fileID: 0}
-    RewardCoinsAmount:
-      UseConstant: 0
-      ConstantValue: 0
-      Variable: {fileID: 0}
-  - EnemySprite: {fileID: 21300000, guid: 5e75cc12afec6ba4b8cb125d671abac9, type: 3}
-    Hp:
-      UseConstant: 1
-      ConstantValue: 100
-      Variable: {fileID: 0}
-    PunchSounds: []
-    DeathSound: {fileID: 0}
-    RewardCoinsAmount:
-      UseConstant: 0
-      ConstantValue: 0
-      Variable: {fileID: 0}
-  - EnemySprite: {fileID: 21300000, guid: 6c4d8da2d445d13479a2c7d33c9091bf, type: 3}
-    Hp:
-      UseConstant: 1
-      ConstantValue: 100
-      Variable: {fileID: 0}
-    PunchSounds: []
-    DeathSound: {fileID: 0}
-    RewardCoinsAmount:
-      UseConstant: 0
-      ConstantValue: 0
-      Variable: {fileID: 0}
-  CurrentHp: {fileID: 11400000, guid: 4bdcc89b35488354d9defbb5e2b85cb2, type: 2}
-  DamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  DeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1835750052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1173,159 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 10
     Variable: {fileID: 0}
+--- !u!114 &1835750053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835750046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec7d3b63eb961449af52fc895106943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyDataList:
+  - EnemySprite: {fileID: 2192450021786810173, guid: 973d1955072338a469464b47d14f0dd7,
+      type: 3}
+    Sounds: []
+    DeathSounds: {fileID: 0}
+    Hp:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: a6063ca8923bee74a83ff7e921b0470d, type: 2}
+    CoinsReward:
+      UseConstant: 1
+      ConstantValue: 0
+      Variable: {fileID: 0}
+  - EnemySprite: {fileID: -7537196482120660328, guid: 973d1955072338a469464b47d14f0dd7,
+      type: 3}
+    Sounds: []
+    DeathSounds: {fileID: 0}
+    Hp:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: a6063ca8923bee74a83ff7e921b0470d, type: 2}
+    CoinsReward:
+      UseConstant: 1
+      ConstantValue: 0
+      Variable: {fileID: 0}
+  - EnemySprite: {fileID: -860468679390908754, guid: 973d1955072338a469464b47d14f0dd7,
+      type: 3}
+    Sounds: []
+    DeathSounds: {fileID: 0}
+    Hp:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: a6063ca8923bee74a83ff7e921b0470d, type: 2}
+    CoinsReward:
+      UseConstant: 1
+      ConstantValue: 0
+      Variable: {fileID: 0}
+  - EnemySprite: {fileID: -7945901444079236628, guid: 973d1955072338a469464b47d14f0dd7,
+      type: 3}
+    Sounds: []
+    DeathSounds: {fileID: 0}
+    Hp:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: a6063ca8923bee74a83ff7e921b0470d, type: 2}
+    CoinsReward:
+      UseConstant: 1
+      ConstantValue: 0
+      Variable: {fileID: 0}
+  InitializeNewEnemy:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1835750055}
+        m_MethodName: InitializeEnemy
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d0303e1de080cf643a995ac641fe6563,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: EnemyDataVariable, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1835750054}
+        m_MethodName: InitializeNewEnemy
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d0303e1de080cf643a995ac641fe6563,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: EnemyDataVariable, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  CurrentEnemyData: {fileID: 11400000, guid: d0303e1de080cf643a995ac641fe6563, type: 2}
+--- !u!114 &1835750054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835750046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd889c0962efc9489b0efd2e2fd0a85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentHp: {fileID: 11400000, guid: 4bdcc89b35488354d9defbb5e2b85cb2, type: 2}
+  DamageEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 87e674fd44315374c9c67045027ce194, type: 2}
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 91632c10c9b3dbe41a67cbdd26908f20, type: 2}
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  DeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1835750053}
+        m_MethodName: SetUpEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1835750055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835750046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d17fe5ef4577fd489da299f2c058a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1997073658
 GameObject:
   m_ObjectHideFlags: 0
