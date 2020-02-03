@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 47226789}
   - component: {fileID: 47226790}
+  - component: {fileID: 47226791}
   m_Layer: 5
   m_Name: AdManager
   m_TagString: Untagged
@@ -149,8 +150,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1133906316}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -169,6 +170,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58faf59f9c3727246a9f5eb4be216d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &47226791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47226788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4f8ed75d59e6043b91d2c170d197b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlacementId: BottomBanner
 --- !u!1 &139877432
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 12e258e837240284286ea2eacf034426, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -483,7 +497,6 @@ GameObject:
   - component: {fileID: 691785755}
   - component: {fileID: 691785754}
   - component: {fileID: 691785757}
-  - component: {fileID: 691785758}
   m_Layer: 5
   m_Name: Hp
   m_TagString: Untagged
@@ -600,33 +613,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &691785758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691785752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d6508b97004ffa4aaa8176072d535cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 19e9f56738bb5084ebc1cf93430d8645, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 691785754}
-        m_MethodName: UpdateHealth
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &802792144
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +698,6 @@ GameObject:
   - component: {fileID: 1133906315}
   - component: {fileID: 1133906314}
   - component: {fileID: 1133906313}
-  - component: {fileID: 1133906317}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -795,7 +780,6 @@ RectTransform:
   - {fileID: 139877433}
   - {fileID: 1823693660}
   - {fileID: 691785753}
-  - {fileID: 47226789}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -804,19 +788,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1133906317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1133906312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4f8ed75d59e6043b91d2c170d197b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlacementId: BottomBanner
 --- !u!1 &1574774409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1069,29 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1835750054}
+        m_MethodName: DealDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 91632c10c9b3dbe41a67cbdd26908f20, type: 2}
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 87e674fd44315374c9c67045027ce194, type: 2}
         m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
@@ -1277,29 +1270,7 @@ MonoBehaviour:
   CurrentHp: {fileID: 11400000, guid: 4bdcc89b35488354d9defbb5e2b85cb2, type: 2}
   DamageEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 87e674fd44315374c9c67045027ce194, type: 2}
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 91632c10c9b3dbe41a67cbdd26908f20, type: 2}
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   DeathEvent:
     m_PersistentCalls:
       m_Calls:

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.2d.psdimporter": "2.0.7",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ads": "3.4.2",
     "com.unity.collab-proxy": "1.2.16",
