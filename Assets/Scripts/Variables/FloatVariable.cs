@@ -5,7 +5,8 @@ public class FloatVariable : ScriptableObject
 {
 #if UNITY_EDITOR
     [Multiline]
-    public string DeveloperDescription = "";
+    [SerializeField]
+    private string DeveloperDescription = "";
 #endif
 
     public float Value;

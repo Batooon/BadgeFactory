@@ -22,7 +22,7 @@ public class UnitHealth : MonoBehaviour
     public void DealDamage()
     {
         CurrentHp.ApplyChange(-_damageDealer.DamageAmount);
-        //DamageEvent.Invoke();
+        DamageEvent.Invoke();
 
         if (CurrentHp.Value <= 0)
             DeathEvent.Invoke();

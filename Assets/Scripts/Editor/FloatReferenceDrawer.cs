@@ -2,6 +2,7 @@
 using UnityEditor;
 
 [CustomPropertyDrawer(typeof(FloatReference))]
+[CustomPropertyDrawer(typeof(IntReference))]
 public class FloatReferenceDrawer : PropertyDrawer
 {
     private readonly string[] _popupOptions = { "Use Constant", "Use Variable" };

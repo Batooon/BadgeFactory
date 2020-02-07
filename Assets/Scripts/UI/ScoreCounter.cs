@@ -3,21 +3,28 @@ using UnityEngine.UI;
 
 public class ScoreCounter : MonoBehaviour
 {
-    private int _scoreCount = 0;
+    [SerializeField]
+    private FloatReference _scoreCount;
+    [SerializeField]
+    private FloatReference _upgradeCost;
+
     private Text _scoreText;
 
     private void Start()
     {
         _scoreText = GetComponent<Text>();
+        _scoreText.text = $"Score: {_scoreCount.Value}";
     }
 
-    public void UpdateScore()
+    public void UpgradePurchased()
     {
-        _scoreCount += 1;
+        _scoreCount.Variable.ApplyChange(-_upgradeCost);
+        _scoreText.text = $"Score: {_scoreCount.Value}";
     }
 
-    public void UpdateScoreText()
+    public void UpdateScoreText(FloatVariable _scoreAmount)
     {
-        _scoreText.text = _scoreCount.ToString();
+        _scoreCount.Variable.ApplyChange(_scoreAmount);
+        _scoreText.text = $"Score: {_scoreCount.Value}";
     }
 }
