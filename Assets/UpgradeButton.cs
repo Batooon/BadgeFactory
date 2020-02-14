@@ -24,11 +24,21 @@ public class UpgradeButton : MonoBehaviour
 
     private Button _button;
 
+    private void OnEnable()
+    {
+        _button = GetComponent<Button>();
+        _button.onClick.AddListener(this.UpgradeClickPower);
+    }
+
+    private void OnDisable()
+    {
+        _button.onClick.RemoveListener(this.UpgradeClickPower);
+    }
+
     public void Init()
     {
         _upgradeCostText = GetComponentInChildren<TextMeshProUGUI>();
         _upgradeCostText.text = $"Upgrade ₴{_upgradeCost.Variable.Value}";
-        _button = GetComponent<Button>();
         CompareScoreValue();
     }
 
@@ -39,10 +49,10 @@ public class UpgradeButton : MonoBehaviour
 
     public void UpgradeClickPower()
     {
-        _clickPowerUpgraded.Raise();
         _upgradeCost.Variable.SetValue(_startingCost * Mathf.Pow(_multiplier, _level));
         _upgradeCostText.text = $"Upgrade ₴{_upgradeCost.Variable.Value}";
         _level.Variable.SetValue(_level.Value + 1);
+        _clickPowerUpgraded.Raise();
         CompareScoreValue();
     }
 }

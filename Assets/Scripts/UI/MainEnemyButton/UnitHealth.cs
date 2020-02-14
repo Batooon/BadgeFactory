@@ -19,9 +19,14 @@ public class UnitHealth : MonoBehaviour
         _damageDealer = GetComponent<DamageDealer>();
     }
 
-    public void DealDamage()
+    public void ClickDamage()
     {
-        CurrentHp.ApplyChange(-_damageDealer.DamageAmount);
+        DealDamage(_damageDealer.DamageAmount);
+    }
+
+    private void DealDamage(FloatReference amountOfDamage)
+    {
+        CurrentHp.ApplyChange(-amountOfDamage);
         DamageEvent.Invoke();
 
         if (CurrentHp.Value <= 0)
@@ -37,5 +42,10 @@ public class UnitHealth : MonoBehaviour
     private void ResetHP()
     {
         CurrentHp.SetValue(_currentEnemy.EnemyDataVar.Hp);
+    }
+
+    private void Update()
+    {
+        
     }
 }
