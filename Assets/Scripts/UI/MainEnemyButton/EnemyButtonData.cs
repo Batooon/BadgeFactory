@@ -11,8 +11,8 @@ public struct EnemyData
     public Sprite EnemySprite;
     public AudioClip[] Sounds;
     public AudioClip DeathSounds;
-    public FloatReference Hp;
-    public FloatReference CoinsReward;
+    public float Hp;
+    public float CoinsReward;
 }
 
 public class EnemyButtonData : MonoBehaviour

@@ -7,7 +7,7 @@ public class ImageFillSetter : MonoBehaviour
 {
     public FloatReference Variable;
 
-    public FloatReference Min;
+    public float Min = 0f;
 
     public FloatReference Max;
 
@@ -15,6 +15,6 @@ public class ImageFillSetter : MonoBehaviour
 
     public void UpdateHealth()
     {
-        Image.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Variable));
+        Image.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(Min, Max.Value, Variable.Value));
     }
 }

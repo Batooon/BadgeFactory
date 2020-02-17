@@ -27,12 +27,12 @@ public class UpgradeButton : MonoBehaviour
     private void OnEnable()
     {
         _button = GetComponent<Button>();
-        _button.onClick.AddListener(this.UpgradeClickPower);
+        _button.onClick.AddListener(UpgradeClickPower);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(this.UpgradeClickPower);
+        _button.onClick.RemoveListener(UpgradeClickPower);
     }
 
     public void Init()

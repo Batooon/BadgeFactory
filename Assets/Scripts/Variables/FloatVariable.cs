@@ -3,12 +3,6 @@
 [CreateAssetMenu]
 public class FloatVariable : ScriptableObject
 {
-#if UNITY_EDITOR
-    [Multiline]
-    [SerializeField]
-    private string DeveloperDescription = "";
-#endif
-
     public float Value;
 
     public void SetValue(float value)
