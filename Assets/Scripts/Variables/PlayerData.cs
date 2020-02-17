@@ -51,7 +51,8 @@ public class PlayerData : MonoBehaviour
 
         foreach (var item in _automations)
         {
-            item.CompareCost();
+            if (item.gameObject.activeInHierarchy)
+                item.CompareCost();
         }
     }
 
@@ -84,7 +85,8 @@ public class PlayerData : MonoBehaviour
 
         foreach (var item in _automations)
         {
-            item.CompareCost();
+            if (item.gameObject.activeInHierarchy)
+                item.CompareCost();
         }
     }
 
