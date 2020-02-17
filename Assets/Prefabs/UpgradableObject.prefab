@@ -187,11 +187,11 @@ RectTransform:
   m_Father: {fileID: 4320847754397071934}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -315, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 450, y: 180}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4320847753422621292
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -458,11 +458,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7504230391962275040, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7504230391962275054, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
       propertyPath: m_Name
@@ -526,7 +521,7 @@ PrefabInstance:
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 449.99997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
@@ -546,7 +541,7 @@ PrefabInstance:
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
@@ -556,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
@@ -566,7 +561,7 @@ PrefabInstance:
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7504230391962275055, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
         type: 3}

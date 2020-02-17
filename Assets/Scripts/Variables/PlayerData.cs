@@ -96,6 +96,7 @@ public class PlayerData : MonoBehaviour
         {
             _automations[i].Subscribe();
             _automations[i].Upgrade = CalculateDps;
+            _automations[i].Init();
         }
         _dps.Variable.SetValue(PlayerPrefs.GetFloat("DPS", 0));
         _clickPower.Variable.SetValue(PlayerPrefs.GetFloat("CLICKPOWER", 1));

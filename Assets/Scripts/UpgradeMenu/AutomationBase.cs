@@ -80,7 +80,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
         _button.interactable = Mathf.Round(_gold.Value) >= Mathf.Round(Cost);
     }
 
-    private void OnEnable()
+    private void AfterInit()
     {
         _nameText.text = Name;
         _button = GetComponentInChildren<Button>();
@@ -88,12 +88,17 @@ public class AutomationBase : MonoBehaviour, IAutomation
         CompareCost();
     }
 
+    private void OnEnable()
+    {
+        Init();
+    }
+
     private void OnDisable()
     {
         _button.onClick.RemoveListener(UpdateDps);
     }
 
-    private void Awake()
+    public void Init()
     {
         Dps = PlayerPrefs.GetFloat($"{Name}_Dps", 0);
         Cost = PlayerPrefs.GetFloat($"{Name}_Cost", _startingCost);
@@ -108,5 +113,6 @@ public class AutomationBase : MonoBehaviour, IAutomation
             _dpsText.text = Mathf.Round(Dps).ToString();
             _priceText.text = Mathf.Round(Cost).ToString();
         }
+        AfterInit();
     }
 }
