@@ -18,9 +18,9 @@ public class AutomationBase : MonoBehaviour, IAutomation
     private FloatReference _gold;
 
     [SerializeField]
-    private TextMeshProUGUI _dpsText;
+    protected TextMeshProUGUI _dpsText;
     [SerializeField]
-    private TextMeshProUGUI _priceText;
+    protected TextMeshProUGUI _priceText;
     [HideInInspector]
     public float Cost;
 
@@ -80,7 +80,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
         _button.interactable = Mathf.Round(_gold.Value) >= Mathf.Round(Cost);
     }
 
-    private void AfterInit()
+    protected void AfterInit()
     {
         _nameText.text = Name;
         _button = GetComponentInChildren<Button>();
@@ -90,7 +90,8 @@ public class AutomationBase : MonoBehaviour, IAutomation
 
     private void OnEnable()
     {
-        Init();
+        _button.onClick.AddListener(UpdateDps);
+        CompareCost();
     }
 
     private void OnDisable()
@@ -98,7 +99,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
         _button.onClick.RemoveListener(UpdateDps);
     }
 
-    public void Init()
+    public virtual void Init()
     {
         Dps = PlayerPrefs.GetFloat($"{Name}_Dps", 0);
         Cost = PlayerPrefs.GetFloat($"{Name}_Cost", _startingCost);

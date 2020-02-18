@@ -76,6 +76,7 @@ public class PlayerData : MonoBehaviour
     private void Awake()
     {
         SerializeAutomations();
+        Init();
     }
 
     public void CoinCollected(Coin coin)
@@ -90,7 +91,7 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Init()
     {
         for (int i = 0; i < _automations.Count; i++)
         {
