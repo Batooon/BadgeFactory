@@ -26,6 +26,9 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _goldText;
 
+    [SerializeField]
+    private UpgradeLevelsAmount _levelsAmountToUpgradeController;
+
     public void SerializeAutomations()
     {
         TextAsset _excelData = Resources.Load<TextAsset>("AutomationsData");
@@ -98,6 +101,7 @@ public class PlayerData : MonoBehaviour
             _automations[i].Subscribe();
             _automations[i].Upgrade = CalculateDps;
             _automations[i].Init();
+            _levelsAmountToUpgradeController.UpgradeLevelsAmountChanged += _automations[i].RecalculateCostToLevelsAmount;
         }
         _dps.Variable.SetValue(PlayerPrefs.GetFloat("DPS", 0));
         _clickPower.Variable.SetValue(PlayerPrefs.GetFloat("CLICKPOWER", 1));

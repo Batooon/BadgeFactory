@@ -35,6 +35,8 @@ public class AutomationBase : MonoBehaviour, IAutomation
     [HideInInspector]
     public float _startingDps;
 
+    private int _amountOfLevelsToUpgrade = 1;
+
     public float GetDps()
     {
         return Dps;
@@ -42,23 +44,44 @@ public class AutomationBase : MonoBehaviour, IAutomation
 
     public void UpdateDps()
     {
-        _level += 1;
-        Dps = _startingDps * _level;
-        _dpsText.text = Mathf.Round(Dps).ToString();
+        if (_amountOfLevelsToUpgrade > 1)
+            AddMultipleLevelDps();
+        else
+            AddDps();
         UpgradeCostUpdate();
         Upgrade(this);
     }
 
+    private void AddDps()
+    {
+        _level += 1;
+        Dps = _startingDps * _level;
+        _dpsText.text = Mathf.Round(Dps).ToString();
+    }
+
+    private void AddMultipleLevelDps()
+    {
+        _level += _amountOfLevelsToUpgrade;
+        Dps = _startingDps * _level;
+        _dpsText.text = Mathf.Round(Dps).ToString();
+    }
+
+    private void RecalculateCost()
+    {
+        float _levelFactor = _costFactor;
+        for (int i = 0; i < _level - 1; i++)
+        {
+            _levelFactor *= _costFactor;
+        }
+        Cost = _startingCost * _levelFactor;
+    }
     public void UpgradeCostUpdate()
     {
         _gold.Variable.ApplyChange(-Cost);
-        float levelFactor = _costFactor;
-        for (int i = 0; i < _level - 1; i++)
-        {
-            levelFactor *= _costFactor;
-        }
-
-        Cost = _startingCost * levelFactor;
+        if (_amountOfLevelsToUpgrade > 1)
+            RecalculateCostToLevelsAmount(_amountOfLevelsToUpgrade);
+        else
+            RecalculateCost();
         _priceText.text = Mathf.Round(Cost).ToString();
     }
 
@@ -115,5 +138,27 @@ public class AutomationBase : MonoBehaviour, IAutomation
             _priceText.text = Mathf.Round(Cost).ToString();
         }
         AfterInit();
+    }
+
+    public void RecalculateCostToLevelsAmount(int amount)
+    {
+        _amountOfLevelsToUpgrade = amount;
+        float _cost = 0f;
+        int lvl = _level;
+        float levelfactor = _costFactor;
+        float currentCost;
+        for (int i = 0; i < amount; i++)
+        {
+            for (int j = 0; j < lvl-1; j++)
+            {
+                levelfactor *= _costFactor;
+            }
+            currentCost = _startingCost * levelfactor;
+            _cost += currentCost;
+            lvl += 1;
+        }
+        Cost = _cost;
+        _priceText.text = Mathf.Round(Cost).ToString();
+        CompareCost();
     }
 }
