@@ -19,8 +19,8 @@ public class ClickPower : AutomationBase
         }
         else
         {
-            _dpsText.text = Mathf.Round(Dps).ToString();
-            _priceText.text = Mathf.Round(Cost).ToString();
+            _dpsText.text = Dps.ConvertValue();
+            _priceText.text = Cost.ConvertValue();
         }
         AfterInit();
     }

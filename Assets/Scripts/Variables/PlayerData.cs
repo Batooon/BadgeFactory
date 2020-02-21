@@ -3,11 +3,20 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 //Developer: Antoshka
+[Serializable]
+public class Save
+{
+    public int[] date = new int[6];
+    public bool isNewPlayer = true;
+}
 
 public class PlayerData : MonoBehaviour
 {
+    Save saveData = new Save();
+
     [SerializeField]
     private List<AutomationBase> _automations = new List<AutomationBase>();
 
@@ -25,6 +34,9 @@ public class PlayerData : MonoBehaviour
     private FloatReference _goldAmount;
     [SerializeField]
     private TextMeshProUGUI _goldText;
+
+    [SerializeField]
+    private EnemyDataVariable _currentEnemy;
 
     [SerializeField]
     private UpgradeLevelsAmount _levelsAmountToUpgradeController;
@@ -48,9 +60,9 @@ public class PlayerData : MonoBehaviour
     public void CalculateDps(AutomationBase automation)
     {
         RecalculateDps();
-        _dpsText.text = Mathf.Round(_dps.Value).ToString();
-        _clickPowerText.text = Mathf.Round(_clickPower.Value).ToString();
-        _goldText.text = Mathf.Round(_goldAmount.Value).ToString();
+        _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
+        _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
+        _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
 
         foreach (var item in _automations)
         {
@@ -82,10 +94,55 @@ public class PlayerData : MonoBehaviour
         Init();
     }
 
+    private void Start()
+    {
+        CalculateAbsenseTime();
+    }
+
+    private void CalculateAbsenseTime()
+    {
+        if (!saveData.isNewPlayer)
+        {
+            DateTime lastTimeVisited = new DateTime(saveData.date[0], saveData.date[1], saveData.date[2],
+                saveData.date[3], saveData.date[4], saveData.date[5]);
+            TimeSpan timeDifference = DateTime.Now - lastTimeVisited;
+
+            float gainedGold = ((int)timeDifference.TotalSeconds * _dps.Value) / _currentEnemy.EnemyDataVar.Hp;
+            _goldAmount.Variable.ApplyChange(gainedGold);
+            _goldText.text = _goldAmount.Value.ConvertValue();
+            print($"Вы отсутствовали {timeDifference.TotalSeconds}");
+        }
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            RememberDate();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        RememberDate();
+    }
+
+    private void RememberDate()
+    {
+        saveData.date[0] = DateTime.Now.Year;
+        saveData.date[1] = DateTime.Now.Month;
+        saveData.date[2] = DateTime.Now.Day;
+        saveData.date[3] = DateTime.Now.Hour;
+        saveData.date[4] = DateTime.Now.Minute;
+        saveData.date[5] = DateTime.Now.Second;
+        saveData.isNewPlayer = false;
+        PlayerPrefs.SetString("DATE", saveData.date.ToString());
+    }
+
     public void CoinCollected(Coin coin)
     {
         _goldAmount.Variable.ApplyChange(coin.Cost);
-        _goldText.text = Mathf.Round(_goldAmount.Value).ToString();
+        _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
 
         foreach (var item in _automations)
         {
@@ -106,9 +163,9 @@ public class PlayerData : MonoBehaviour
         _dps.Variable.SetValue(PlayerPrefs.GetFloat("DPS", 0));
         _clickPower.Variable.SetValue(PlayerPrefs.GetFloat("CLICKPOWER", 1));
         _goldAmount.Variable.SetValue(PlayerPrefs.GetFloat("GOLD", 100000));
-        _dpsText.text = Mathf.Round(_dps.Value).ToString();
-        _clickPowerText.text = Mathf.Round(_clickPower.Value).ToString();
-        _goldText.text = Mathf.Round(_goldAmount.Value).ToString();
+        _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
+        _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
+        _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
     }
 
     private void OnDisable()

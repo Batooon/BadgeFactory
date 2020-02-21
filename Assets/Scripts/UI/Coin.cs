@@ -11,8 +11,7 @@ public class Coin : MonoBehaviour, IPointerEnterHandler
     public GameObject CoinObj;
     [HideInInspector]
     public float Cost;
-    [SerializeField]
-    private float _timeToLive;
+    public float _timeToLive;
     private float _livingTime;
 
     private void Update()

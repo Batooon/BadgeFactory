@@ -56,14 +56,14 @@ public class AutomationBase : MonoBehaviour, IAutomation
     {
         _level += 1;
         Dps = _startingDps * _level;
-        _dpsText.text = Mathf.Round(Dps).ToString();
+        _dpsText.text = Dps.ConvertValue();
     }
 
     private void AddMultipleLevelDps()
     {
         _level += _amountOfLevelsToUpgrade;
         Dps = _startingDps * _level;
-        _dpsText.text = Mathf.Round(Dps).ToString();
+        _dpsText.text = Dps.ConvertValue();
     }
 
     private void RecalculateCost()
@@ -82,7 +82,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
             RecalculateCostToLevelsAmount(_amountOfLevelsToUpgrade);
         else
             RecalculateCost();
-        _priceText.text = Mathf.Round(Cost).ToString();
+        _priceText.text = Cost.ConvertValue();
     }
 
     public void Subscribe()
@@ -107,7 +107,6 @@ public class AutomationBase : MonoBehaviour, IAutomation
     {
         _nameText.text = Name;
         _button = GetComponentInChildren<Button>();
-        _button.onClick.AddListener(UpdateDps);
         CompareCost();
     }
 
@@ -134,8 +133,8 @@ public class AutomationBase : MonoBehaviour, IAutomation
         }
         else
         {
-            _dpsText.text = Mathf.Round(Dps).ToString();
-            _priceText.text = Mathf.Round(Cost).ToString();
+            _dpsText.text = Dps.ConvertValue();
+            _priceText.text = Cost.ConvertValue();
         }
         AfterInit();
     }
@@ -158,7 +157,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
             lvl += 1;
         }
         Cost = _cost;
-        _priceText.text = Mathf.Round(Cost).ToString();
+        _priceText.text = Cost.ConvertValue();
         CompareCost();
     }
 }
