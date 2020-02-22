@@ -15,5 +15,9 @@ public class EnemyUI : MonoBehaviour
         _enemyImage = GetComponent<Image>();
         _currentEnemy = _newEnemyData;
         _enemyImage.sprite = _currentEnemy.EnemyDataVar.EnemySprite;
+
+        var tempColor = _enemyImage.color;
+        tempColor.a = 0.2f;
+        _enemyImage.color = tempColor;
     }
 }

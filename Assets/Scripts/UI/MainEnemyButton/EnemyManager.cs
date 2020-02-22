@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 //Developer: Antoshka
 
@@ -26,6 +27,8 @@ public class EnemyManager : MonoBehaviour
     private FloatReference _damagePerSecond;
 
     private EnemyDataVariable _currentEnemy;
+
+    private Image _badgeImage;
 
     private int _level;
     private float exponent = 1.55f;
@@ -77,6 +80,11 @@ public class EnemyManager : MonoBehaviour
         CurrentHp.Variable.ApplyChange(amountOfDamage);
         DamageEvent.Invoke();
 
+        var tempColor = _badgeImage.color;
+        tempColor.a = Mathf.Clamp01(Mathf.InverseLerp(0, MaxHp.Value, CurrentHp.Value));
+        _badgeImage.color = tempColor;
+
+
         if (CurrentHp.Value >= MaxHp.Value)
             DeathEvent.Invoke();
     }
@@ -108,6 +116,7 @@ public class EnemyManager : MonoBehaviour
     {
         MaxHp.Variable.SetValue(PlayerPrefs.GetFloat("MAXHP", 10f));
         _level = PlayerPrefs.GetInt("LEVEL", 1);
+        _badgeImage = GetComponent<Image>();
     }
 
     private void OnDisable()

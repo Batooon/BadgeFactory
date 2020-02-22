@@ -107,27 +107,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: valuta verxna ctroca_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2485
-        height: 2569
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe79c028365a4e7e0800000000000000
-      internalID: -1737081709455960081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: valuta verxna ctroca_1
       rect:
         serializedVersion: 2
