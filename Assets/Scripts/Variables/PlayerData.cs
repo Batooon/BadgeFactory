@@ -96,6 +96,7 @@ public class PlayerData : MonoBehaviour
 
     private void Start()
     {
+        SerializeData();
         CalculateAbsenseTime();
     }
 
@@ -110,7 +111,7 @@ public class PlayerData : MonoBehaviour
             float gainedGold = ((int)timeDifference.TotalSeconds * _dps.Value) / _currentEnemy.EnemyDataVar.Hp;
             _goldAmount.Variable.ApplyChange(gainedGold);
             _goldText.text = _goldAmount.Value.ConvertValue();
-            print($"Вы отсутствовали {timeDifference.TotalSeconds}");
+            print($"Вы отсутствовали {timeDifference.TotalSeconds}, и получили {gainedGold} золота");
         }
     }
 
@@ -128,15 +129,32 @@ public class PlayerData : MonoBehaviour
     }
 
     private void RememberDate()
-    {
+    {/*
         saveData.date[0] = DateTime.Now.Year;
         saveData.date[1] = DateTime.Now.Month;
         saveData.date[2] = DateTime.Now.Day;
         saveData.date[3] = DateTime.Now.Hour;
         saveData.date[4] = DateTime.Now.Minute;
         saveData.date[5] = DateTime.Now.Second;
-        saveData.isNewPlayer = false;
-        PlayerPrefs.SetString("DATE", saveData.date.ToString());
+        saveData.isNewPlayer = false;*/
+        PlayerPrefs.SetInt("YEAR", DateTime.Now.Year);
+        PlayerPrefs.SetInt("MONTH", DateTime.Now.Month);
+        PlayerPrefs.SetInt("DAY", DateTime.Now.Day);
+        PlayerPrefs.SetInt("HOUR", DateTime.Now.Hour);
+        PlayerPrefs.SetInt("MINUTE", DateTime.Now.Minute);
+        PlayerPrefs.SetInt("SECOND", DateTime.Now.Second);
+        PlayerPrefs.SetInt("NEWPLAYER", 0);
+    }
+
+    private void SerializeData()
+    {
+        saveData.date[0] = PlayerPrefs.GetInt("YEAR", 0);
+        saveData.date[1] = PlayerPrefs.GetInt("MONTH", 0);
+        saveData.date[2] = PlayerPrefs.GetInt("DAY", 0);
+        saveData.date[3] = PlayerPrefs.GetInt("HOUR", 0);
+        saveData.date[4] = PlayerPrefs.GetInt("MINUTE", 0);
+        saveData.date[5] = PlayerPrefs.GetInt("SECOND", 0);
+        saveData.isNewPlayer = Convert.ToBoolean(PlayerPrefs.GetInt("NEWPLAYER", 1));
     }
 
     public void CoinCollected(Coin coin)
