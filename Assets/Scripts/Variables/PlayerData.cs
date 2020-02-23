@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor;
+using UnityEngine.UI;
+using System.Timers;
 
 //Developer: Antoshka
 [Serializable]
@@ -41,6 +41,31 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private UpgradeLevelsAmount _levelsAmountToUpgradeController;
 
+    [SerializeField]
+    private GameObject ReturningScreen;
+    [SerializeField]
+    private TextMeshProUGUI _gainedGoldText;
+    [SerializeField]
+    private TextMeshProUGUI _dragonText;
+
+    [SerializeField]
+    private GameObject _collectedCoinText;
+    [SerializeField]
+    private GameObject _coinTextParent;
+
+    [SerializeField]
+    private IntReference _level;
+    [SerializeField]
+    private TextMeshProUGUI _levelText;
+    [SerializeField]
+    private Image _currentLevelProgress;
+    [SerializeField]
+    private IntReference _currentLevelProgressValue;
+
+    private bool _farm = false;
+
+    private float _gainedGold;
+
     public void SerializeAutomations()
     {
         TextAsset _excelData = Resources.Load<TextAsset>("AutomationsData");
@@ -71,6 +96,15 @@ public class PlayerData : MonoBehaviour
         }
     }
 
+    public void SetFarmOnOff()
+    {
+        _farm = !_farm;
+        if (_farm)
+            _currentLevelProgress.fillAmount = 1;
+        else
+            _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
+    }
+
     private void RecalculateDps()
     {
         float _currentDps = 0f;
@@ -98,6 +132,15 @@ public class PlayerData : MonoBehaviour
     {
         SerializeData();
         CalculateAbsenseTime();
+        if (saveData.date[0] != 0)
+            ActivateReturningPlayerWindow(_gainedGold);
+    }
+
+    private void ActivateReturningPlayerWindow(float gainedGold)
+    {
+        ReturningScreen.SetActive(true);
+        _gainedGoldText.text = gainedGold.ConvertValue();
+        _dragonText.text = $"Tap on me to watch an ad and get additional {gainedGold.ConvertValue()}";
     }
 
     private void CalculateAbsenseTime()
@@ -111,7 +154,7 @@ public class PlayerData : MonoBehaviour
             float gainedGold = ((int)timeDifference.TotalSeconds * _dps.Value) / _currentEnemy.EnemyDataVar.Hp;
             _goldAmount.Variable.ApplyChange(gainedGold);
             _goldText.text = _goldAmount.Value.ConvertValue();
-            print($"Вы отсутствовали {timeDifference.TotalSeconds}, и получили {gainedGold} золота");
+            _gainedGold = gainedGold;
         }
     }
 
@@ -129,14 +172,7 @@ public class PlayerData : MonoBehaviour
     }
 
     private void RememberDate()
-    {/*
-        saveData.date[0] = DateTime.Now.Year;
-        saveData.date[1] = DateTime.Now.Month;
-        saveData.date[2] = DateTime.Now.Day;
-        saveData.date[3] = DateTime.Now.Hour;
-        saveData.date[4] = DateTime.Now.Minute;
-        saveData.date[5] = DateTime.Now.Second;
-        saveData.isNewPlayer = false;*/
+    {
         PlayerPrefs.SetInt("YEAR", DateTime.Now.Year);
         PlayerPrefs.SetInt("MONTH", DateTime.Now.Month);
         PlayerPrefs.SetInt("DAY", DateTime.Now.Day);
@@ -159,6 +195,7 @@ public class PlayerData : MonoBehaviour
 
     public void CoinCollected(Coin coin)
     {
+        Vector3 coinPosition = coin.transform.position;
         _goldAmount.Variable.ApplyChange(coin.Cost);
         _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
 
@@ -167,6 +204,35 @@ public class PlayerData : MonoBehaviour
             if (item.gameObject.activeInHierarchy)
                 item.CompareCost();
         }
+
+        CollectedCoinText collectedText = Instantiate(_collectedCoinText, coinPosition,
+            Quaternion.identity, _coinTextParent.transform).GetComponent<CollectedCoinText>();
+        collectedText.StartMotion(coin.Cost);
+    }
+
+    public void StepLevelBack()
+    {
+        _level.Variable.ApplyChange(-1);
+        _levelText.text = $"Level {_level.Value}";
+        _farm = true;
+        _currentLevelProgress.fillAmount = 1;
+    }
+
+    public void OnEnemyDie()
+    {
+        if (_farm)
+            return;
+        if (_currentLevelProgressValue.Value == 10)
+            _currentLevelProgressValue.Variable.SetValue(0);
+        else
+            _currentLevelProgressValue.Variable.ApplyChange(1);
+
+        if (_currentLevelProgressValue == 0)
+        {
+            _level.Variable.ApplyChange(1);
+            _levelText.text = $"Level {_level.Value}";
+        }
+        _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
     }
 
     private void Init()
@@ -184,6 +250,10 @@ public class PlayerData : MonoBehaviour
         _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
         _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
         _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
+        _level.Variable.SetValue(PlayerPrefs.GetInt("LEVEL", 1));
+        _levelText.text = $"Level {_level.Value}";
+        _currentLevelProgressValue.Variable.SetValue(PlayerPrefs.GetInt("LEVELPROGRESS", 0));
+        _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
     }
 
     private void OnDisable()
@@ -196,5 +266,7 @@ public class PlayerData : MonoBehaviour
         PlayerPrefs.SetFloat("DPS", _dps.Value);
         PlayerPrefs.SetFloat("CLICKPOWER", _clickPower.Value);
         PlayerPrefs.SetFloat("GOLD", _goldAmount.Value);
+        PlayerPrefs.SetInt("LEVEL", _level);
+        PlayerPrefs.SetInt("LEVELPROGRESS", _currentLevelProgressValue);
     }
 }

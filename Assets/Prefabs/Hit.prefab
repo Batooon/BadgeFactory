@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3329135165958302400}
   - component: {fileID: 3329135165958302407}
   - component: {fileID: 3329135165958302406}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 3329135166207893155}
   - component: {fileID: 3329135166207893149}
   - component: {fileID: 3329135166207893148}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9637,7 +9637,7 @@ GameObject:
   - component: {fileID: 3329135167325383584}
   - component: {fileID: 3329135167325383586}
   - component: {fileID: 3329135167325383585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

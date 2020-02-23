@@ -144,10 +144,11 @@ public class AutomationBase : MonoBehaviour, IAutomation
         _amountOfLevelsToUpgrade = amount;
         float _cost = 0f;
         int lvl = _level;
-        float levelfactor = _costFactor;
+        float levelfactor;
         float currentCost;
         for (int i = 0; i < amount; i++)
         {
+            levelfactor = _costFactor;
             for (int j = 0; j < lvl-1; j++)
             {
                 levelfactor *= _costFactor;

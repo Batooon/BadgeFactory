@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 997daf6d40f139140ba1c74a28a7f791, type: 3}
-  m_Name: Level
+  m_Name: CurrentLevelProgress
   m_EditorClassIdentifier: 
   Developerdescription: 
   Value: 0

@@ -30,7 +30,10 @@ public class EnemyManager : MonoBehaviour
 
     private Image _badgeImage;
 
-    private int _level;
+    [SerializeField]
+    private IntReference _level;
+    [SerializeField]
+    private IntReference _currentLevelProgress;
     private float exponent = 1.55f;
 
     public void SpawnCoins()
@@ -55,6 +58,7 @@ public class EnemyManager : MonoBehaviour
             coin.CoinDestroyed += DestroyCoin;
             spawnedCoins.Add(coin);
             LeanTween.move(coinGO, new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.5f, 1.5f)), .5f);
+            Destroy(coinGO, 10f);
         }
     }
 
@@ -91,7 +95,6 @@ public class EnemyManager : MonoBehaviour
 
     public void InitializeNewEnemy(EnemyDataVariable _newEnemy)
     {
-        _level += 1;
         _currentEnemy = _newEnemy;
         ResetHP();
         float cost= _currentEnemy.EnemyDataVar.Hp * 0.0667f;
@@ -107,6 +110,10 @@ public class EnemyManager : MonoBehaviour
         }
 
         float hp = 10 * ((_level - 1) + exponent);
+        if (_level.Value % 5 == 0 && _currentLevelProgress == 10)
+        {
+            hp *= 10;
+        }
         _currentEnemy.EnemyDataVar.Hp = hp;
         MaxHp.Variable.SetValue(hp);
         CurrentHp.Variable.SetValue(0);
@@ -115,13 +122,11 @@ public class EnemyManager : MonoBehaviour
     private void Awake()
     {
         MaxHp.Variable.SetValue(PlayerPrefs.GetFloat("MAXHP", 10f));
-        _level = PlayerPrefs.GetInt("LEVEL", 1);
         _badgeImage = GetComponent<Image>();
     }
 
     private void OnDisable()
     {
-        PlayerPrefs.SetInt("LEVEL", _level);
         PlayerPrefs.SetFloat("MAXHP", MaxHp.Value);
     }
 
