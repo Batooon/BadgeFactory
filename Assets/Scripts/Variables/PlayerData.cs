@@ -62,6 +62,13 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private IntReference _currentLevelProgressValue;
 
+    [SerializeField]
+    private Sprite _farmSprite;
+    [SerializeField]
+    private Sprite _activeSprite;
+    [SerializeField]
+    private Image _farmButtonImage;
+
     private bool _farm = false;
 
     private float _gainedGold;
@@ -100,9 +107,15 @@ public class PlayerData : MonoBehaviour
     {
         _farm = !_farm;
         if (_farm)
+        {
             _currentLevelProgress.fillAmount = 1;
+            _farmButtonImage.sprite = _farmSprite;
+        }
         else
+        {
             _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
+            _farmButtonImage.sprite = _activeSprite;
+        }
     }
 
     private void RecalculateDps()
@@ -215,6 +228,7 @@ public class PlayerData : MonoBehaviour
         _level.Variable.ApplyChange(-1);
         _levelText.text = $"Level {_level.Value}";
         _farm = true;
+        _farmButtonImage.sprite = _farmSprite;
         _currentLevelProgress.fillAmount = 1;
     }
 
