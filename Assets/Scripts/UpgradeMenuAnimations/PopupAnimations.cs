@@ -14,6 +14,7 @@ public class PopupAnimations : MonoBehaviour
 
     public void Activate()
     {
+        gameObject.SetActive(true);
         LeanTween.moveLocalY(gameObject, DestinationPositionY, Time).setDelay(Delay);
     }
 

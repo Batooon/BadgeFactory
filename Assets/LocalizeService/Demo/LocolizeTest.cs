@@ -52,5 +52,4 @@ public class LocolizeTest : MonoBehaviour
         if (!value) return;
         LocalizationService.Instance.Localization = "French";
     }
-
 }

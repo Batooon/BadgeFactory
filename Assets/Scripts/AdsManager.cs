@@ -18,10 +18,15 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidError(string message)
     {
+        Debug.Log("Error");
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
+        if (placementId == _rewardedVideoPlacement && showResult == ShowResult.Finished)
+        {
+            GameEvents.current.GainAdditionalGold();
+        }
     }
 
     public void OnUnityAdsDidStart(string placementId)
@@ -32,9 +37,15 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
     }
 
+    public void DoubleReward()
+    {
+        Advertisement.Show(_rewardedVideoPlacement);
+    }
+
     private void Start()
     {
 #if UNITY_EDITOR
+        Advertisement.AddListener(this);
         Advertisement.Initialize(_googlePlayId.ToString(), true);
 #elif UNITY_ANDROID
         Advertisement.Initialize(_googlePlayId.ToString(), IsTestMode);

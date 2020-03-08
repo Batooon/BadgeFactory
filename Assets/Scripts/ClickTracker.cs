@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 //Developer: Antoshka
 
@@ -9,26 +11,25 @@ public class ClickTracker : MonoBehaviour
     public Camera UICamera;
     public GameObject HitEffect;
 
-    public void Clicked()
+    private void Update()
     {
-
-#if UNITY_EDITOR
-        Vector3 effectPosition = UICamera.ScreenToWorldPoint(Input.mousePosition);
-        effectPosition.z = 80f;
-        GameObject effect = Instantiate(HitEffect, effectPosition, Quaternion.identity);
-        Destroy(effect, 0.7f);
-#endif
-
-#if UNITY_ANDROID
-        foreach (Touch touch in Input.touches)
+        Touch[] touches = Input.touches;
+        if (touches.Length > 0)
         {
-            Ray ray = UICamera.ScreenPointToRay(touch.position);
-            if (Physics.Raycast(ray))
+            for (int i = 0; i < touches.Length; i++)
             {
-                Instantiate(HitEffect, touch.position, Quaternion.identity, null);
-                Destroy(HitEffect, 3f);
+                if (touches[i].phase == TouchPhase.Began)
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(UICamera.ScreenToWorldPoint(touches[i].position), Vector2.zero);
+                    if (hit.transform.GetComponent<ClickTracker>() != null)
+                    {
+                        Vector3 effectPosition = UICamera.ScreenToWorldPoint(Input.GetTouch(i).position);
+                        effectPosition.z = 80f;
+                        GameObject effect = Instantiate(HitEffect, effectPosition, Quaternion.identity);
+                        Destroy(effect, 0.7f);
+                    }
+                }
             }
         }
-#endif
     }
 }

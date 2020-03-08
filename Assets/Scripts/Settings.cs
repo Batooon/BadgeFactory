@@ -8,6 +8,11 @@ using UnityEngine.EventSystems;
 
 public class Settings : MonoBehaviour, IPointerClickHandler
 {
+    public Toggle MusicToggle;
+    public Image MusicToggleImage;
+    public Sprite MusicOn;
+    public Sprite MusicOff;
+
     public GameObject Template;
     public Image _currentArrowImageComponent;
 
@@ -20,5 +25,13 @@ public class Settings : MonoBehaviour, IPointerClickHandler
         {
             _currentArrowImageComponent.sprite = Template.gameObject.activeInHierarchy ? arrowClosed : arrowClosed;
         }
+    }
+
+    public void OnOffMusic()
+    {
+        if (MusicToggle.isOn)
+            MusicToggleImage.sprite = MusicOn;
+        else
+            MusicToggleImage.sprite = MusicOff;
     }
 }

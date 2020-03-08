@@ -15,6 +15,8 @@ public class Save
 
 public class PlayerData : MonoBehaviour
 {
+    public static event Action DoubleGoldRewardVideoWatched;
+
     Save saveData = new Save();
 
     [SerializeField]
@@ -70,6 +72,7 @@ public class PlayerData : MonoBehaviour
     private Image _farmButtonImage;
 
     private bool _farm = false;
+    //private bool _isNewPlayer;
 
     private float _gainedGold;
 
@@ -137,6 +140,7 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
+        //_isNewPlayer = Convert.ToBoolean(PlayerPrefs.GetInt("IsNewPlayer", 1));
         SerializeAutomations();
         Init();
     }
@@ -154,6 +158,12 @@ public class PlayerData : MonoBehaviour
         ReturningScreen.SetActive(true);
         _gainedGoldText.text = gainedGold.ConvertValue();
         _dragonText.text = $"Tap on me to watch an ad and get additional {gainedGold.ConvertValue()}";
+    }
+
+    public void GainAdditionalGold()
+    {
+        _goldAmount.Variable.ApplyChange(_gainedGold);
+        _goldText.text = _goldAmount.Value.ConvertValue();
     }
 
     private void CalculateAbsenseTime()
@@ -174,14 +184,14 @@ public class PlayerData : MonoBehaviour
     private void OnApplicationPause(bool pause)
     {
         if (pause)
-        {
             RememberDate();
-        }
     }
 
     private void OnApplicationQuit()
     {
         RememberDate();
+       /* if (_isNewPlayer)
+            PlayerPrefs.SetInt("IsNewPlayer", 0);*/
     }
 
     private void RememberDate()
@@ -226,6 +236,7 @@ public class PlayerData : MonoBehaviour
     public void StepLevelBack()
     {
         _level.Variable.ApplyChange(-1);
+        _currentLevelProgressValue.Variable.SetValue(0);
         _levelText.text = $"Level {_level.Value}";
         _farm = true;
         _farmButtonImage.sprite = _farmSprite;
@@ -245,6 +256,7 @@ public class PlayerData : MonoBehaviour
         {
             _level.Variable.ApplyChange(1);
             _levelText.text = $"Level {_level.Value}";
+            PlayGames.AddScoreToleaderBoard(_level.Value);
         }
         _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
     }
@@ -260,7 +272,7 @@ public class PlayerData : MonoBehaviour
         }
         _dps.Variable.SetValue(PlayerPrefs.GetFloat("DPS", 0));
         _clickPower.Variable.SetValue(PlayerPrefs.GetFloat("CLICKPOWER", 1));
-        _goldAmount.Variable.SetValue(PlayerPrefs.GetFloat("GOLD", 100000));
+        _goldAmount.Variable.SetValue(PlayerPrefs.GetFloat("GOLD", 0));
         _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
         _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
         _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
@@ -268,6 +280,11 @@ public class PlayerData : MonoBehaviour
         _levelText.text = $"Level {_level.Value}";
         _currentLevelProgressValue.Variable.SetValue(PlayerPrefs.GetInt("LEVELPROGRESS", 0));
         _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.current.AddAdditionalGold += GainAdditionalGold;
     }
 
     private void OnDisable()
@@ -282,5 +299,6 @@ public class PlayerData : MonoBehaviour
         PlayerPrefs.SetFloat("GOLD", _goldAmount.Value);
         PlayerPrefs.SetInt("LEVEL", _level);
         PlayerPrefs.SetInt("LEVELPROGRESS", _currentLevelProgressValue);
+        GameEvents.current.AddAdditionalGold -= GainAdditionalGold;
     }
 }

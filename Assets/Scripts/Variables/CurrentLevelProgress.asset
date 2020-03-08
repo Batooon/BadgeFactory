@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CurrentLevelProgress
   m_EditorClassIdentifier: 
   Developerdescription: 
-  Value: 0
+  Value: 10

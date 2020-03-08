@@ -129,7 +129,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
         if (_level == 0)
         {
             _dpsText.text = "0";
-            _priceText.text = $"HIRE {_startingCost}";
+            _priceText.text = $"HIRE {_startingCost.ConvertValue()}";
         }
         else
         {
