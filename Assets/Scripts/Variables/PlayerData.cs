@@ -272,7 +272,7 @@ public class PlayerData : MonoBehaviour
         }
         _dps.Variable.SetValue(PlayerPrefs.GetFloat("DPS", 0));
         _clickPower.Variable.SetValue(PlayerPrefs.GetFloat("CLICKPOWER", 1));
-        _goldAmount.Variable.SetValue(PlayerPrefs.GetFloat("GOLD", 0));
+        _goldAmount.Variable.SetValue(PlayerPrefs.GetFloat("GOLD", 10000000));
         _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
         _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
         _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();

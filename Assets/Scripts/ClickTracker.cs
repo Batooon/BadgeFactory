@@ -21,13 +21,10 @@ public class ClickTracker : MonoBehaviour
                 if (touches[i].phase == TouchPhase.Began)
                 {
                     RaycastHit2D hit = Physics2D.Raycast(UICamera.ScreenToWorldPoint(touches[i].position), Vector2.zero);
-                    if (hit.transform.GetComponent<ClickTracker>() != null)
-                    {
-                        Vector3 effectPosition = UICamera.ScreenToWorldPoint(Input.GetTouch(i).position);
-                        effectPosition.z = 80f;
-                        GameObject effect = Instantiate(HitEffect, effectPosition, Quaternion.identity);
-                        Destroy(effect, 0.7f);
-                    }
+                    Vector3 effectPosition = UICamera.ScreenToWorldPoint(Input.GetTouch(i).position);
+                    effectPosition.z = 80f;
+                    GameObject effect = Instantiate(HitEffect, effectPosition, Quaternion.identity);
+                    Destroy(effect, 0.7f);
                 }
             }
         }

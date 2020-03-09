@@ -90,7 +90,10 @@ public class EnemyManager : MonoBehaviour
 
 
         if (CurrentHp.Value >= MaxHp.Value)
+        {
+            GameEvents.current.BadgeCreatedCallback(_currentEnemy);
             DeathEvent.Invoke();
+        }
     }
 
     public void InitializeNewEnemy(EnemyDataVariable _newEnemy)

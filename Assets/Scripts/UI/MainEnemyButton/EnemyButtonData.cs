@@ -13,12 +13,14 @@ public struct EnemyData
     public AudioClip DeathSounds;
     public float Hp;
     public float CoinsReward;
+    public bool isRare;
+    public int Id;
 }
 
 public class EnemyButtonData : MonoBehaviour
 {
-    public List<EnemyData> EnemyDataList = new List<EnemyData>();
     public List<EnemyData> BossDataList = new List<EnemyData>();
+    public List<EnemyData> EnemyDataList = new List<EnemyData>();
     public UnityEvent InitializeNewEnemy;
     public UnityEvent BossNotDefeated;
 
@@ -35,6 +37,52 @@ public class EnemyButtonData : MonoBehaviour
     private float _countdown = 30f;
     private bool _isBossDefeated;
     private bool _isBoss = false;
+
+    private void LoadResources()
+    {
+        Sprite[] badges = Resources.LoadAll<Sprite>("значки");
+        InitSprites(badges);
+        Sprite[] badges1 = Resources.LoadAll<Sprite>("значки1");
+        InitSprites(badges1);
+        Sprite[] badge2 = Resources.LoadAll<Sprite>("значки2");
+        InitSprites(badge2);
+        Sprite[] badge3 = Resources.LoadAll<Sprite>("значки3");
+        InitSprites(badge3);
+        Sprite[] badge4 = Resources.LoadAll<Sprite>("значки4");
+        InitSprites(badge4);
+        Sprite[] badge5 = Resources.LoadAll<Sprite>("значки5");
+        InitSprites(badge5);
+        Sprite[] badge6 = Resources.LoadAll<Sprite>("значки6");
+        InitSprites(badge6);
+        Sprite[] badge7 = Resources.LoadAll<Sprite>("значки7");
+        InitSprites(badge7);
+
+        Sprite[] bosses = Resources.LoadAll<Sprite>("босс");
+        InitBossesSprites(bosses);
+    }
+
+    private void InitSprites(Sprite[] sprites)
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            EnemyData enemyData = new EnemyData();
+            enemyData.EnemySprite = sprites[i];
+            enemyData.Id = i;
+            EnemyDataList.Add(enemyData);
+        }
+    }
+
+    private void InitBossesSprites(Sprite[] sprites)
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            EnemyData bossData = new EnemyData();
+            bossData.EnemySprite = sprites[i];
+            bossData.Id = i;
+            bossData.isRare = true;
+            BossDataList.Add(bossData);
+        }
+    }
 
     public void SetUpEnemy()
     {
@@ -61,20 +109,6 @@ public class EnemyButtonData : MonoBehaviour
         }
     }
 
-    public void IsBossDefeated()
-    {
-        /*if (_isBoss)
-        {
-            if (_countdown > 0)
-                _isBossDefeated = true;
-            else
-            {
-                _isBossDefeated = false;
-                BossNotDefeated.Invoke();
-            }
-        }*/
-    }
-
     private IEnumerator Countdown(float time)
     {
         while (time > 0)
@@ -90,6 +124,7 @@ public class EnemyButtonData : MonoBehaviour
 
     private void Awake()
     {
+        LoadResources();
         SetUpEnemy();
     }
 }
