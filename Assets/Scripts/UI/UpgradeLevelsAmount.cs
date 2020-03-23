@@ -52,4 +52,15 @@ public class UpgradeLevelsAmount : MonoBehaviour
     {
         PlayerPrefs.SetInt("LEVELSTOUPGRADEINDEX", _currentIndex);
     }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("LEVELSTOUPGRADEINDEX", _currentIndex);
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            PlayerPrefs.SetInt("LEVELSTOUPGRADEINDEX", _currentIndex);
+    }
 }

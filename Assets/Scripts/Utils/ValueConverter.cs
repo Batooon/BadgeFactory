@@ -10,7 +10,7 @@ internal static class ValueConverter
 {
     public static char[] suffixes = new char[] { ' ', 'K', 'M', 'B', 'T', 'q', 'Q', 's', 'S', 'O', 'N', 'd', 'U' };
 
-    public static string ConvertValue(this float origin)
+    public static string ConvertValue(this int origin)
     {
         string number = origin.ToString();
         int length = number.Length;

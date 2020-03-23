@@ -11,8 +11,8 @@ public struct EnemyData
     public Sprite EnemySprite;
     public AudioClip[] Sounds;
     public AudioClip DeathSounds;
-    public float Hp;
-    public float CoinsReward;
+    public int Hp;
+    public int CoinsReward;
     public bool isRare;
     public int Id;
 }
@@ -99,14 +99,13 @@ public class EnemyButtonData : MonoBehaviour
             StartCoroutine("Countdown", _countdown);
             int bossesLength = BossDataList.Count - 1;
             CurrentEnemyData.SetValue(BossDataList[UnityEngine.Random.Range(0, bossesLength)]);
-            InitializeNewEnemy.Invoke();
         }
         else
         {
             int _enemiesLength = EnemyDataList.Count - 1;
             CurrentEnemyData.SetValue(EnemyDataList[UnityEngine.Random.Range(0, _enemiesLength)]);
-            InitializeNewEnemy.Invoke();
         }
+        InitializeNewEnemy.Invoke();
     }
 
     private IEnumerator Countdown(float time)
@@ -123,8 +122,8 @@ public class EnemyButtonData : MonoBehaviour
     }
 
     private void Awake()
-    {
+    {/*
         LoadResources();
-        SetUpEnemy();
+        SetUpEnemy();*/
     }
 }

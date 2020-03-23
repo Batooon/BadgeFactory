@@ -11,8 +11,21 @@ public class GameEvents : MonoBehaviour
 
     public event Action OnQuit;
     public event Action AddAdditionalGold;
+    public event Action SaveData;
+    public event Action OpenNewAutomation;
 
     public event Action<EnemyDataVariable> BadgeCreated;
+
+    public void ActivateNewAutomationEvent()
+    {
+        OpenNewAutomation.Invoke();
+    }
+
+    public void SaveDataCallback()
+    {
+        SaveData.Invoke();
+    }
+
     public void GainAdditionalGold()
     {
         AddAdditionalGold.Invoke();

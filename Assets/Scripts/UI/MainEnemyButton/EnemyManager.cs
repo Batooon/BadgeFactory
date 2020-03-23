@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
-using System;
 using UnityEngine.UI;
 
 //Developer: Antoshka
@@ -14,7 +13,7 @@ public class EnemyManager : MonoBehaviour
     public List<Coin> spawnedCoins = new List<Coin>();
 
     public FloatReference CurrentHp;
-    public FloatReference MaxHp;
+    public IntReference MaxHp;
 
     public UnityEvent DamageEvent;
     public UnityEvent DeathEvent;
@@ -22,9 +21,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private GameObject _goldObj;
     [SerializeField]
-    private FloatReference _clickPower;
+    private IntReference _clickPower;
     [SerializeField]
-    private FloatReference _damagePerSecond;
+    private IntReference _damagePerSecond;
 
     private EnemyDataVariable _currentEnemy;
 
@@ -38,10 +37,10 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnCoins()
     {
-        int amount = UnityEngine.Random.Range(3, 5);
-        float oneCoinCost;
+        int amount = Random.Range(3, 5);
+        int oneCoinCost;
         if (_currentEnemy.EnemyDataVar.CoinsReward >= amount)
-            oneCoinCost = Mathf.Round(_currentEnemy.EnemyDataVar.CoinsReward) / amount;
+            oneCoinCost = Mathf.CeilToInt(_currentEnemy.EnemyDataVar.CoinsReward / amount);
         else
         {
             amount = 1;
@@ -57,7 +56,7 @@ public class EnemyManager : MonoBehaviour
             coin.CoinCollected += CollectCoin;
             coin.CoinDestroyed += DestroyCoin;
             spawnedCoins.Add(coin);
-            LeanTween.move(coinGO, new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.5f, 1.5f)), .5f);
+            LeanTween.move(coinGO, new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f)), .5f);
             Destroy(coinGO, 10f);
         }
     }
@@ -88,7 +87,6 @@ public class EnemyManager : MonoBehaviour
         tempColor.a = Mathf.Clamp01(Mathf.InverseLerp(0, MaxHp.Value, CurrentHp.Value));
         _badgeImage.color = tempColor;
 
-
         if (CurrentHp.Value >= MaxHp.Value)
         {
             GameEvents.current.BadgeCreatedCallback(_currentEnemy);
@@ -100,7 +98,7 @@ public class EnemyManager : MonoBehaviour
     {
         _currentEnemy = _newEnemy;
         ResetHP();
-        float cost= _currentEnemy.EnemyDataVar.Hp * 0.0667f;
+        int cost = Mathf.CeilToInt(_currentEnemy.EnemyDataVar.Hp * 0.0667f);
         _currentEnemy.EnemyDataVar.CoinsReward = cost;
     }
 
@@ -112,7 +110,7 @@ public class EnemyManager : MonoBehaviour
             exponent *= 1.55f;
         }
 
-        float hp = 10 * ((_level - 1) + exponent);
+        int hp = (int)(10 * ((_level - 1) + exponent));
         if (_level.Value % 5 == 0 && _currentLevelProgress == 10)
         {
             hp *= 10;
@@ -124,17 +122,23 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
-        MaxHp.Variable.SetValue(PlayerPrefs.GetFloat("MAXHP", 10f));
+        MaxHp.Variable.SetValue(PlayerPrefs.GetInt("MAXHP", 10));
         _badgeImage = GetComponent<Image>();
     }
 
-    private void OnDisable()
+    private void OnApplicationQuit()
     {
         PlayerPrefs.SetFloat("MAXHP", MaxHp.Value);
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            PlayerPrefs.SetFloat("MAXHP", MaxHp.Value);
+    }
+
     private void Update()
     {
-        DealDamage(_damagePerSecond.Value * Time.deltaTime);
+        DealDamage(_damagePerSecond * Time.deltaTime);
     }
 }

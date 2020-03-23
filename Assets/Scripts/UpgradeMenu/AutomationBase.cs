@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AutomationBase : MonoBehaviour, IAutomation
 {
+    public int Id;
+
     public event Action DpsChanged;
     public delegate void UpgradeCallback(AutomationBase automation);
     public UpgradeCallback Upgrade;
@@ -15,29 +17,29 @@ public class AutomationBase : MonoBehaviour, IAutomation
     private TextMeshProUGUI _nameText;
 
     [SerializeField]
-    private FloatReference _gold;
+    private IntReference _gold;
 
     [SerializeField]
     protected TextMeshProUGUI _dpsText;
     [SerializeField]
     protected TextMeshProUGUI _priceText;
     [HideInInspector]
-    public float Cost;
+    public int Cost;
 
     [HideInInspector]
-    public float _startingCost;
+    public int _startingCost;
     private float _costFactor = 1.07f;
     protected int _level;
 
     private Button _button;
 
-    protected float Dps;
+    protected int Dps;
     [HideInInspector]
-    public float _startingDps;
+    public int _startingDps;
 
     private int _amountOfLevelsToUpgrade = 1;
 
-    public float GetDps()
+    public int GetDps()
     {
         return Dps;
     }
@@ -55,7 +57,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
     private void AddDps()
     {
         _level += 1;
-        Dps = _startingDps * _level;
+        Dps = Mathf.RoundToInt(_startingDps * 1.07f * _level);
         _dpsText.text = Dps.ConvertValue();
     }
 
@@ -73,7 +75,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
         {
             _levelFactor *= _costFactor;
         }
-        Cost = _startingCost * _levelFactor;
+        Cost = (int)(_startingCost * _levelFactor);
     }
     public void UpgradeCostUpdate()
     {
@@ -94,13 +96,18 @@ public class AutomationBase : MonoBehaviour, IAutomation
     {
         DpsChanged -= UpdateDps;
         PlayerPrefs.SetInt($"{Name}_Level", _level);
-        PlayerPrefs.SetFloat($"{Name}_Dps", Dps);
-        PlayerPrefs.SetFloat($"{Name}_Cost", Cost);
+        PlayerPrefs.SetInt($"{Name}_Dps", Dps);
+        PlayerPrefs.SetInt($"{Name}_Cost", Cost);
     }
 
     public void CompareCost()
     {
-        _button.interactable = Mathf.Round(_gold.Value) >= Mathf.Round(Cost);
+        _button.interactable = _gold.Value >= Cost;
+        if (Id >= 2 && _button.interactable)
+        {
+            GameEvents.current.ActivateNewAutomationEvent();
+            Id = 0;
+        }
     }
 
     protected void AfterInit()
@@ -119,13 +126,21 @@ public class AutomationBase : MonoBehaviour, IAutomation
     private void OnDisable()
     {
         _button.onClick.RemoveListener(UpdateDps);
+        PlayerPrefs.SetInt("UpgradeLevel", _amountOfLevelsToUpgrade);
+    }
+
+    private void OnApplicationQuit()
+    {
+        _button.onClick.RemoveListener(UpdateDps);
+        PlayerPrefs.SetInt("UpgradeLevel", _amountOfLevelsToUpgrade);
     }
 
     public virtual void Init()
     {
-        Dps = PlayerPrefs.GetFloat($"{Name}_Dps", 0);
-        Cost = PlayerPrefs.GetFloat($"{Name}_Cost", _startingCost);
+        Dps = PlayerPrefs.GetInt($"{Name}_Dps", 0);
+        Cost = PlayerPrefs.GetInt($"{Name}_Cost", _startingCost);
         _level = PlayerPrefs.GetInt($"{Name}_Level", 0);
+        _amountOfLevelsToUpgrade = PlayerPrefs.GetInt("UpgradeLevel", _amountOfLevelsToUpgrade);
         if (_level == 0)
         {
             _dpsText.text = "0";
@@ -142,10 +157,10 @@ public class AutomationBase : MonoBehaviour, IAutomation
     public void RecalculateCostToLevelsAmount(int amount)
     {
         _amountOfLevelsToUpgrade = amount;
-        float _cost = 0f;
+        int _cost = 0;
         int lvl = _level;
         float levelfactor;
-        float currentCost;
+        int currentCost;
         for (int i = 0; i < amount; i++)
         {
             levelfactor = _costFactor;
@@ -153,7 +168,7 @@ public class AutomationBase : MonoBehaviour, IAutomation
             {
                 levelfactor *= _costFactor;
             }
-            currentCost = _startingCost * levelfactor;
+            currentCost = (int)(_startingCost * levelfactor);
             _cost += currentCost;
             lvl += 1;
         }

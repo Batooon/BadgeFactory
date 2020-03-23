@@ -10,7 +10,7 @@ public class Coin : MonoBehaviour, IPointerEnterHandler
 
     public GameObject CoinObj;
     [HideInInspector]
-    public float Cost;
+    public int Cost;
     public float _timeToLive;
     private float _livingTime;
 

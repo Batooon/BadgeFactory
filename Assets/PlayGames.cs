@@ -37,7 +37,13 @@ public class PlayGames : MonoBehaviour
         PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_level_leaders);
     }
 
-    private void Start()
+    /*private void OnLevelWasLoaded(int level)
+    {
+        if (level == 0)
+            AuthenticateUser();
+    }*/
+
+    private void Awake()
     {
         AuthenticateUser();
     }

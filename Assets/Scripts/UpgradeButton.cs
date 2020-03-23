@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class UpgradeButton : MonoBehaviour
 {
     private const float _multiplier = 1.15f;
-    private const float _startingCost = 50f;
+    private float _startingCost = 50f;
 
     [SerializeField]
     private GameEvent _clickPowerUpgraded;
@@ -30,7 +30,12 @@ public class UpgradeButton : MonoBehaviour
         _button.onClick.AddListener(UpgradeClickPower);
     }
 
-    private void OnDisable()
+    private void OnApplicationQuit()
+    {
+        _button.onClick.RemoveListener(UpgradeClickPower);
+    }
+
+    private void OnApplicationPause(bool pause)
     {
         _button.onClick.RemoveListener(UpgradeClickPower);
     }

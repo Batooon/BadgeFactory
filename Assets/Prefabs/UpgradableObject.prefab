@@ -363,7 +363,7 @@ MonoBehaviour:
   _gold:
     UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: f9d7554077b9d324196f66548ddeb278, type: 2}
+    Variable: {fileID: 11400000, guid: b76be22be9a731b4e86b42e0dfe13947, type: 2}
   _dpsText: {fileID: 6662429085188290780}
   _priceText: {fileID: 6040134055137645849}
   Cost: 0
@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 7416558787615987434}
   - component: {fileID: 146958590604897812}
   - component: {fileID: 4366322056011647993}
+  - component: {fileID: 1276680752}
   m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
@@ -544,6 +545,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1276680752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5894238311498300329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1137a3dd71637cb4183ce720f58b1991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Key: Automation2
 --- !u!1 &6306892309053241018
 GameObject:
   m_ObjectHideFlags: 0

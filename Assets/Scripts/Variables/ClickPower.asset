@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 406c40d19e42cd344932117507285743, type: 3}
+  m_Script: {fileID: 11500000, guid: 997daf6d40f139140ba1c74a28a7f791, type: 3}
   m_Name: ClickPower
   m_EditorClassIdentifier: 
+  Developerdescription: 
   Value: 1

@@ -9,8 +9,8 @@ public class ClickPower : AutomationBase
 {
     public override void Init()
     {
-        Dps = PlayerPrefs.GetFloat($"{Name}_Dps", 1);
-        Cost = PlayerPrefs.GetFloat($"{Name}_Cost", _startingCost);
+        Dps = PlayerPrefs.GetInt($"{Name}_Dps", 1);
+        Cost = PlayerPrefs.GetInt($"{Name}_Cost", _startingCost);
         _level = PlayerPrefs.GetInt($"{Name}_Level", 1);
         if (_level == 0)
         {

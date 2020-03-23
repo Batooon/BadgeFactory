@@ -22,18 +22,17 @@ public class PlayerData : MonoBehaviour
     [SerializeField]
     private List<AutomationBase> _automations = new List<AutomationBase>();
 
-    [SerializeField]
-    private FloatReference _dps;
+    public IntReference _dps;
     [SerializeField]
     private TextMeshProUGUI _dpsText;
 
     [SerializeField]
-    private FloatReference _clickPower;
+    private IntReference _clickPower;
     [SerializeField]
     private TextMeshProUGUI _clickPowerText;
 
     [SerializeField]
-    private FloatReference _goldAmount;
+    private IntReference _goldAmount;
     [SerializeField]
     private TextMeshProUGUI _goldText;
 
@@ -72,9 +71,8 @@ public class PlayerData : MonoBehaviour
     private Image _farmButtonImage;
 
     private bool _farm = false;
-    //private bool _isNewPlayer;
 
-    private float _gainedGold;
+    private int _gainedGold;
 
     public void SerializeAutomations()
     {
@@ -87,17 +85,17 @@ public class PlayerData : MonoBehaviour
             string[] row = data[i].Split(';');
 
             _automations[j].Name = row[0];
-            _automations[j]._startingCost = float.Parse(row[1]);
-            _automations[j]._startingDps = float.Parse(row[2]);
+            _automations[j]._startingCost = int.Parse(row[1]);
+            _automations[j]._startingDps = int.Parse(row[2]);
         }
     }
 
     public void CalculateDps(AutomationBase automation)
     {
         RecalculateDps();
-        _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
-        _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
-        _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
+        _dpsText.text = _dps.Value.ConvertValue();
+        _clickPowerText.text = _clickPower.Value.ConvertValue();
+        _goldText.text = _goldAmount.Value.ConvertValue();
 
         foreach (var item in _automations)
         {
@@ -123,16 +121,18 @@ public class PlayerData : MonoBehaviour
 
     private void RecalculateDps()
     {
-        float _currentDps = 0f;
-        float _currentClickPower = 0f;
+        int _currentDps = 0;
+        int _currentClickPower = 0;
         foreach (var item in _automations)
         {
-            if(item is ClickPower)
+            if (item is ClickPower)
             {
                 _currentClickPower += item.GetDps();
-                continue;
             }
-            _currentDps += item.GetDps();
+            else
+            {
+                _currentDps += item.GetDps();
+            }
         }
         _dps.Variable.SetValue(_currentDps);
         _clickPower.Variable.SetValue(_currentClickPower);
@@ -140,7 +140,6 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
-        //_isNewPlayer = Convert.ToBoolean(PlayerPrefs.GetInt("IsNewPlayer", 1));
         SerializeAutomations();
         Init();
     }
@@ -151,9 +150,10 @@ public class PlayerData : MonoBehaviour
         CalculateAbsenseTime();
         if (saveData.date[0] != 0)
             ActivateReturningPlayerWindow(_gainedGold);
+        GameEvents.current.AddAdditionalGold += GainAdditionalGold;
     }
 
-    private void ActivateReturningPlayerWindow(float gainedGold)
+    private void ActivateReturningPlayerWindow(int gainedGold)
     {
         ReturningScreen.SetActive(true);
         _gainedGoldText.text = gainedGold.ConvertValue();
@@ -174,7 +174,7 @@ public class PlayerData : MonoBehaviour
                 saveData.date[3], saveData.date[4], saveData.date[5]);
             TimeSpan timeDifference = DateTime.Now - lastTimeVisited;
 
-            float gainedGold = ((int)timeDifference.TotalSeconds * _dps.Value) / _currentEnemy.EnemyDataVar.Hp;
+            int gainedGold = (int)(timeDifference.TotalSeconds * _dps.Value / _currentEnemy.EnemyDataVar.Hp);
             _goldAmount.Variable.ApplyChange(gainedGold);
             _goldText.text = _goldAmount.Value.ConvertValue();
             _gainedGold = gainedGold;
@@ -184,14 +184,16 @@ public class PlayerData : MonoBehaviour
     private void OnApplicationPause(bool pause)
     {
         if (pause)
+        {
             RememberDate();
+            SaveData();
+        }
     }
 
     private void OnApplicationQuit()
     {
         RememberDate();
-       /* if (_isNewPlayer)
-            PlayerPrefs.SetInt("IsNewPlayer", 0);*/
+        SaveData();
     }
 
     private void RememberDate()
@@ -220,7 +222,7 @@ public class PlayerData : MonoBehaviour
     {
         Vector3 coinPosition = coin.transform.position;
         _goldAmount.Variable.ApplyChange(coin.Cost);
-        _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
+        _goldText.text = _goldAmount.Value.ConvertValue();
 
         foreach (var item in _automations)
         {
@@ -230,7 +232,7 @@ public class PlayerData : MonoBehaviour
 
         CollectedCoinText collectedText = Instantiate(_collectedCoinText, coinPosition,
             Quaternion.identity, _coinTextParent.transform).GetComponent<CollectedCoinText>();
-        collectedText.StartMotion(coin.Cost);
+        //collectedText.StartMotion(coin.Cost);
     }
 
     public void StepLevelBack()
@@ -261,44 +263,40 @@ public class PlayerData : MonoBehaviour
         _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
     }
 
-    private void Init()
+    public void Init()
     {
         for (int i = 0; i < _automations.Count; i++)
         {
             _automations[i].Subscribe();
             _automations[i].Upgrade = CalculateDps;
             _automations[i].Init();
-            _levelsAmountToUpgradeController.UpgradeLevelsAmountChanged += _automations[i].RecalculateCostToLevelsAmount;
+            //_levelsAmountToUpgradeController.UpgradeLevelsAmountChanged += _automations[i].RecalculateCostToLevelsAmount;
         }
-        _dps.Variable.SetValue(PlayerPrefs.GetFloat("DPS", 0));
-        _clickPower.Variable.SetValue(PlayerPrefs.GetFloat("CLICKPOWER", 1));
-        _goldAmount.Variable.SetValue(PlayerPrefs.GetFloat("GOLD", 10000000));
-        _dpsText.text = Mathf.Round(_dps.Value).ConvertValue();
-        _clickPowerText.text = Mathf.Round(_clickPower.Value).ConvertValue();
-        _goldText.text = Mathf.Round(_goldAmount.Value).ConvertValue();
+        _dps.Variable.SetValue(PlayerPrefs.GetInt("DPS", 0));
+        _clickPower.Variable.SetValue(PlayerPrefs.GetInt("CLICKPOWER", 1));
+        _goldAmount.Variable.SetValue(PlayerPrefs.GetInt("GOLD", 100000000));
+        _dpsText.text = _dps.Value.ConvertValue();
+        _clickPowerText.text = _clickPower.Value.ConvertValue();
+        _goldText.text = _goldAmount.Value.ConvertValue();
         _level.Variable.SetValue(PlayerPrefs.GetInt("LEVEL", 1));
         _levelText.text = $"Level {_level.Value}";
         _currentLevelProgressValue.Variable.SetValue(PlayerPrefs.GetInt("LEVELPROGRESS", 0));
         _currentLevelProgress.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, _currentLevelProgressValue));
     }
 
-    private void OnEnable()
-    {
-        GameEvents.current.AddAdditionalGold += GainAdditionalGold;
-    }
-
-    private void OnDisable()
+    private void SaveData()
     {
         for (int i = 0; i < _automations.Count; i++)
         {
             _automations[i].Unsubscibe();
             _automations[i].Upgrade = null;
         }
-        PlayerPrefs.SetFloat("DPS", _dps.Value);
-        PlayerPrefs.SetFloat("CLICKPOWER", _clickPower.Value);
-        PlayerPrefs.SetFloat("GOLD", _goldAmount.Value);
+        PlayerPrefs.SetInt("DPS", _dps.Value);
+        PlayerPrefs.SetInt("CLICKPOWER", _clickPower.Value);
+        PlayerPrefs.SetInt("GOLD", _goldAmount.Value);
         PlayerPrefs.SetInt("LEVEL", _level);
         PlayerPrefs.SetInt("LEVELPROGRESS", _currentLevelProgressValue);
         GameEvents.current.AddAdditionalGold -= GainAdditionalGold;
+        PlayerPrefs.Save();
     }
 }

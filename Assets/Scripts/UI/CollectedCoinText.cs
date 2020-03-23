@@ -7,26 +7,21 @@ using TMPro;
 
 public class CollectedCoinText : MonoBehaviour
 {
-    public float Speed;
-
-    [SerializeField]
-    private TextMeshProUGUI _collectedAmount;
-
+    private float _speed;
+    private float _lifetime;
     private bool _canMove;
 
-    private Vector2 _randomFinishPosition;
-
-    public void StartMotion(float amount)
+    public void Init(float speed, float lifetime)
     {
-        _collectedAmount.text = amount.ConvertValue();
+        _speed = speed;
+        _lifetime = lifetime;
         _canMove = true;
-        Destroy(gameObject, 0.3f);
+        Destroy(gameObject, lifetime);
     }
 
     private void Update()
     {
-        if (!_canMove)
-            return;
-        transform.Translate(Vector2.up * Speed * Time.deltaTime);
+        if (_canMove)
+            transform.Translate(Vector2.up * _speed * Time.deltaTime);
     }
 }
