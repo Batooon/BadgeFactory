@@ -13,7 +13,28 @@ MonoBehaviour:
   m_Name: New Automation
   m_EditorClassIdentifier: 
   Automations:
-  - Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
+  - Icon: {fileID: 0}
+    Name: gfdsfgsdfg
+    StartingLevel: 3
+    StartingCost: 7
+    StartingDamagePerSecond: 9
+  - Icon: {fileID: 0}
+    Name: gdsfgd
+    StartingLevel: 5
+    StartingCost: 7
+    StartingDamagePerSecond: 7
+  - Icon: {fileID: 0}
+    Name: gdsfgd
+    StartingLevel: 5
+    StartingCost: 7
+    StartingDamagePerSecond: 7
+  - Icon: {fileID: 0}
+    Name: gdsfgd
+    StartingLevel: 5
+    StartingCost: 7
+    StartingDamagePerSecond: 7
+  - Icon: {fileID: 0}
+    Name: gdsfgd
+    StartingLevel: 5
+    StartingCost: 7
+    StartingDamagePerSecond: 7

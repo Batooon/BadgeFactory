@@ -11,6 +11,7 @@ public struct Data
     public bool IsReturningPlayer;
     public int ClickPower;
     public int AutomationsPower;
+    public int AutomationsAmountUnlocked;
     //В будущем добавить тут кристаллы
     //public int Gems;
 }
@@ -37,6 +38,7 @@ public class SessionModel
         PlayerData.Level = PlayerPrefs.GetInt("Level", 1);
         PlayerData.GoldAmount = PlayerPrefs.GetInt("Gold", 0);
         PlayerData.ClickPower = PlayerPrefs.GetInt("ClickPower", 1);
+        PlayerData.AutomationsAmountUnlocked = PlayerPrefs.GetInt("UnlockedAutomations", 12);
         //DataLoaded?.Invoke(PlayerData);
     }
 

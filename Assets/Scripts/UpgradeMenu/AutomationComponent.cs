@@ -12,6 +12,6 @@ public class AutomationComponent : MonoBehaviour
 
     public void Upgrade()
     {
-        _component.UpdateDps();
+        //_component.UpdateDps();
     }
 }

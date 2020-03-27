@@ -12,5 +12,6 @@ public class UntitledInstaller : MonoInstaller
         Container.Bind<SessionController>().FromInstance(sessionController);
         Container.Bind<Data>().FromInstance(sessionController._sessionModel.PlayerData);
         Container.InstantiateComponent(typeof(BadgeController), BadgeButton);
+        //Container.InstantiateComponent(typeof(AutomationsController))
     }
 }

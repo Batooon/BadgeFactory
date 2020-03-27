@@ -28,12 +28,11 @@ public class AutomationEditor : ExtendedEditorWindow
             currentProperty.arraySize = _currentArraylength;
             Apply();
         }
+
         DrawSidebar(currentProperty);
 
-        if (GUILayout.Button("Save"))
+        if (GUILayout.Button("Save to JSON"))
         {
-            Debug.Log($"{serializedObject.targetObject}");
-            //Debug.Log($"Length: , Name: {currentProperty.displayName}");
             try
             {
                 XmlOperation.Serialize(serializedObject.targetObject, Path.Combine(Application.persistentDataPath, "Automations.json"));

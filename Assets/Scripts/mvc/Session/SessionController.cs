@@ -11,6 +11,8 @@ public class SessionController : MonoInstaller
 {
     [SerializeField]
     private GameObject _badgeButton;
+    [SerializeField]
+    private GameObject _automationsPanel;
 
     #region Controllers
     private BadgeController _badgeController;
@@ -28,6 +30,7 @@ public class SessionController : MonoInstaller
         _badgeController.LevelUp += OnLevelUp;
         _badgeController.CoinCollected += OnCoinCollected;
         PlayerDataChange += _badgeController.OnPlayerDataChange;
+        Container.InstantiateComponent(typeof(AutomationsController), _automationsPanel);
     }
 
     [Inject]

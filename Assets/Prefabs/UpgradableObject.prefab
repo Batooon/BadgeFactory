@@ -313,7 +313,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4320847754397071934}
-  - component: {fileID: 1804117989605782417}
   - component: {fileID: 8273646669528233974}
   m_Layer: 5
   m_Name: UpgradableObject
@@ -346,29 +345,6 @@ RectTransform:
   m_AnchoredPosition: {x: 2.6, y: 0}
   m_SizeDelta: {x: 1035.1, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1804117989605782417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4320847754397071935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b64078fc9567d444fbebd248b191b698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: 
-  _nameText: {fileID: 4366322056011647993}
-  _gold:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: b76be22be9a731b4e86b42e0dfe13947, type: 2}
-  _dpsText: {fileID: 6662429085188290780}
-  _priceText: {fileID: 6040134055137645849}
-  Cost: 0
-  _startingCost: 0
-  _startingDps: 0
 --- !u!114 &8273646669528233974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,15 +760,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4320847754354965606}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6040134055137645849 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7504230391111690623, guid: 870e7ca2627d66e49bd5c645aebf1a2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4320847754354965606}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
