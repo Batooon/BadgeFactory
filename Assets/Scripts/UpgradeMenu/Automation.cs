@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 //Developer: Antoshka
 
-public class Automation : AutomationBase
+/*public class Automation : AutomationBase
 {
 
-}
+}*/
