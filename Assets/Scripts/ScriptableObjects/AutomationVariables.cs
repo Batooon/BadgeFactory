@@ -13,7 +13,14 @@ public class AutomationData
 
 [CreateAssetMenu]
 [System.Serializable]
-public class Automation : ScriptableObject
+public class AutomationVariables : ScriptableObject
+{
+    [SerializeField]
+    public List<AutomationData> Automations;
+}
+
+[System.Serializable]
+public class Automation
 {
     [SerializeField]
     public List<AutomationData> Automations;

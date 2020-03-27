@@ -5,7 +5,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System;
 
-public struct RuntimeAutomationData
+/*public struct RuntimeAutomationData
 {
     public int Level;
     public int DamagePerSecond;
@@ -16,13 +16,13 @@ public struct AutomationDataContainer
 {
     [XmlArray]
     public List<RuntimeAutomationData> AutomationsData;
-}
+}*/
 
 public class AutomationsModel
 {
     public Data PlayerData;
-    public int AmountOfLevelsToUpgrade = 1;
-    public AutomationDataContainer AutomationContainer;
+    public Automation AutomationData;
+    public int UnlockedAutomationsAmount;
 
     public AutomationsModel(Data playerData)
     {
@@ -34,6 +34,20 @@ public class AutomationsModel
     private void Load()
     {
         try
+        {
+            AutomationData = XmlOperation.Deserialize<Automation>(Path.Combine(Application.persistentDataPath, "Automations.json"));
+            //Console.Clear();
+            foreach (var item in AutomationData.Automations)
+            {
+                Debug.Log(item.Name);
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.LogError(e);
+        }
+
+        /*try
         {
             AutomationContainer = XmlOperation.Deserialize<AutomationDataContainer>(Path.Combine(Application.persistentDataPath, "AutomationData.xml"));
             foreach (var item in AutomationContainer.AutomationsData)
@@ -48,12 +62,12 @@ public class AutomationsModel
             AutomationContainer.AutomationsData.Add(new RuntimeAutomationData());
             XmlOperation.Serialize(AutomationContainer, Path.Combine(Application.persistentDataPath, "AutomationData.xml"));
             //Debug.LogException(e);
-        }
+        }*/
     }
 
     public void Save()
     {
-        XmlOperation.Serialize(AutomationContainer, Path.Combine(Application.persistentDataPath, "AutomationData.xml"));
+        //XmlOperation.Serialize(AutomationContainer, Path.Combine(Application.persistentDataPath, "AutomationData.xml"));
         Debug.Log("Сохраняем данные автомаций (☞ﾟヮﾟ)☞");
     }
 

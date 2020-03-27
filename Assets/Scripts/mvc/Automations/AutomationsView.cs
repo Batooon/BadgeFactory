@@ -7,7 +7,7 @@ public class AutomationsView : MonoBehaviour
     public GameObject AutomationPrefab;
     public List<GameObject> AutomationsObjects = new List<GameObject>();
     [SerializeField]
-    private List<Automation> Automations = new List<Automation>();
+    private List<AutomationVariables> Automations = new List<AutomationVariables>();
 
     public void InitAutomations(AutomationData[] automationsData)
     {

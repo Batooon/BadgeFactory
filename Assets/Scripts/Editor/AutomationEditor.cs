@@ -8,10 +8,14 @@ using System;
 public class AutomationEditor : ExtendedEditorWindow
 {
     private int _currentArraylength = 1;
-    public static void Open(Automation automation)
+    private Automation automations;
+
+    public static void Open(AutomationVariables automation)
     {
         AutomationEditor window = GetWindow<AutomationEditor>("Automations Editor");
         window.serializedObject = new SerializedObject(automation);
+        window.automations = new Automation();
+        window.automations.Automations = automation.Automations;
     }
 
     private void OnGUI()
@@ -26,6 +30,7 @@ public class AutomationEditor : ExtendedEditorWindow
         if (GUILayout.Button("Apply"))
         {
             currentProperty.arraySize = _currentArraylength;
+            automations.Automations.Capacity = _currentArraylength;
             Apply();
         }
 
@@ -35,14 +40,14 @@ public class AutomationEditor : ExtendedEditorWindow
         {
             try
             {
-                XmlOperation.Serialize(serializedObject.targetObject, Path.Combine(Application.persistentDataPath, "Automations.json"));
+                XmlOperation.Serialize(automations, Path.Combine(Application.persistentDataPath, "Automations.json"));
             }
             catch(Exception e)
             {
                 Debug.LogError(e);
                 return;
             }
-            Debug.Log("<b><color=green>Automations serialized sucsesfully</color></b>");
+            Debug.Log("<b><color=green>Automations serialized successfully</color></b>");
         }
 
         EditorGUILayout.EndVertical();

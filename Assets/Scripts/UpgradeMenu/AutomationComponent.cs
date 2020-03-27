@@ -8,7 +8,7 @@ using TMPro;
 public class AutomationComponent : MonoBehaviour
 {
     [SerializeField]
-    private Automation _component;
+    private AutomationVariables _component;
 
     public void Upgrade()
     {

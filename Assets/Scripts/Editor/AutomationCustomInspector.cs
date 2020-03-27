@@ -9,7 +9,7 @@ public class AssetHandler
     [OnOpenAsset()]
     public static bool OpenEditor(int instanceId,int line)
     {
-        Automation automation = EditorUtility.InstanceIDToObject(instanceId) as Automation;
+        AutomationVariables automation = EditorUtility.InstanceIDToObject(instanceId) as AutomationVariables;
         if (automation != null)
         {
             AutomationEditor.Open(automation);
@@ -19,14 +19,14 @@ public class AssetHandler
     }
 }
 
-[CustomEditor(typeof(Automation))]
+[CustomEditor(typeof(AutomationVariables))]
 public class AutomationCustomInspector : Editor
 {
     public override void OnInspectorGUI()
     {
         if(GUILayout.Button("Open Automation Editor"))
         {
-            AutomationEditor.Open((Automation)target);
+            AutomationEditor.Open((AutomationVariables)target);
         }
     }
 }
