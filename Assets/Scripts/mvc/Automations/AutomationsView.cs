@@ -5,15 +5,15 @@ using UnityEngine;
 public class AutomationsView : MonoBehaviour
 {
     public GameObject AutomationPrefab;
+    [HideInInspector]
     public List<GameObject> AutomationsObjects = new List<GameObject>();
-    [SerializeField]
-    private List<AutomationVariables> Automations = new List<AutomationVariables>();
 
-    public void InitAutomations(AutomationData[] automationsData)
+    public void InitAutomations(List<AutomationCreationParams> automationsData)
     {
-        for (int i = 0; i < automationsData.Length; i++)
+        for (int i = 0; i < automationsData.Count; i++)
         {
             GameObject automation = Instantiate(AutomationPrefab, transform);
+            AutomationsObjects.Add(automation);
         }
     }
 }

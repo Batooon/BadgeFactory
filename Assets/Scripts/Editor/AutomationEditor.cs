@@ -8,13 +8,13 @@ using System;
 public class AutomationEditor : ExtendedEditorWindow
 {
     private int _currentArraylength = 1;
-    private Automation automations;
+    private AutomationsData automations;
 
-    public static void Open(AutomationVariables automation)
+    public static void Open(AutomationEditorObject automation)
     {
         AutomationEditor window = GetWindow<AutomationEditor>("Automations Editor");
         window.serializedObject = new SerializedObject(automation);
-        window.automations = new Automation();
+        window.automations = new AutomationsData();
         window.automations.Automations = automation.Automations;
     }
 
@@ -70,31 +70,6 @@ public class AutomationEditor : ExtendedEditorWindow
 
     private void DrawSelectedPropertiesPanel()
     {
-        bool clickPower = false;
-        bool automation = false;
-
         currentProperty = _selectedProperty;
-
-        EditorGUILayout.BeginHorizontal("box");
-
-        if(GUILayout.Button("Click Power", EditorStyles.toolbarButton))
-        {
-            clickPower = true;
-            automation = false;
-        }
-        if (GUILayout.Button("Automation", EditorStyles.toolbarButton))
-        {
-            clickPower = false;
-            automation = true;
-        }
-
-        EditorGUILayout.EndHorizontal();
-
-        if (clickPower)
-        {
-            EditorGUILayout.BeginVertical("box");
-
-            EditorGUILayout.EndVertical();
-        }
     }
 }

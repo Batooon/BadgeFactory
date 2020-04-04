@@ -13,28 +13,75 @@ MonoBehaviour:
   m_Name: AutomationEditor
   m_EditorClassIdentifier: 
   Automations:
-  - Icon: {fileID: 0}
-    Name: Loh
-    StartingLevel: 3
-    StartingCost: 3
-    StartingDamagePerSecond: 3
-  - Icon: {fileID: 0}
+  - Icon: {fileID: 7414601071545361866, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+    Name: Click Power
+    StartingLevel: 1
+    StartingCost: 10
+    StartingDamagePerSecond: 5
+    AutomationType: 1
+  - Icon: {fileID: -501238390575150475, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
     Name: Anton
-    StartingLevel: 9
-    StartingCost: 9
+    StartingLevel: 0
+    StartingCost: 50
     StartingDamagePerSecond: 9
+    AutomationType: 0
   - Icon: {fileID: 0}
     Name: 
     StartingLevel: 0
     StartingCost: 0
     StartingDamagePerSecond: 0
+    AutomationType: 0
   - Icon: {fileID: 0}
     Name: 
     StartingLevel: 0
     StartingCost: 0
     StartingDamagePerSecond: 0
+    AutomationType: 1
   - Icon: {fileID: 0}
     Name: 
     StartingLevel: 0
     StartingCost: 0
     StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
+  - Icon: {fileID: 0}
+    Name: 
+    StartingLevel: 0
+    StartingCost: 0
+    StartingDamagePerSecond: 0
+    AutomationType: 0
