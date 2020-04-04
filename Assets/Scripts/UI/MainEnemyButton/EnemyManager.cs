@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
-    private PlayerData PlayerData;
+    //private PlayerData PlayerData;
 
     public List<Coin> spawnedCoins = new List<Coin>();
 
@@ -63,7 +63,7 @@ public class EnemyManager : MonoBehaviour
 
     private void CollectCoin(Coin coin)
     {
-        PlayerData.CoinCollected(coin);
+        //PlayerData.CoinCollected(coin);
         spawnedCoins.Remove(coin);
         Destroy(coin.gameObject);
     }

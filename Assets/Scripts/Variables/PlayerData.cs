@@ -12,7 +12,7 @@ public class Save
     public int[] date = new int[6];
     public bool isNewPlayer = true;
 }
-
+/*
 public class PlayerData : MonoBehaviour
 {
     public static event Action DoubleGoldRewardVideoWatched;
@@ -20,7 +20,7 @@ public class PlayerData : MonoBehaviour
     Save saveData = new Save();
 
     [SerializeField]
-    private List<AutomationBase> _automations = new List<AutomationBase>();
+    //private List<AutomationBase> _automations = new List<AutomationBase>();
 
     public IntReference _dps;
     [SerializeField]
@@ -299,4 +299,4 @@ public class PlayerData : MonoBehaviour
         GameEvents.current.AddAdditionalGold -= GainAdditionalGold;
         PlayerPrefs.Save();
     }
-}
+}*/
