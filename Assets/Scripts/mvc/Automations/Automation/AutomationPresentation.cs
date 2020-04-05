@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 //Developer: Antoshka
 
-public class AutomationPresentation : MonoBehaviour
+public class AutomationPresentation : MonoBehaviour //Automation View
 {
     #region Events
     public event Action Upgrade;
@@ -36,13 +36,13 @@ public class AutomationPresentation : MonoBehaviour
         _upgradeCostText.text = automationData.StartingCost.ConvertValue();
     }
 
-    public void UpdateDamage(int newDamage,bool isUpgradeButtonInteractable)
+    public void FetchDamage(int newDamage,bool isUpgradeButtonInteractable)
     {
         _damageText.text = newDamage.ConvertValue();
         _upgradeButton.interactable = isUpgradeButtonInteractable;
     }
 
-    public void UpdateCost(int newCost) => _upgradeCostText.text = newCost.ConvertValue();
+    public void FetchCost(int newCost) => _upgradeCostText.text = newCost.ConvertValue();
 
     public void UpgradeButtonPressed()
     {
@@ -50,7 +50,7 @@ public class AutomationPresentation : MonoBehaviour
     }
 }
 
-public class AutomationData
+public class AutomationData //Automation Model
 {
     private IAutomation _automation;
     public IAutomation Automation
@@ -78,25 +78,28 @@ public class AutomationData
         _automationData = automationData;
         _playerData = playerData;
     }
+}
 
-    public void Upgrade()
-    {
-        _automation.Upgrade();
-    }
+public struct AutomationUpgradeParams
+{
+    public int startingDpsValue;
+    public int Startingcost;
 }
 
 public class UsualAutomation : IAutomation
 {
-    public void Upgrade()
+    public void Upgrade(ref int currentLevel, ref int currentDpsValue, ref int currentCost, AutomationUpgradeParams automationUpgradeParams)
     {
-        throw new NotImplementedException();
+        currentLevel += 1;
+        currentDpsValue = Mathf.RoundToInt(automationUpgradeParams.startingDpsValue * 1.07f * currentLevel);
     }
 }
 
 public class ClickAutomation : IAutomation
 {
-    public void Upgrade()
+    public void Upgrade(ref int currentLevel, ref int currentDpsValue, ref int currentCos, AutomationUpgradeParams automationUpgradeParams)
     {
-        throw new NotImplementedException();
+        currentLevel += 1;
+        currentDpsValue = Mathf.RoundToInt(automationUpgradeParams.startingDpsValue * 1.07f * currentLevel);
     }
 }

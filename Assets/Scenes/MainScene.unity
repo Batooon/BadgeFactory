@@ -5320,12 +5320,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245092960}
   m_CullTransparentMesh: 0
---- !u!1 &1263046685 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8277250405766775065, guid: 02c7ad9486677cd47b041f424ae59a9d,
-    type: 3}
-  m_PrefabInstance: {fileID: 8277250406760272132}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1263046686 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8277250405766775066, guid: 02c7ad9486677cd47b041f424ae59a9d,
@@ -6893,7 +6887,6 @@ GameObject:
   - component: {fileID: 1627145988}
   - component: {fileID: 1627145990}
   - component: {fileID: 1627145989}
-  - component: {fileID: 1627145991}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -6962,69 +6955,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627145987}
   m_CullTransparentMesh: 0
---- !u!114 &1627145991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627145987}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327b1c5aa0f1bda469b7830d4f14a676, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _automations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _dps:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: fe3fc82ccc90e504eb56ae75ab303399, type: 2}
-  _dpsText: {fileID: 422338636}
-  _clickPower:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 60c80f754c96fb84caf206308b21faae, type: 2}
-  _clickPowerText: {fileID: 1981036250}
-  _goldAmount:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: b76be22be9a731b4e86b42e0dfe13947, type: 2}
-  _goldText: {fileID: 259049478}
-  _currentEnemy: {fileID: 11400000, guid: d0303e1de080cf643a995ac641fe6563, type: 2}
-  _levelsAmountToUpgradeController: {fileID: 1648415701}
-  ReturningScreen: {fileID: 1245092960}
-  _gainedGoldText: {fileID: 587271071}
-  _dragonText: {fileID: 2052451036}
-  _collectedCoinText: {fileID: 2657321717896066802, guid: 7cf36731aa21c4346b586e23de1b73ab,
-    type: 3}
-  _coinTextParent: {fileID: 1263046685}
-  _level:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 68509fad248440d489096561d3d8af7c, type: 2}
-  _levelText: {fileID: 0}
-  _currentLevelProgress: {fileID: 812634855}
-  _currentLevelProgressValue:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 46858b20306ebe14588c67e10260ab68, type: 2}
-  _farmSprite: {fileID: 7456709796760285325, guid: 33de80eb0ac0d9d43859338db2f07820,
-    type: 3}
-  _activeSprite: {fileID: -5709199093062010284, guid: 33de80eb0ac0d9d43859338db2f07820,
-    type: 3}
-  _farmButtonImage: {fileID: 2004614316}
 --- !u!1 &1648415695
 GameObject:
   m_ObjectHideFlags: 0
@@ -8041,7 +7971,7 @@ MonoBehaviour:
   BossNotDefeated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1627145991}
+      - m_Target: {fileID: 0}
         m_MethodName: StepLevelBack
         m_Mode: 1
         m_Arguments:
@@ -8085,7 +8015,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd889c0962efc9489b0efd2e2fd0a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerData: {fileID: 1627145991}
   spawnedCoins: []
   CurrentHp:
     UseConstant: 0
@@ -8134,7 +8063,7 @@ MonoBehaviour:
   DeathEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1627145991}
+      - m_Target: {fileID: 0}
         m_MethodName: OnEnemyDie
         m_Mode: 1
         m_Arguments:
@@ -8703,7 +8632,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1627145991}
+      - m_Target: {fileID: 0}
         m_MethodName: SetFarmOnOff
         m_Mode: 1
         m_Arguments:
