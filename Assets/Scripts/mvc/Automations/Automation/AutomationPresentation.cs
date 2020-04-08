@@ -65,14 +65,14 @@ public class AutomationData //Automation Model
         get => _automationData;
         private set { }
     }
-    private Data _playerData;
+    private IPlayerData _playerData;
     public Data PlayerStats
     {
-        get => _playerData;
+        get => _playerData.GetPlayerData();
         private set { }
     }
 
-    public AutomationData(IAutomation automation,AutomationCreationParams automationData,Data playerData)
+    public AutomationData(IAutomation automation, AutomationCreationParams automationData, IPlayerData playerData)
     {
         _automation = automation;
         _automationData = automationData;

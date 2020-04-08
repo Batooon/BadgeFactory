@@ -24,7 +24,7 @@ public class BadgeModel
     public bool IsBoss;
     public Badge CurrentBadge;
 
-    public Data PlayerData;
+    public IPlayerData PlayerData;
     #endregion
     #region Graphic Data
     public Sprite[] BadgeImages;
@@ -34,7 +34,7 @@ public class BadgeModel
     public List<Badge> BossBadges = new List<Badge>();
     #endregion
 
-    public BadgeModel(Data playerData)
+    public BadgeModel(IPlayerData playerData)
     {
         PlayerData = playerData;
         DeleteAll();
@@ -43,7 +43,7 @@ public class BadgeModel
 
     public void IncreaseHp()
     {
-        CurrentHp += PlayerData.ClickPower;
+        CurrentHp += PlayerData.GetPlayerData().ClickPower;
         HpChanged?.Invoke();
     }
 
@@ -54,7 +54,6 @@ public class BadgeModel
 
     public void Load()
     {
-        //Потом читать всё из JSON
         //TODO: Сделать сериализацию через JSON
         BossCountdown = PlayerPrefs.GetFloat("BossCountdown", 30f);
 

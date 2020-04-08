@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
 public struct Data
 {
     public int Level;
-    public int levelProgress;
+    public int LevelProgress;
     public int GoldAmount;
     public bool IsReturningPlayer;
     public int ClickPower;
@@ -18,10 +19,6 @@ public struct Data
 
 public class SessionModel
 {
-    #region Events
-    public event Action<Data> DataLoaded;
-    public event Action<Data> PlayerDataChanged;
-    #endregion
     #region data Variables
     public Data PlayerData;
     #endregion
@@ -39,7 +36,6 @@ public class SessionModel
         PlayerData.GoldAmount = PlayerPrefs.GetInt("Gold", 0);
         PlayerData.ClickPower = PlayerPrefs.GetInt("ClickPower", 1);
         PlayerData.AutomationsAmountUnlocked = PlayerPrefs.GetInt("UnlockedAutomations", 12);
-        //DataLoaded?.Invoke(PlayerData);
     }
 
     public void Save()

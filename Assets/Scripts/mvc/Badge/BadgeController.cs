@@ -37,7 +37,7 @@ public class BadgeController : MonoBehaviour
     private BadgeView _badgeView;
 
     [Inject]
-    public void Construct(Data playerData)
+    public void Construct(IPlayerData playerData)
     {
         _badgeModel = new BadgeModel(playerData);
         _badgeModel.HpChanged += OnHpChanged;
@@ -54,7 +54,6 @@ public class BadgeController : MonoBehaviour
     {
         if (_badgeModel.CurrentHp >= _badgeModel.MaxHp)
         {
-            //TODO: Сделать увеличение уровня через ивент в SessionController
             int coinsAmount = UnityEngine.Random.Range(3, 5);
             int oneCoinCost;
             if (_badgeModel.CostReward >= coinsAmount)
@@ -81,7 +80,7 @@ public class BadgeController : MonoBehaviour
         StopAllCoroutines();
         int hp = GetNewHp();
         int cost = GetNewCost(hp);
-        if (_badgeModel.PlayerData.Level % 5 == 0 && _badgeModel.PlayerData.levelProgress == 10)
+        if (_badgeModel.PlayerData.GetPlayerData().Level % 5 == 0 && _badgeModel.PlayerData.GetPlayerData().LevelProgress == 10) 
         {
             _badgeModel.InitNewBossData(hp, cost);
             _badgeView.SetupBossUI(_badgeModel.BossCountdown);
@@ -98,11 +97,11 @@ public class BadgeController : MonoBehaviour
     private int GetNewHp()
     {
         float exponent = 1f;
-        for (int i = 0; i < _badgeModel.PlayerData.Level - 1; i++)
+        for (int i = 0; i < _badgeModel.PlayerData.GetPlayerData().Level - 1; i++)
             exponent *= 1.55f;
 
-        int hp = (int)(10 * (_badgeModel.PlayerData.Level - 1 + exponent));
-        if (_badgeModel.PlayerData.Level % 5 == 0 && _badgeModel.PlayerData.levelProgress == 10)
+        int hp = (int)(10 * (_badgeModel.PlayerData.GetPlayerData().Level - 1 + exponent));
+        if (_badgeModel.PlayerData.GetPlayerData().Level % 5 == 0 && _badgeModel.PlayerData.GetPlayerData().Level == 10)
             hp *= 10;
 
         return hp;
@@ -129,11 +128,6 @@ public class BadgeController : MonoBehaviour
         CoinController coinController = coin.AddComponent<CoinController>();
         coinController.Init(coinCost, timeToLive);
         coin.GetComponent<CoinController>().CoinCollected += CollectCoin;
-    }
-
-    public void OnPlayerDataChange(Data playerData)
-    {
-        _badgeModel.PlayerData = playerData;
     }
 
     private void CollectCoin(int amount)

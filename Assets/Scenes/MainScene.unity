@@ -1066,7 +1066,6 @@ GameObject:
   - component: {fileID: 161192990}
   - component: {fileID: 161192988}
   - component: {fileID: 161192991}
-  - component: {fileID: 161192992}
   m_Layer: 5
   m_Name: UpgradeMenu
   m_TagString: Untagged
@@ -1182,31 +1181,6 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
---- !u!114 &161192992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 161192986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c927570783e6734188d069d6b60287a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AutomationsObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &164981786
 GameObject:
   m_ObjectHideFlags: 0

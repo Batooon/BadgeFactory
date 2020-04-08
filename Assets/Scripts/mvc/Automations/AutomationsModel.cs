@@ -6,11 +6,11 @@ using System;
 
 public class AutomationsModel
 {
-    public Data PlayerData;
+    public IPlayerData PlayerData;
     public int UnlockedAutomationsAmount;
     public AutomationsData AutomationData;
 
-    public AutomationsModel(Data playerData)
+    public AutomationsModel(IPlayerData playerData)
     {
         PlayerData = playerData;
         Reset();
@@ -19,9 +19,10 @@ public class AutomationsModel
 
     private void Load()
     {
+        //TODO: Load sprites from Asset Bundles
         try
         {
-            AutomationData = XmlOperation.Deserialize<AutomationsData>(Path.Combine(Application.persistentDataPath, "Automations.json"));
+            AutomationData = FileOperations.Deserialize<AutomationsData>(Path.Combine(Application.persistentDataPath, "Automations.json"));
         }
         catch(Exception e)
         {

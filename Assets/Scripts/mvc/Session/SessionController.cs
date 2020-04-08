@@ -4,11 +4,22 @@ using UnityEngine;
 using Zenject;
 using System;
 
+public interface IPlayerData
+{
+    Data GetPlayerData();
+}
+
 public delegate void QuitGameCallback();
 
 [RequireComponent(typeof(SessionView))]
-public class SessionController : MonoInstaller
+public class SessionController : MonoInstaller, IPlayerData
 {
+    #region Events
+    public event Action<int> GoldChanged;
+    public event Action<int> LevelChanged;
+    public event Action<int> LevelProgressChanged;
+    #endregion
+
     [SerializeField]
     private GameObject _badgeButton;
     [SerializeField]
@@ -18,42 +29,29 @@ public class SessionController : MonoInstaller
     private BadgeController _badgeController;
     #endregion
 
-    public event Action<Data> PlayerDataChange;
-
     public SessionModel _sessionModel;
     private SessionView _sessionView;
 
     public override void InstallBindings()
     {
-        Container.Bind<Data>().FromInstance(_sessionModel.PlayerData);
+        Container.Bind<IPlayerData>().FromInstance(this);
         _badgeController = (BadgeController)Container.InstantiateComponent(typeof(BadgeController), _badgeButton);
+        #region Subscription to another controller events
         _badgeController.LevelUp += OnLevelUp;
         _badgeController.CoinCollected += OnCoinCollected;
-        PlayerDataChange += _badgeController.OnPlayerDataChange;
+        #endregion
         Container.InstantiateComponent(typeof(AutomationsController), _automationsPanel);
     }
 
     [Inject]
     public void Construct()
     {
-        Debug.Log("FHUEIOFUIEB");
         _sessionModel = new SessionModel();
-        _sessionModel.PlayerDataChanged += OnPlayerDataChange;
 
         _sessionView = GetComponent<SessionView>();
         _sessionView.QuitCallback = OnQuitCallback;
 
-        OnDataLoaded(_sessionModel.PlayerData);
-    }
-
-    private void OnPlayerDataChange(Data playerData)
-    {
-        PlayerDataChange?.Invoke(playerData);
-    }
-
-    private void OnDataLoaded(Data playerData)
-    {
-        _sessionView.FetchUI(playerData);
+        _sessionView.FetchAllComponents(_sessionModel.PlayerData);
     }
 
     private void OnQuitCallback()
@@ -64,24 +62,31 @@ public class SessionController : MonoInstaller
 
     private void OnLevelUp()
     {
-        if (_sessionModel.PlayerData.levelProgress == 10)
+        if (_sessionModel.PlayerData.LevelProgress == 10)
         {
-            _sessionModel.PlayerData.levelProgress = 0;
+            _sessionModel.PlayerData.LevelProgress = 0;
             _sessionModel.PlayerData.Level += 1;
-            //_sessionView.FetchUI(_sessionModel.PlayerData);
+            _sessionView.FetchLevel(_sessionModel.PlayerData.Level);
+            _sessionView.FetchLevelProgress(_sessionModel.PlayerData.LevelProgress);
+            LevelChanged?.Invoke(_sessionModel.PlayerData.Level);
+            LevelProgressChanged?.Invoke(_sessionModel.PlayerData.LevelProgress);
         }
         else
         {
-            _sessionModel.PlayerData.levelProgress += 1;
+            _sessionModel.PlayerData.LevelProgress += 1;
+            _sessionView.FetchLevelProgress(_sessionModel.PlayerData.LevelProgress);
+            LevelProgressChanged?.Invoke(_sessionModel.PlayerData.LevelProgress);
         }
-        _sessionView.FetchUI(_sessionModel.PlayerData);
-        //_sessionView.LevelUp(_sessionModel.PlayerData.levelProgress);
-        PlayerDataChange?.Invoke(_sessionModel.PlayerData);
     }
 
     private void OnCoinCollected(int amount)
     {
         _sessionModel.PlayerData.GoldAmount += amount;
-        _sessionView.FetchUI(_sessionModel.PlayerData);
+        _sessionView.FetchGold(_sessionModel.PlayerData.GoldAmount);
+    }
+
+    public Data GetPlayerData()
+    {
+        return _sessionModel.PlayerData;
     }
 }

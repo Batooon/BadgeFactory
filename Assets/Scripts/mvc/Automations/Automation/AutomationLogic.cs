@@ -8,7 +8,7 @@ public class AutomationLogic : MonoBehaviour //Automation controller
     private AutomationPresentation _automationPresentation;
     private AutomationData _automationData;
 
-    public void InitializeAutomation(IAutomation automation, AutomationCreationParams automationParams, Data playerData)
+    public void InitializeAutomation(IAutomation automation, AutomationCreationParams automationParams, IPlayerData playerData)
     {
         _automationData = new AutomationData(automation, automationParams, playerData);
         _automationPresentation = GetComponent<AutomationPresentation>();

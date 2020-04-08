@@ -10,7 +10,7 @@ public class AutomationsController : MonoBehaviour
     private AutomationsModel _automationsModel;
 
     [Inject]
-    public void Construct(Data playerData)
+    public void Construct(IPlayerData playerData)
     {
         _automationsModel = new AutomationsModel(playerData);
         _automationsView = GetComponent<AutomationsView>();
