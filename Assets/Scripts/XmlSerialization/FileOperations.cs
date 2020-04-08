@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public static class XmlOperation
+public static class FileOperations
 {
     public static void Serialize(object item, string path)
     {
@@ -21,5 +21,17 @@ public static class XmlOperation
         T deserialized = JsonUtility.FromJson<T>(file);
         reader.Close();
         return deserialized;
+    }
+
+    public static T LoadAssetBundle<T>(string assetBundleName) where T : UnityEngine.Object
+    {
+        var assetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, assetBundleName));
+        if (assetBundle == null)
+        {
+            Debug.LogError("Failed to load AssetBundle!");
+            throw new DirectoryNotFoundException();
+        }
+        T asset = assetBundle.LoadAsset<T>("Object");
+        return asset;
     }
 }
