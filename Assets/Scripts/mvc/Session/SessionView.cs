@@ -32,28 +32,32 @@ public class SessionView : MonoBehaviour
     private Image _levelFiller;
     #endregion
 
+    public void FetchAllComponents(Data playerData)
+    {
+        FetchGold(playerData.GoldAmount);
+        FetchLevel(playerData.Level);
+        FetchLevel(playerData.LevelProgress);
+    }
+
     public void ActivateReturningPlayerWindow(int gainedGoldAmount)
     {
         _returnedAmountOfGold.text = gainedGoldAmount.ToString();
         _returningPlayerWindow.SetActive(true);
     }
 
-    public void FetchUI(Data playerData)
+    public void FetchGold(int goldAmount)
     {
-        _levelText.text = $"Level {playerData.Level}";
-        _goldText.text = playerData.GoldAmount.ConvertValue();
-        _levelFiller.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, playerData.levelProgress));
+        _goldText.text = goldAmount.ConvertValue();
     }
 
-    public void LevelUp(int levelProgress)
+    public void FetchLevel(int level)
+    {
+        _levelText.text = $"Level {level}";
+    }
+
+    public void FetchLevelProgress(int levelProgress)
     {
         _levelFiller.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(0, 10, levelProgress));
-    }
-
-    private void Awake()
-    {/*
-        _closeExitMenuButton.onClick.AddListener(() => _exitWindow.SetActive(false));
-        _exitButton.onClick.AddListener(ExitGame);*/
     }
 
     private void Update()
@@ -63,6 +67,7 @@ public class SessionView : MonoBehaviour
             _exitWindow.SetActive(true);
         }
     }
+
 
     private void ExitGame()
     {
