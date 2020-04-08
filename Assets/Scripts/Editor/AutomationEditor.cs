@@ -40,7 +40,7 @@ public class AutomationEditor : ExtendedEditorWindow
         {
             try
             {
-                XmlOperation.Serialize(automations, Path.Combine(Application.persistentDataPath, "Automations.json"));
+                FileOperations.Serialize(automations, Path.Combine(Application.persistentDataPath, "Automations.json"));
             }
             catch(Exception e)
             {
