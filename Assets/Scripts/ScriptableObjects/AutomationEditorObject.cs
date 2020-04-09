@@ -10,6 +10,7 @@ public enum AutomationTypes
 [System.Serializable]
 public class AutomationCreationParams
 {
+    [System.NonSerialized]
     public Sprite Icon;
     public string Name;
     public int StartingLevel;
