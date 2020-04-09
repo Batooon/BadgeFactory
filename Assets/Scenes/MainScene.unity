@@ -7744,7 +7744,6 @@ GameObject:
   - component: {fileID: 1807556619}
   - component: {fileID: 1807556621}
   - component: {fileID: 1807556620}
-  - component: {fileID: 1807556622}
   m_Layer: 5
   m_Name: CollectionMenu
   m_TagString: Untagged
@@ -7808,23 +7807,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807556618}
   m_CullTransparentMesh: 0
---- !u!114 &1807556622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807556618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64a268d60c2de414a9ca348fc1545eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParentToSpawnBadges: {fileID: 532730670}
-  Badge: {fileID: 8321631322934023013, guid: 335b0eae8a6a2e345824202374ff18df, type: 3}
-  ClosedSprite: {fileID: 6147356912436957134, guid: 564633f8a0a8da94b9ddd0e04cc0e365,
-    type: 3}
-  RareBadges: []
 --- !u!1 &1835750046
 GameObject:
   m_ObjectHideFlags: 0
