@@ -8,7 +8,7 @@ public class AutomationsView : MonoBehaviour
     [HideInInspector]
     public List<GameObject> AutomationsObjects = new List<GameObject>();
 
-    public void InitAutomations(List<AutomationCreationParams> automationsData)
+    public void InitAutomations(List<AutomationEditorParams> automationsData)
     {
         for (int i = 0; i < automationsData.Count; i++)
         {

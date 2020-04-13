@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 using TMPro;
-using System;
+using UnityEngine;
 using UnityEngine.UI;
-
-//Developer: Antoshka
 
 public class AutomationPresentation : MonoBehaviour //Automation View
 {
@@ -27,13 +23,13 @@ public class AutomationPresentation : MonoBehaviour //Automation View
     private TextMeshProUGUI _upgradeCostText;
     #endregion
 
-    public void InitAutomation(AutomationCreationParams automationData)
+    public void InitAutomation(AutomationEditorParams automationData)
     {
         _upgradeButton.onClick.AddListener(UpgradeButtonPressed);
         _automationImage.sprite = automationData.Icon;
-        _nameText.text = automationData.Name;
+        /*_nameText.text = automationData.Name;
         _damageText.text = automationData.StartingDamagePerSecond.ConvertValue();
-        _upgradeCostText.text = automationData.StartingCost.ConvertValue();
+        _upgradeCostText.text = automationData.StartingCost.ConvertValue();*/
     }
 
     public void FetchDamage(int newDamage,bool isUpgradeButtonInteractable)
@@ -50,7 +46,12 @@ public class AutomationPresentation : MonoBehaviour //Automation View
     }
 }
 
-public class AutomationData //Automation Model
+public interface IAutomationLogic
+{
+    void SetAutomationType(IAutomation automation);
+}
+
+public class AutomationModel //Automation Model
 {
     private IAutomation _automation;
     public IAutomation Automation
@@ -59,8 +60,8 @@ public class AutomationData //Automation Model
         private set { }
     }
 
-    private AutomationCreationParams _automationData;
-    public AutomationCreationParams AutomationParams
+    private AutomationEditorParams _automationData;
+    public AutomationEditorParams AutomationParams
     {
         get => _automationData;
         private set { }
@@ -72,7 +73,7 @@ public class AutomationData //Automation Model
         private set { }
     }
 
-    public AutomationData(IAutomation automation, AutomationCreationParams automationData, IPlayerData playerData)
+    public AutomationModel(IAutomation automation, AutomationEditorParams automationData, IPlayerData playerData)
     {
         _automation = automation;
         _automationData = automationData;
@@ -86,6 +87,7 @@ public struct AutomationUpgradeParams
     public int Startingcost;
 }
 
+[Serializable]
 public class UsualAutomation : IAutomation
 {
     public void Upgrade(ref int currentLevel, ref int currentDpsValue, ref int currentCost, AutomationUpgradeParams automationUpgradeParams)
@@ -95,6 +97,7 @@ public class UsualAutomation : IAutomation
     }
 }
 
+[Serializable]
 public class ClickAutomation : IAutomation
 {
     public void Upgrade(ref int currentLevel, ref int currentDpsValue, ref int currentCos, AutomationUpgradeParams automationUpgradeParams)

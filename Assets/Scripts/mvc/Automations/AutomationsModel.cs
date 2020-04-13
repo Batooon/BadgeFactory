@@ -4,11 +4,18 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public class AutomationsModel
+public interface IJsonSerializer
+{
+    void Serialize(object item, string path);
+    T Deserialize<T>(string path);
+}
+
+public class AutomationsModel : IJsonSerializer
 {
     public IPlayerData PlayerData;
     public int UnlockedAutomationsAmount;
-    public AutomationsData AutomationData;
+    //public AutomationsData AutomationData;
+    public List<CurrentPlayerAutomationData> PlayerAutoamtionData;
 
     public AutomationsModel(IPlayerData playerData)
     {
@@ -22,9 +29,9 @@ public class AutomationsModel
         //TODO: Load sprites from Asset Bundles
         try
         {
-            AutomationData = FileOperations.Deserialize<AutomationsData>(Path.Combine(Application.persistentDataPath, "Automations.json"));
+            //AutomationData = FileOperations.Deserialize<AutomationsData>(Path.Combine(Application.persistentDataPath, "Automations.json"));
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.LogError(e);
         }
@@ -38,5 +45,22 @@ public class AutomationsModel
     private void Reset()
     {
 
+    }
+
+    public void Serialize(object item, string path)
+    {
+        StreamWriter writer = new StreamWriter(path);
+        string file = JsonUtility.ToJson(item, true);
+        writer.Write(file);
+        writer.Close();
+    }
+
+    public T Deserialize<T>(string path)
+    {
+        StreamReader reader = new StreamReader(path);
+        string file = reader.ReadToEnd();
+        T deserialized = JsonUtility.FromJson<T>(file);
+        reader.Close();
+        return deserialized;
     }
 }
