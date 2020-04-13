@@ -56,7 +56,7 @@ public class ExtendedEditorWindow : EditorWindow
         }
     }
 
-    protected void DrawField(string propName,bool relative)
+    protected void DrawField(string propName, bool relative)
     {
         if (relative && currentProperty != null)
         {

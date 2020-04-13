@@ -1,35 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public enum AutomationTypes
+[Serializable]
+public class AutomationData
 {
-    UsualAutomation,
-    ClickPower
-}
-
-[System.Serializable]
-public class AutomationCreationParams
-{
-    [System.NonSerialized]
-    public Sprite Icon;
     public string Name;
+
     public int StartingLevel;
     public int StartingCost;
-    public int StartingDamagePerSecond;
-    public AutomationTypes AutomationType;
+    public int StartingDps;
+}
+
+[Serializable]
+public class AutomationEditorParams
+{
+    public Sprite Icon;
+    public AutomationData automationData;
+    [SerializeReference]
+    [SelectImplementation(typeof(IAutomation))]
+    public IAutomation Automation;
 }
 
 [CreateAssetMenu]
-[System.Serializable]
 public class AutomationEditorObject : ScriptableObject
 {
     [SerializeField]
-    public List<AutomationCreationParams> Automations;
+    public List<AutomationEditorParams> Automations;
 }
 
-[System.Serializable]
-public class AutomationsData
+public class SelectImplementationAttribute : PropertyAttribute
 {
-    [SerializeField]
-    public List<AutomationCreationParams> Automations;
+    public Type FieldType;
+    public SelectImplementationAttribute(Type fieldType)
+    {
+        FieldType = fieldType;
+    }
 }

@@ -13,75 +13,15 @@ MonoBehaviour:
   m_Name: AutomationEditor
   m_EditorClassIdentifier: 
   Automations:
-  - Icon: {fileID: 7414601071545361866, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
-    Name: Click Power
-    StartingLevel: 1
-    StartingCost: 10
-    StartingDamagePerSecond: 5
-    AutomationType: 1
-  - Icon: {fileID: -501238390575150475, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
-    Name: Anton
-    StartingLevel: 0
-    StartingCost: 50
-    StartingDamagePerSecond: 9
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 1
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
-  - Icon: {fileID: 0}
-    Name: 
-    StartingLevel: 0
-    StartingCost: 0
-    StartingDamagePerSecond: 0
-    AutomationType: 0
+  - Icon: {fileID: -2003858869719675271, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+    automationData:
+      Name: Click Power
+      StartingLevel: 3
+      StartingCost: 6
+      StartingDps: 3
+    Automation:
+      id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ClickAutomation, ns: , asm: Assembly-CSharp}
