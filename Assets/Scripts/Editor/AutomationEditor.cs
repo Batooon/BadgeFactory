@@ -53,62 +53,27 @@ public class AutomationEditor : ExtendedEditorWindow
         if (AutomationParent != null && AutomationPrefab != null && GUILayout.Button("Instantiate Automations"))
         {
             var automationEditor = serializedObject.targetObject as AutomationEditorObject;
+            IAutomationDatabase automationDatabase = new AutomationDatabse();
 
             for (int i = 0; i < _currentArraylength; i++)
             {
+                AutomationEditorParams automationParams = automationEditor.Automations[i];
+
                 GameObject automation = Instantiate(AutomationPrefab, AutomationParent);
-                IAutomationInitializer automationsInitializer = automation.GetComponent<IAutomationInitializer>();
-                automationsInitializer.Initialize(automationEditor.Automations[i].automationData,
-                    automationEditor.Automations[i].Icon,
-                    automationEditor.Automations[i].Automation);
+                AutomationInitializer automationInitializer = automation.GetComponent<AutomationInitializer>();
+
+                automationInitializer.InitializeAutomation(automationParams.Automation,
+                    automationParams.Name,
+                    automationParams.Icon);
+
+                CurrentPlayerAutomationData automationData = new CurrentPlayerAutomationData();
+                automationData.StartingCost = automationEditor.Automations[i].StartingCost;
+                automationData.StartingDamage = automationEditor.Automations[i].StartingDps;
+
+                automationDatabase.SaveAutomationData(automationData, i);
             }
+            automationDatabase.Serialize();
         }
-
-        /*if (GUILayout.Button("Save to JSON and save sprites to Asset Bundle"))
-        {
-            //List<DefaultAutomationData> automationsData = new List<DefaultAutomationData>();
-            SerializedDefaultAutomationData automationsData = new SerializedDefaultAutomationData();
-            foreach (var item in automations.Automations)
-            {
-                DefaultAutomationData automationData = new DefaultAutomationData();
-                automationData.Name = item.Name;
-                automationData.StartingCost = item.StartingCost;
-                automationData.StartingDps = item.StartingDamagePerSecond;
-                automationData.StartingLevel = item.StartingLevel;
-                //automationData.AutomationType = item.Automation;
-
-                if (item.Automation is ClickAutomation)
-                {
-                    automationData.AutomationType = AutomationTypes.ClickPower;
-                }
-                else if(item.Automation is UsualAutomation)
-                {
-                    automationData.AutomationType = AutomationTypes.UsualAutomation;
-                }
-                else
-                {
-                    Debug.LogError("Такой тип автомации отсутствует. Добавь его сюда, или поправь тип автомации");
-                }
-
-                automationsData.AutomationsData.Add(automationData);
-                //TODO: сделать сохранение картинок в Asset Bundles
-                //TODO: показывать работающие автомации в игре
-                AssetDatabase.MoveAsset($"{_spritesFolderPath}/{item.Icon.name}", _assetBundleFolder);
-            }
-
-            CreateAssetBundles.BuildAllAssetBundles();
-
-            try
-            {
-                FileOperations.Serialize(automationsData, Path.Combine(Application.persistentDataPath, "AutomationsDefaultData.json"));
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-                return;
-            }
-            Debug.Log("<b><color=green>Automations serialized successfully</color></b>");
-        }*/
 
         EditorGUILayout.EndVertical();
 

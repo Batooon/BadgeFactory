@@ -2,24 +2,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AutomationInitializer : MonoBehaviour, IAutomationInitializer
+public class AutomationInitializer : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI _nameText;
+    private TextMeshProUGUI Name;
     [SerializeField]
-    private TextMeshProUGUI _damageText;
-    [SerializeField]
-    private TextMeshProUGUI _upgradeCostText;
-    [SerializeField]
-    private Image _automationImage;
+    private Image AutomationImage;
 
-    public void Initialize(AutomationData automationData, Sprite automationIcon, IAutomation automation)
+    public void InitializeAutomation(IAutomation automationType, string Name, Sprite Icon)
     {
-        _nameText.text = automationData.Name;
-        _automationImage.sprite = automationIcon;
-        _damageText.text = automationData.StartingDps.ConvertValue();
-        _upgradeCostText.text = automationData.StartingCost.ConvertValue();
-        IAutomationLogic automationLogic = GetComponent<IAutomationLogic>();
-        automationLogic.SetAutomationType(automation);
+        this.Name.text = Name;
+        AutomationImage.sprite = Icon;
+        AutomationLogic automationLogic = gameObject.GetComponent<AutomationLogic>();
+        automationLogic.SetAutomationType(automationType);
     }
 }

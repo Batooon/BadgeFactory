@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System;
 
-[Serializable]
+/*[Serializable]
 public class AutomationData
 {
-    public string Name;
-
     public int StartingLevel;
     public int StartingCost;
     public int StartingDps;
-}
+}*/
 
 [Serializable]
 public class AutomationEditorParams
 {
     public Sprite Icon;
-    public AutomationData automationData;
+    public string Name;
+    public int StartingCost;
+    public int StartingDps;
     [SerializeReference]
     [SelectImplementation(typeof(IAutomation))]
     public IAutomation Automation;
