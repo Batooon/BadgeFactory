@@ -3,5 +3,5 @@
 
 public interface IAutomationInitializer
 {
-    void Initialize(AutomationData automationData, Sprite automationIcon, IAutomation automationType);
+    void Initialize(Sprite automationIcon, string automationName, IAutomation automationType);
 }

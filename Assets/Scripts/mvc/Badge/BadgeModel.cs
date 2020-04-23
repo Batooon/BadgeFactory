@@ -24,7 +24,7 @@ public class BadgeModel
     public bool IsBoss;
     public Badge CurrentBadge;
 
-    public IPlayerData PlayerData;
+    public IPlayerDataProvider PlayerData;
     #endregion
     #region Graphic Data
     public Sprite[] BadgeImages;
@@ -34,7 +34,7 @@ public class BadgeModel
     public List<Badge> BossBadges = new List<Badge>();
     #endregion
 
-    public BadgeModel(IPlayerData playerData)
+    public BadgeModel(IPlayerDataProvider playerData)
     {
         PlayerData = playerData;
         DeleteAll();

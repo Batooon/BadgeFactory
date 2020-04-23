@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using System;
 
-public interface IPlayerData
+public interface IPlayerDataProvider
 {
     Data GetPlayerData();
 }
@@ -12,7 +12,7 @@ public interface IPlayerData
 public delegate void QuitGameCallback();
 
 [RequireComponent(typeof(SessionView))]
-public class SessionController : MonoInstaller, IPlayerData
+public class SessionController : MonoInstaller, IPlayerDataProvider
 {
     #region Events
     public event Action<int> GoldChanged;
@@ -34,7 +34,7 @@ public class SessionController : MonoInstaller, IPlayerData
 
     public override void InstallBindings()
     {
-        Container.Bind<IPlayerData>().FromInstance(this);
+        Container.Bind<IPlayerDataProvider>().FromInstance(this);
         _badgeController = (BadgeController)Container.InstantiateComponent(typeof(BadgeController), _badgeButton);
         #region Subscription to another controller events
         _badgeController.LevelUp += OnLevelUp;

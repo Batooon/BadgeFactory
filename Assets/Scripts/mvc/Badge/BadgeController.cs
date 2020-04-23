@@ -37,7 +37,7 @@ public class BadgeController : MonoBehaviour
     private BadgeView _badgeView;
 
     [Inject]
-    public void Construct(IPlayerData playerData)
+    public void Construct(IPlayerDataProvider playerData)
     {
         _badgeModel = new BadgeModel(playerData);
         _badgeModel.HpChanged += OnHpChanged;

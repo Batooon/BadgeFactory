@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: AutomationEditor
   m_EditorClassIdentifier: 
   Automations:
-  - Icon: {fileID: -2003858869719675271, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
-    automationData:
-      Name: Click Power
-      StartingLevel: 3
-      StartingCost: 6
-      StartingDps: 3
+  - Icon: {fileID: 3599995662316845299, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+    Name: Onton
+    StartingCost: 12
+    StartingDps: 5412
     Automation:
       id: 0
   references:

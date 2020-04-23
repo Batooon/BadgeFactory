@@ -12,12 +12,12 @@ public interface IJsonSerializer
 
 public class AutomationsModel : IJsonSerializer
 {
-    public IPlayerData PlayerData;
+    public IPlayerDataProvider PlayerData;
     public int UnlockedAutomationsAmount;
     //public AutomationsData AutomationData;
     public List<CurrentPlayerAutomationData> PlayerAutoamtionData;
 
-    public AutomationsModel(IPlayerData playerData)
+    public AutomationsModel(IPlayerDataProvider playerData)
     {
         PlayerData = playerData;
         Reset();

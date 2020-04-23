@@ -11,8 +11,8 @@ public class AutomationInitializer : MonoBehaviour
 
     public void InitializeAutomation(IAutomation automationType, string Name, Sprite Icon)
     {
-        this.Name.text = Name;
-        AutomationImage.sprite = Icon;
+        /*this.Name.text = Name;
+        AutomationImage.sprite = Icon;*/
         AutomationLogic automationLogic = gameObject.GetComponent<AutomationLogic>();
         automationLogic.SetAutomationType(automationType);
     }
