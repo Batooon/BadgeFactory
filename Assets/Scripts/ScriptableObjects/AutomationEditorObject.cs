@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using OdinSerializer;
 
 /*[Serializable]
 public class AutomationData

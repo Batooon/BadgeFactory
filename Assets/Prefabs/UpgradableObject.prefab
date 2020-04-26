@@ -380,9 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64078fc9567d444fbebd248b191b698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _upgradeButton: {fileID: 6040134054047985798}
-  _automationImage: {fileID: 1662438333}
-  _nameText: {fileID: 4366322056011647993}
   _damageText: {fileID: 6662429085188290780}
   _upgradeCostText: {fileID: 6040134055137645849}
 --- !u!114 &6508109405578542435
@@ -411,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b81e3c6cadea624e95c36879ca9e501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _upgradeButton: {fileID: 6040134054047985798}
 --- !u!1 &5894238311498300329
 GameObject:
   m_ObjectHideFlags: 0

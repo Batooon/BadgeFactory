@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using OdinSerializer;
+using OdinSerializer.Utilities;
 
 public interface IAutomationDatabase
 {
@@ -22,7 +25,8 @@ public class AutomationDatabse : IAutomationDatabase
 
     public CurrentPlayerAutomationData GetAutomationData(int automationId)
     {
-        return AutomationData[automationId];
+        return new CurrentPlayerAutomationData();
+        //return AutomationData[automationId];
     }
 
     public void SaveAutomationData(CurrentPlayerAutomationData automationData, int automationID)
@@ -41,50 +45,43 @@ public class AutomationDatabse : IAutomationDatabase
     }
 }
 
-public class AutomationLogic : MonoBehaviour
+public class AutomationLogic : SerializedMonoBehaviour
 {
     public event Action<CurrentPlayerAutomationData> AutomationUpgraded;
 
+    [SerializeField]
+    private Button _upgradeButton;
+
     private int _automationId;
-    private IAutomation _automation;
+    [OdinSerialize]
+    public IAutomation _automation;
     private IAutomationDatabase _automationDatabase;
+
+    private IAutomationBusinessInput _automationInput;
 
     private void Awake()
     {
         _automationDatabase = new AutomationDatabse();
+        AutomationPresentation automationPresentation=GetComponent<AutomationPresentation>();
+        _automationInput = new AutomationBusinessRules(new AutomationPresentator(automationPresentation));
     }
 
-    /* private CurrentPlayerAutomationData _defaultAutomaitonData;
-
-     private AutomationPresentation _automationPresentation;
-     private AutomationModel _automationModel;*/
-
-    public void InitializeAutomation(CurrentPlayerAutomationData automationParams, IPlayerDataProvider playerData)
+    private void Start()
     {
-       /* _automationModel = new AutomationModel(automationParams, playerData);
-        _automationPresentation = GetComponent<AutomationPresentation>();
-        _automationPresentation.InitAutomation(automationParams);
-
-        _automationPresentation.Upgrade += OnUpgradeButtonPressed;*/
-        /*
-        _automationPresentation.FetchDamage(_automationData.AutomationParams.StartingDamagePerSecond, CanUpgrade());
-        _automationPresentation.FetchCost(_automationData.AutomationParams.StartingCost);*/
+        _upgradeButton.onClick.AddListener(OnUpgradeButtonPressed);
     }
 
     public void OnUpgradeButtonPressed()
     {
-        Debug.Log(_automation);
         CurrentPlayerAutomationData automationData = _automationDatabase.GetAutomationData(_automationId);
-        _automation.Upgrade(ref automationData);
+
+        AutomationUpgradeParams automationUpgradeParams;
+        automationUpgradeParams.Automation = _automation;
+        automationUpgradeParams.AutomationData = automationData;
+
+        _automationInput.TryUpgradeAutomation(automationUpgradeParams);
+
         _automationDatabase.SaveAutomationData(automationData, _automationId);
-
-        AutomationUpgraded?.Invoke(automationData);
-    }
-
-    private bool CanUpgrade()
-    {
-        //return _automationData.PlayerStats.GoldAmount >= _automationData.AutomationParams.StartingCost;
-        return true;
     }
 
     public void SetAutomationType(IAutomation automation)

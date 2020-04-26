@@ -1,103 +1,56 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
+public struct AutomationViewModel
+{
+    public string AutomationCost;
+    public string AutomationDamage;
+}
 
 public class AutomationPresentation : MonoBehaviour
 {
-    #region Events
+    /*#region Events
     public event Action Upgrade;
-    #endregion
+    #endregion*/
 
-    #region UI Fields
-    [SerializeField]
-    private Button _upgradeButton;
-    [Space]
     [SerializeField]
     private TextMeshProUGUI _damageText;
     [SerializeField]
     private TextMeshProUGUI _upgradeCostText;
-    #endregion
 
-    [SerializeField]
-    private AutomationLogic _automationLogic;
-
-    private void OnEnable()
+    public void OnAutomationUpgraded(AutomationViewModel automationParams)
     {
-        _automationLogic.AutomationUpgraded += UpdateUI;
+        _damageText.text = automationParams.AutomationDamage;
+        _upgradeCostText.text = automationParams.AutomationCost;
     }
-
-    private void OnDisable()
-    {
-        _automationLogic.AutomationUpgraded -= UpdateUI;
-    }
-
-    private void UpdateUI(CurrentPlayerAutomationData automationData)
-    {
-
-    }
-
-    /*public void InitAutomation(CurrentPlayerAutomationData automationData)
-    {
-        _upgradeButton.onClick.AddListener(UpgradeButtonPressed);
-    }
-
-    public void FetchDamage(int newDamage,bool isUpgradeButtonInteractable)
-    {
-        _damageText.text = newDamage.ConvertValue();
-        _upgradeButton.interactable = isUpgradeButtonInteractable;
-    }*/
-
-    public void FetchCost(int newCost) => _upgradeCostText.text = newCost.ConvertValue();
-
-    public void UpgradeButtonPressed()
-    {
-        _automationLogic.OnUpgradeButtonPressed();
-        //Upgrade?.Invoke();
-    }
-}
-
-public interface IAutomationLogic
-{
-    void SetAutomationType(IAutomation automation);
-}
-
-public struct AutomationUpgradeParams
-{
-    public int startingDpsValue;
-    public int Startingcost;
 }
 
 [Serializable]
 public class UsualAutomation : IAutomation
 {
-    /*public void Upgrade(ref int currentLevel, ref int currentDpsValue, ref int currentCost, AutomationUpgradeParams automationUpgradeParams)
-    {
-        currentLevel += 1;
-        currentDpsValue = Mathf.RoundToInt(automationUpgradeParams.startingDpsValue * 1.07f * currentLevel);
-    }*/
+    private float _upgradeFactor = 1.07f;
 
     public void Upgrade(ref CurrentPlayerAutomationData automationData)
     {
-        throw new NotImplementedException();
+        automationData.Level += 1;
+        automationData.DamagePerSecond = Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
     }
 }
 
 [Serializable]
 public class ClickAutomation : IAutomation
 {
-    private float upgradeFactor = 1.07f;
+    private float _upgradeFactor = 1.07f;
 
     public void Upgrade(ref CurrentPlayerAutomationData automationData)
     {
         automationData.Level += 1;
-        automationData.DamagePerSecond = Mathf.RoundToInt(automationData.StartingDamage * upgradeFactor * automationData.Level);
+        automationData.DamagePerSecond = Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
 
-        float costFactor = upgradeFactor;
+        float costFactor = _upgradeFactor;
         for (int i = 0; i < automationData.Level - 1; i++)
-            costFactor *= upgradeFactor;
+            costFactor *= _upgradeFactor;
         automationData.Cost = (int)(automationData.StartingCost * costFactor);
-
-        throw new NotImplementedException();
     }
 }
