@@ -7,6 +7,7 @@ using System;
 public interface IPlayerDataProvider
 {
     Data GetPlayerData();
+    void SavePlayerData(Data playerData);
 }
 
 public delegate void QuitGameCallback();
@@ -88,5 +89,10 @@ public class SessionController : MonoInstaller, IPlayerDataProvider
     public Data GetPlayerData()
     {
         return _sessionModel.PlayerData;
+    }
+
+    public void SavePlayerData(Data playerData)
+    {
+        throw new NotImplementedException();
     }
 }

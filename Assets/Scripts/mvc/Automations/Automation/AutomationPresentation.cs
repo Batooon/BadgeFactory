@@ -6,6 +6,7 @@ public struct AutomationViewModel
 {
     public string AutomationCost;
     public string AutomationDamage;
+    public bool IsEnoughMoney;
 }
 
 public class AutomationPresentation : MonoBehaviour
@@ -23,6 +24,18 @@ public class AutomationPresentation : MonoBehaviour
     {
         _damageText.text = automationParams.AutomationDamage;
         _upgradeCostText.text = automationParams.AutomationCost;
+
+        if (!automationParams.IsEnoughMoney)
+        {
+            //TODO: делать текст красным или что-то тип такого. Чтобы дать понять игроку, что денег не хватает
+            _upgradeCostText.faceColor = Color.red;//Сделать так, чтобы дизайнер мог это настраивать
+        }
+    }
+
+    public void OnAutomationNotUpgraded()
+    {
+        //предложить докупить валюту за кристалы
+        //Посмотреть какое-то количество рекламы или задонатить
     }
 }
 

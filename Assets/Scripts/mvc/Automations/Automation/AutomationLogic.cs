@@ -15,7 +15,6 @@ public interface IAutomationDatabase
 
 public class AutomationDatabse : IAutomationDatabase
 {
-    private const string AutomationDataPath = "hfisorgniorbgoiebrogb";
     private List<CurrentPlayerAutomationData> AutomationData = new List<CurrentPlayerAutomationData>();
 
     public AutomationDatabse()
@@ -53,17 +52,18 @@ public class AutomationLogic : SerializedMonoBehaviour
     private Button _upgradeButton;
 
     private int _automationId;
+
     [OdinSerialize]
-    public IAutomation _automation;
-    private IAutomationDatabase _automationDatabase;
+    private IAutomation _automation;
 
     private IAutomationBusinessInput _automationInput;
 
     private void Awake()
     {
-        _automationDatabase = new AutomationDatabse();
         AutomationPresentation automationPresentation=GetComponent<AutomationPresentation>();
-        _automationInput = new AutomationBusinessRules(new AutomationPresentator(automationPresentation));
+        _automationInput = new AutomationBusinessRules(new AutomationPresentator(automationPresentation),
+            new PlayerDataAccess(),
+            new AutomationDatabse());
     }
 
     private void Start()
@@ -73,15 +73,7 @@ public class AutomationLogic : SerializedMonoBehaviour
 
     public void OnUpgradeButtonPressed()
     {
-        CurrentPlayerAutomationData automationData = _automationDatabase.GetAutomationData(_automationId);
-
-        AutomationUpgradeParams automationUpgradeParams;
-        automationUpgradeParams.Automation = _automation;
-        automationUpgradeParams.AutomationData = automationData;
-
-        _automationInput.TryUpgradeAutomation(automationUpgradeParams);
-
-        _automationDatabase.SaveAutomationData(automationData, _automationId);
+        _automationInput.TryUpgradeAutomation(_automationId, _automation);
     }
 
     public void SetAutomationType(IAutomation automation)
