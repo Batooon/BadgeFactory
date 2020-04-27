@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-using OdinSerializer;
-using OdinSerializer.Utilities;
 
 public interface IAutomationDatabase
 {
@@ -44,7 +41,7 @@ public class AutomationDatabse : IAutomationDatabase
     }
 }
 
-public class AutomationLogic : SerializedMonoBehaviour
+public class AutomationLogic : MonoBehaviour
 {
     public event Action<CurrentPlayerAutomationData> AutomationUpgraded;
 
@@ -53,7 +50,7 @@ public class AutomationLogic : SerializedMonoBehaviour
 
     private int _automationId;
 
-    [OdinSerialize]
+    [SerializeReference]
     private IAutomation _automation;
 
     private IAutomationBusinessInput _automationInput;
