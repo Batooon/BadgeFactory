@@ -57,10 +57,10 @@ public class AutomationLogic : MonoBehaviour
 
     private void Awake()
     {
-        AutomationPresentation automationPresentation=GetComponent<AutomationPresentation>();
+        AutomationPresentation automationPresentation = GetComponent<AutomationPresentation>();
         _automationInput = new AutomationBusinessRules(new AutomationPresentator(automationPresentation),
-            new PlayerDataAccess(),
-            new AutomationDatabse());
+                                                       new PlayerDataAccess(),
+                                                       new AutomationDatabse());
     }
 
     private void Start()
