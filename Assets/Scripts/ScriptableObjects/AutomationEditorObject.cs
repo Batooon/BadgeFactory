@@ -1,15 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
-using OdinSerializer;
-
-/*[Serializable]
-public class AutomationData
-{
-    public int StartingLevel;
-    public int StartingCost;
-    public int StartingDps;
-}*/
 
 [Serializable]
 public class AutomationEditorParams
