@@ -12,9 +12,19 @@ public interface IAutomationDatabase
 
 public class AutomationDatabse : IAutomationDatabase
 {
+    private static AutomationDatabse _singleton;
+
     private List<CurrentPlayerAutomationData> AutomationData = new List<CurrentPlayerAutomationData>();
 
-    public AutomationDatabse()
+    public static AutomationDatabse GetAutomaitonDatabase()
+    {
+        if (_singleton == null)
+            return _singleton = new AutomationDatabse();
+
+        return _singleton;
+    }
+
+    private AutomationDatabse()
     {
         //Deserialize Automation Data
     }
@@ -51,6 +61,7 @@ public class AutomationLogic : MonoBehaviour
     private int _automationId;
 
     [SerializeReference]
+    [SelectImplementation(typeof(IAutomation))]
     private IAutomation _automation;
 
     private IAutomationBusinessInput _automationInput;
@@ -59,8 +70,8 @@ public class AutomationLogic : MonoBehaviour
     {
         AutomationPresentation automationPresentation = GetComponent<AutomationPresentation>();
         _automationInput = new AutomationBusinessRules(new AutomationPresentator(automationPresentation),
-                                                       new PlayerDataAccess(),
-                                                       new AutomationDatabse());
+                                                       PlayerDataAccess.GetPlayerDatabase(),
+                                                       AutomationDatabse.GetAutomaitonDatabase());
     }
 
     private void Start()

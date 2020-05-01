@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-
-public interface IAutomationUpgrader
+﻿public interface IAutomationUpgrader
 {
     void UpgradeAutomation(CurrentPlayerAutomationData automationData);
 }
@@ -65,9 +60,19 @@ public class AutomationBusinessRules : IAutomationBusinessInput
 
 public class PlayerDataAccess : IPlayerDataProvider
 {
+    private static PlayerDataAccess _singleton;
+
     private Data _playerData;
 
-    public PlayerDataAccess()
+    public static PlayerDataAccess GetPlayerDatabase()
+    {
+        if (_singleton == null)
+            return _singleton = new PlayerDataAccess();
+
+        return _singleton;
+    }
+
+    private PlayerDataAccess()
     {
         DeserializePlayerData();
     }

@@ -382,6 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageText: {fileID: 6662429085188290780}
   _upgradeCostText: {fileID: 6040134055137645849}
+  _notEnoughMoneyColorText: {r: 1, g: 0, b: 0, a: 0}
 --- !u!114 &6508109405578542435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +409,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b81e3c6cadea624e95c36879ca9e501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _automation
+      Entry: 6
+      Data: 
   _upgradeButton: {fileID: 6040134054047985798}
 --- !u!1 &5894238311498300329
 GameObject:

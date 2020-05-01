@@ -53,7 +53,7 @@ public class AutomationEditor : ExtendedEditorWindow
         if (AutomationParent != null && AutomationPrefab != null && GUILayout.Button("Instantiate Automations"))
         {
             var automationEditor = serializedObject.targetObject as AutomationEditorObject;
-            IAutomationDatabase automationDatabase = new AutomationDatabse();
+            IAutomationDatabase automationDatabase = AutomationDatabse.GetAutomaitonDatabase();
 
             for (int i = 0; i < _currentArraylength; i++)
             {

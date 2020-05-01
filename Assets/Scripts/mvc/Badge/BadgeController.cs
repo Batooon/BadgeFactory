@@ -5,19 +5,10 @@ using UnityEngine.UI;
 using System;
 using Zenject;
 
-/// <summary>
-/// Contains All Logic
-/// Adds Callbacks to View for Updates
-/// Changes data in it's Model
-/// Talks to other Controllers via Messages
-/// Diew when its model dies
-/// get View via GetComponent
-/// </summary>
-
 public delegate void BadgeInputCallback();
 public delegate void CoinCreatedCallback(GameObject coin, int coinCost, float timetoLive);
 
-public struct Badge
+public struct BadgeDataParams
 {
     public Sprite BadgeSprite;
     public bool IsRare;

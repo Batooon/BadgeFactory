@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: AutomationEditor
   m_EditorClassIdentifier: 
   Automations:
-  - Icon: {fileID: 3599995662316845299, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
-    Name: jfdkslfkdjkljkjlkjl
-    StartingCost: 12
-    StartingDps: 5412
+  - Icon: {fileID: 7414601071545361866, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+    Name: Click Power
+    StartingCost: 45
+    StartingDps: 54
     Automation:
       id: 0
   references:

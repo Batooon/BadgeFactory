@@ -65,7 +65,7 @@ public class BadgeView : MonoBehaviour
         _bossCountdownText.gameObject.SetActive(true);
     }
 
-    public void SetupBadge(Badge currentBadge)
+    public void SetupBadge(BadgeDataParams currentBadge)
     {
         _badgeImage.sprite = currentBadge.BadgeSprite;
 

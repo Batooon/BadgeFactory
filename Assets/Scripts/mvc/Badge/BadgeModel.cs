@@ -22,7 +22,7 @@ public class BadgeModel
     public float BossCountdown;
     public int CostReward;
     public bool IsBoss;
-    public Badge CurrentBadge;
+    public BadgeDataParams CurrentBadge;
 
     public IPlayerDataProvider PlayerData;
     #endregion
@@ -30,8 +30,8 @@ public class BadgeModel
     public Sprite[] BadgeImages;
     public Sprite[] BossBadgeImages;
 
-    public List<Badge> Badges = new List<Badge>();
-    public List<Badge> BossBadges = new List<Badge>();
+    public List<BadgeDataParams> Badges = new List<BadgeDataParams>();
+    public List<BadgeDataParams> BossBadges = new List<BadgeDataParams>();
     #endregion
 
     public BadgeModel(IPlayerDataProvider playerData)
@@ -85,11 +85,11 @@ public class BadgeModel
         CurrentBadge = Badges[UnityEngine.Random.Range(0, Badges.Count - 1)];
     }
 
-    private void LoadBadges(ref List<Badge> badgeList, Sprite[] images, bool isRare = false)
+    private void LoadBadges(ref List<BadgeDataParams> badgeList, Sprite[] images, bool isRare = false)
     {
         for (int i = 0; i < images.Length; i++)
         {
-            Badge badge = new Badge();
+            BadgeDataParams badge = new BadgeDataParams();
             badge.BadgeSprite = images[i];
             badge.IsRare = isRare;
             badgeList.Add(badge);
