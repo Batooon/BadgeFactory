@@ -1,7 +1,5 @@
 ﻿using Badge;
-using GooglePlayGames.BasicApi.Multiplayer;
 using OdinSerializer;
-using UnityEngine.EventSystems;
 
 namespace DroppableItems
 {
