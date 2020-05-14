@@ -19,7 +19,7 @@ namespace DroppableItems
 
         private void OnMouseEnter()
         {
-            Data playerData=_playerDataProvider.GetPlayerData();
+            Data playerData = _playerDataProvider.GetPlayerData();
             _droppableItem.Collect(ref playerData);
             _playerDataProvider.SavePlayerData(in playerData);
             Destroy(gameObject);
