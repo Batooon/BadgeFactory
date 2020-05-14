@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Coin : MonoBehaviour, IPointerEnterHandler
+public class CoinLogic : MonoBehaviour, IPointerEnterHandler
 {
-    public event Action<Coin> CoinDestroyed;
-    public event Action<Coin> CoinCollected;
+    public event Action<CoinLogic> CoinDestroyed;
+    public event Action<CoinLogic> CoinCollected;
 
     public GameObject CoinObj;
     [HideInInspector]

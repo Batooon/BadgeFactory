@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 using System;
 
 public interface IPlayerDataProvider
 {
     Data GetPlayerData();
-    void SavePlayerData(Data playerData);
+    void SavePlayerData(in Data playerData);
 }
 
 public delegate void QuitGameCallback();
 
 [RequireComponent(typeof(SessionView))]
-public class SessionController : MonoInstaller, IPlayerDataProvider
+public class SessionController : IPlayerDataProvider
 {
     #region Events
     public event Action<int> GoldChanged;
@@ -33,7 +32,7 @@ public class SessionController : MonoInstaller, IPlayerDataProvider
     public SessionModel _sessionModel;
     private SessionView _sessionView;
 
-    public override void InstallBindings()
+    /*public override void InstallBindings()
     {
         Container.Bind<IPlayerDataProvider>().FromInstance(this);
         _badgeController = (BadgeController)Container.InstantiateComponent(typeof(BadgeController), _badgeButton);
@@ -53,7 +52,7 @@ public class SessionController : MonoInstaller, IPlayerDataProvider
         _sessionView.QuitCallback = OnQuitCallback;
 
         _sessionView.FetchAllComponents(_sessionModel.PlayerData);
-    }
+    }*/
 
     private void OnQuitCallback()
     {
@@ -91,7 +90,7 @@ public class SessionController : MonoInstaller, IPlayerDataProvider
         return _sessionModel.PlayerData;
     }
 
-    public void SavePlayerData(Data playerData)
+    public void SavePlayerData(in Data playerData)
     {
         throw new NotImplementedException();
     }

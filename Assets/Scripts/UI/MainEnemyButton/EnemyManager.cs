@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     //private PlayerData PlayerData;
 
-    public List<Coin> spawnedCoins = new List<Coin>();
+    public List<CoinLogic> spawnedCoins = new List<CoinLogic>();
 
     public FloatReference CurrentHp;
     public IntReference MaxHp;
@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
         {
             GameObject coinGO = Instantiate(_goldObj, transform.position, Quaternion.identity);
             coinGO.transform.SetParent(transform.parent, false);
-            Coin coin = coinGO.GetComponent<Coin>();
+            CoinLogic coin = coinGO.GetComponent<CoinLogic>();
             coin.Cost = oneCoinCost;
             coin.CoinCollected += CollectCoin;
             coin.CoinDestroyed += DestroyCoin;
@@ -61,14 +61,14 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void CollectCoin(Coin coin)
+    private void CollectCoin(CoinLogic coin)
     {
         //PlayerData.CoinCollected(coin);
         spawnedCoins.Remove(coin);
         Destroy(coin.gameObject);
     }
 
-    private void DestroyCoin(Coin coin)
+    private void DestroyCoin(CoinLogic coin)
     {
         spawnedCoins.Remove(coin);
     }

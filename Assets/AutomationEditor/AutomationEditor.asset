@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AutomationEditor
   m_EditorClassIdentifier: 
   Automations:
-  - Icon: {fileID: 7414601071545361866, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
-    Name: Click Power
+  - Icon: {fileID: -5192772851045366800, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+    Name: Automation
     StartingCost: 45
     StartingDps: 54
     Automation:
@@ -22,4 +22,4 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: ClickAutomation, ns: , asm: Assembly-CSharp}
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}

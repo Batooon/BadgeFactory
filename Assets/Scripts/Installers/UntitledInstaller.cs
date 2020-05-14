@@ -1,7 +1,6 @@
 using UnityEngine;
-using Zenject;
 
-public class UntitledInstaller : MonoInstaller
+/*public class UntitledInstaller : MonoInstaller
 {
     [SerializeField]
     private GameObject BadgeButton;
@@ -14,4 +13,4 @@ public class UntitledInstaller : MonoInstaller
         Container.InstantiateComponent(typeof(BadgeController), BadgeButton);
         //Container.InstantiateComponent(typeof(AutomationsController))
     }
-}
+}*/

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Automation;
+using Automations;
 using UnityEditor;
 using UnityEngine;
 
@@ -57,6 +58,7 @@ public class AutomationEditor : ExtendedEditorWindow
 
             for (int i = 0; i < _currentArraylength; i++)
             {
+                AutomationsPresentation automationsPresentation=AutomationParent.GetComponent<AutomationsPresentation>();
                 AutomationEditorParams automationParams = automationEditor.Automations[i];
 
                 GameObject automation = Instantiate(AutomationPrefab, AutomationParent);
@@ -65,6 +67,8 @@ public class AutomationEditor : ExtendedEditorWindow
                 automationInitializer.InitializeAutomation(automationParams.Automation,
                     automationParams.Name,
                     automationParams.Icon);
+
+                automationsPresentation.AddAutomation(automation);
 
                 CurrentPlayerAutomationData automationData = new CurrentPlayerAutomationData();
                 automationData.StartingCost = automationEditor.Automations[i].StartingCost;
