@@ -15,9 +15,11 @@ MonoBehaviour:
   ItemEditor:
     DroppableItem:
       id: 0
-    ChanceToSpawn: 0
-    ItemSprite: {fileID: 0}
+    ChanceToSpawn: 100
+    Lifetime: 20
+    ItemSprite: {fileID: -918019831155300851, guid: 5653ad9bd17deab498e4f5f025f1dec8,
+      type: 3}
   references:
     version: 1
     00000000:
-      type: {class: , ns: , asm: }
+      type: {class: Coin, ns: DroppableItems, asm: Assembly-CSharp}

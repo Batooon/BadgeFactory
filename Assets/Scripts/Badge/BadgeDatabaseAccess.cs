@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Badge
 {
@@ -22,12 +23,12 @@ namespace Badge
 
         public void SaveBadgeData()
         {
-            throw new NotImplementedException();
+            Debug.Log("BadgeData Saved(no)");
         }
 
         private BadgeDatabaseAccess()
         {
-
+            _badgeData = new BadgeData();
         }
     }
 }

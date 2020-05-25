@@ -8,11 +8,14 @@ public struct Data
 {
     public int Level;
     public int LevelProgress;
+    public int MaxLevelProgress;
     public int GoldAmount;
     public bool IsReturningPlayer;
     public int ClickPower;
     public int AutomationsPower;
     public int AutomationsAmountUnlocked;
+    public int BossCountdownTime;
+    public bool NeedToIncreaseLevel;
     //В будущем добавить тут кристаллы
     //public int Gems;
 }

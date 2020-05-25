@@ -45,15 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f55a596a3ea6d745b568ae9b07adfec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Badges:
-  - {fileID: -4310990363521334013, guid: 8127afc8dd1ce55468b7f045a0e704ed, type: 3}
-  - {fileID: -8264587357197003020, guid: 6ce458ce9e781e749992bd1ba7992910, type: 3}
-  - {fileID: 3963442684454222481, guid: 868113b72dd1d124a9fe4c4879571810, type: 3}
-  - {fileID: 2860148787129133572, guid: 761320e7578e05a4a9acc768a79047c5, type: 3}
-  - {fileID: 6016415727791793660, guid: f353290eee48e60478287aed01afe507, type: 3}
-  - {fileID: 6596373050103464058, guid: 3c5a0e08aa77ded4693199a99e1a690c, type: 3}
-  - {fileID: 1056500588304174285, guid: fb7570f39efde7847b58a7e8b1f0fe3c, type: 3}
-  - {fileID: 417638700154637895, guid: 45460ddfedd3e8e45bd948fc14ca9c52, type: 3}
+  _badges: {fileID: 4343727234628468602, guid: 5f25e791295c8904a9d28012d10f6cd3, type: 2}
+  _bossBadges: {fileID: 4343727234628468602, guid: 6335209beb1e7ba48862505c33845f82,
+    type: 2}
+  _droppableItems:
+  - {fileID: 2849856455367244044, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
+  _bossCountdown: {fileID: 0}
+  _clickEffect: {fileID: 5381133614420591779, guid: 3c8af22c733cd5540a5cb5e8c01bfff8,
+    type: 3}
 --- !u!114 &339054605587432024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +66,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _badgeSprite: {fileID: 339054607125281679}
-  _coin: {fileID: 8657825870433397163, guid: 04767c2d5bcd3734c984f6b86294aeef, type: 3}
 --- !u!1 &339054607125281678
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +92,7 @@ Transform:
   m_GameObject: {fileID: 339054607125281678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.46564704, y: 0.46564704, z: 0.46564704}
   m_Children: []
   m_Father: {fileID: 339054605587432102}
   m_RootOrder: 0

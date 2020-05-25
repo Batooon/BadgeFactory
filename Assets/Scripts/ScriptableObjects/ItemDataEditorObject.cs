@@ -8,10 +8,12 @@ using UnityEngine;
 public class ItemEditorParams
 {
     [SerializeReference]
-    [SelectImplementation(typeof(IDroppable))]
-    public IDroppable DroppableItem;
+    [SelectImplementation(typeof(ICollectable))]
+    public ICollectable DroppableItem;
     [Range(1,100)]
     public int ChanceToSpawn;
+    [Range(0.1f, 20f)]
+    public float Lifetime;
     public Sprite ItemSprite;
 }
 

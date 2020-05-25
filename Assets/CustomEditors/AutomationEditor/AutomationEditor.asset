@@ -22,4 +22,4 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+      type: {class: ClickAutomation, ns: , asm: Assembly-CSharp}

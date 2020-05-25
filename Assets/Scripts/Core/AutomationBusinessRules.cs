@@ -87,7 +87,7 @@ public class AutomationBusinessRules : IAutomationBusinessInput
             automation.Upgrade(ref automationData);
 
             _automationDatabaseProvider.SaveAutomationData(automationData, automationId);
-            _playerData.SavePlayerData(playerData);
+            _playerData.SavePlayerData(in playerData);
 
             _automationOutput.AutomationUpgraded(automationData, playerData.GoldAmount >= automationData.Cost);
         }
@@ -106,6 +106,20 @@ public class PlayerDataAccess : IPlayerDataProvider
 
     private Data _playerData;
 
+    public Data PlayerData
+    {
+        get
+        {
+            return _playerData;
+        }
+        set
+        {
+            if(_playerData.GoldAmount!=value.GoldAmount)
+                GoldAmountChanged?.Invoke();
+            _playerData = value;
+        }
+    }
+
     public static PlayerDataAccess GetPlayerDatabase()
     {
         if (_singleton == null)
@@ -121,14 +135,12 @@ public class PlayerDataAccess : IPlayerDataProvider
 
     public Data GetPlayerData()
     {
-        return _playerData;
+        return PlayerData;
     }
 
     public void SavePlayerData(in Data playerData)
     {
-        if (_playerData.GoldAmount != playerData.GoldAmount)
-            GoldAmountChanged?.Invoke();
-        _playerData = playerData;
+        PlayerData = playerData;
     }
 
     private void DeserializePlayerData()

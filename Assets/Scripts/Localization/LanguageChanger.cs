@@ -4,7 +4,7 @@ using Localization;
 using TMPro;
 
 //Developer: Antoshka
-public enum Languages
+/*public enum Languages
 {
     Ukrainian,
     English,
@@ -46,4 +46,4 @@ public class LanguageChanger : MonoBehaviour
     {
         PlayerPrefs.SetInt("Language", LanguageSwitcher.value);
     }
-}
+}*/

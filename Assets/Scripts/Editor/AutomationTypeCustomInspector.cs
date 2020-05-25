@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Graphs;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(SelectImplementationAttribute))]
@@ -26,6 +27,7 @@ public class AutomationTypeCustomInspector : PropertyDrawer
         {
             property.managedReferenceValue = Activator.CreateInstance(_implementations[_implementationTypeIndex]);
         }
+
         EditorGUILayout.PropertyField(property, true);
     }
 

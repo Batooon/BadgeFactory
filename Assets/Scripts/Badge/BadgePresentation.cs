@@ -25,14 +25,19 @@ namespace Badge
             LeanTween.move(spawnedCoin, new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.5f, 1.5f)), .5f);
         }*/
 
-        public void ShowNewBadge()
+        public void ShowNewBadge(Sprite sprite)
         {
-
+            _badgeSprite.sprite = sprite;
         }
 
         public void Drop(GameObject item)
         {
             GameObject itemToSpawn = Instantiate(item, transform.position, Quaternion.identity);
         }
+    }
+
+    public interface IClickEffect
+    {
+        void SpawnEffect(Vector2 position);
     }
 }
