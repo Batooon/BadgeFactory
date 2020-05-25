@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bosses
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+    totalSpriteSurfaceArea: 921800
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -413283876438011365, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 2845264798914740059, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -5075662783379310928, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 5505196069176555295, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -2689147126584295008, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -2135890553296874309, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -6837636693324581192, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -6733688252303648459, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -3848572237739112828, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -4071803095760607450, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 1858816370856398654, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 1804221142976262024, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -3010002478999013780, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 8801779492150712836, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 2455578813142258610, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 7576395648002435084, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -7811536677393617176, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -5698120128366501538, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: -4344511356903115904, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 8311227642214762978, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  - {fileID: 8347520841297689315, guid: a78807d6c44733045b246db6d6582cbd, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_8"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_20"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_10"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_11"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_12"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_13"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_14"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_15"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_16"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_17"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_18"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_19"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_1"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_0"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_3"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_2"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_5"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_4"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_7"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_6"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_\u041C\u043E\u043D\u0442\u0430\u0436\u043D\u0430
+    \u043E\u0431\u043B\u0430\u0441\u0442\u044C 1_9"
+  m_Tag: Bosses
+  m_IsVariant: 0
