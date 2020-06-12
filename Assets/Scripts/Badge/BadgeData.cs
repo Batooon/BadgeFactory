@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-
+﻿
 namespace Badge
 {
-    [SerializeField]
-    public struct BadgeData
+    [System.Serializable]
+    public class BadgeData
     {
         public int CurrentHp;
         public int MaxHp;

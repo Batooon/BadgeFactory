@@ -1,25 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 //Developer: Antoshka
 
 public class PopupAnimations : MonoBehaviour
-{
-    public AnimationCurve AnimationCurve; 
+{ 
     public float StartingPositionY;
     public float DestinationPositionY;
     public float Time;
     public float Delay;
 
+    public UnityEvent OnActivated;
+    public UnityEvent OnDeactivated;
+
     public void Activate()
     {
-        gameObject.SetActive(true);
+        OnActivated?.Invoke();
         LeanTween.moveLocalY(gameObject, DestinationPositionY, Time).setDelay(Delay);
     }
 
     public void Deactivate()
     {
-        LeanTween.moveLocalY(gameObject, StartingPositionY, Time).setDelay(Delay).setOnComplete(() => gameObject.SetActive(false));
+        LeanTween.moveLocalY(gameObject, StartingPositionY, Time).setDelay(Delay).setOnComplete(OnDeactivated.Invoke);
     }
 }

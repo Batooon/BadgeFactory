@@ -11,29 +11,26 @@ namespace Badge
         public event Action<IBadgeDatabase> BadgeCreated;
 
         private BadgePresentation _badgePresentation;
-        private List<DroppableObject> _droppable;
+        private List<DroppingMothership> _droppable;
         private List<GameObject> _itemsToDrop;
         private Sprite[] _badges;
         private Sprite[] _bossBadges;
 
         private IBadgeSpawner _badgeSpawner;
-        private IClickEffect _clickEffect;
 
         private int _coinsToSpawn;
         private int _oneCoinCost;
 
         public BadgePresentator(BadgePresentation badgePresentation,
-                                List<DroppableObject> droppable,
+                                List<DroppingMothership> droppable,
                                 Sprite[] badges,
-                                Sprite[] bosses,
-                                IClickEffect clickEffect)
+                                Sprite[] bosses)
         {
             _badgePresentation = badgePresentation;
             _droppable = droppable;
             _badges = badges;
             _bossBadges = bosses;
             _badgeSpawner = new UsualBadgeSpawner();
-            _clickEffect=clickEffect;
         }
 
         public void BadgeGotProgressCallback(BadgeData badgeData)
@@ -45,21 +42,10 @@ namespace Badge
 
         public void OnBadgeCreated(BadgeData badgeData)
         {
-
-            /*foreach (var item in _droppable)
+            foreach (var mothership in _droppable)
             {
-                int amountToSpawn = item.GetAmountToSpawn(badgeData);
-                for (int i = 0; i < amountToSpawn; i++)
-                {
-                    int chanceToSpawn = UnityEngine.Random.Range(0, 100);
-
-                    if (item.ChanceToSpawn >= chanceToSpawn)
-                    {
-                        //GameObject itemToDrop =  //TODO: разобраться с этой фигнёй
-                        //_badgePresentation.Drop(itemToDrop);
-                    }
-                }
-            }*/
+                mothership.Spawn(mothership.transform.position);
+            }
         }
 
         public void SpawnBoss()
@@ -70,11 +56,6 @@ namespace Badge
         public void SpawnBadge()
         {
             _badgePresentation.ShowNewBadge(_badgeSpawner.Spawn(_badges));
-        }
-
-        public void PlayerClicked(Vector2 clickPosition)
-        {
-            _clickEffect.SpawnEffect(clickPosition);
         }
     }
 

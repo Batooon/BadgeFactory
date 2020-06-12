@@ -43,7 +43,7 @@ public class BadgeModel
 
     public void IncreaseHp()
     {
-        CurrentHp += PlayerData.GetPlayerData().ClickPower;
+        //CurrentHp += PlayerData.GetPlayerData().ClickPower;
         HpChanged?.Invoke();
     }
 

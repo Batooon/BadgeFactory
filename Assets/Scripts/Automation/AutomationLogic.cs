@@ -1,15 +1,16 @@
-﻿using System;
-using OdinSerializer;
+﻿using OdinSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Automation
 {
+    [RequireComponent(typeof(AutomationPresentation))]
     public class AutomationLogic : SerializedMonoBehaviour
     {
         [SerializeField]
         private Button _upgradeButton;
 
+        [SerializeField]
         private int _automationId;
 
         [OdinSerialize]
@@ -18,34 +19,30 @@ namespace Automation
         private IAutomationBusinessInput _automationInput;
         private AutomationPresentator _automationPresentator;
         private PlayerDataAccess _playerData;
+        private AutomationDatabse _automationDatabase;
+        private AutomationPresentation _automationPresentation;
 
         private void Awake()
         {
-            AutomationPresentation automationPresentation = GetComponent<AutomationPresentation>();
-            _automationPresentator = new AutomationPresentator(automationPresentation);
+            _automationDatabase = AutomationDatabse.GetAutomationDatabase();
+            _automationPresentation = GetComponent<AutomationPresentation>();
+            _automationPresentator = new AutomationPresentator(_automationPresentation, _automationDatabase.GetAutomationData(_automationId));
             _playerData = PlayerDataAccess.GetPlayerDatabase();
 
             _automationInput = new AutomationBusinessRules(
                 _automationPresentator,
                 _playerData,
-                AutomationDatabse.GetAutomaitonDatabase());
+                _automationDatabase);
 
-            _automationInput.CheckIfUpgradeAvailable(_automationId);
-        }
-
-        private void OnEnable()
-        {
-            _playerData.GoldAmountChanged += OnGoldAmountUpdated;
-        }
-
-        private void OnDisable()
-        {
-            _playerData.GoldAmountChanged -= OnGoldAmountUpdated;
+            _automationInput.CheckIfUpgradeAvailable(_automationId, _playerData.GetPlayerData().GoldAmount);
+            _playerData.PlayerData.GoldAmountChanged += OnGoldAmountUpdated;
         }
 
         private void Start()
         {
             _upgradeButton.onClick.AddListener(OnUpgradeButtonPressed);
+            if (!_automationDatabase.GetAutomationData(_automationId).IsUnlocked)
+                gameObject.SetActive(false);
         }
 
         public void OnUpgradeButtonPressed()
@@ -53,15 +50,20 @@ namespace Automation
             _automationInput.TryUpgradeAutomation(_automationId, _automation);
         }
 
-        public void OnGoldAmountUpdated()
+        public void OnGoldAmountUpdated(int goldAmount)
         {
             //Обновить кнопку улучшения
-            _automationInput.CheckIfUpgradeAvailable(_automationId);
+            _automationInput.CheckIfUpgradeAvailable(_automationId, goldAmount);
         }
 
         public void SetAutomationType(IAutomation automation)
         {
             _automation = automation;
+        }
+
+        private void OnApplicationQuit()
+        {
+            _playerData.PlayerData.GoldAmountChanged -= OnGoldAmountUpdated;
         }
     }
 }

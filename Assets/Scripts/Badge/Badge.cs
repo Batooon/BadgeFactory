@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
-using OdinSerializer;
+using UnityEngine.Events;
+using Automation;
 
 namespace Badge
 {
+    [System.Serializable]
+    public class PlayerClicked : UnityEvent<Vector2> { }
+
     [RequireComponent(typeof(BadgePresentation))] 
     public class Badge : MonoBehaviour
     {
@@ -16,17 +20,18 @@ namespace Badge
         [SerializeField]
         private SpriteAtlas _bossBadges;
         [SerializeField]
-        private List<DroppableObject> _droppableItems;
+        private List<DroppingMothership> _droppingMotherships;
         [SerializeField]
         private BossCountdown _bossCountdown;
-        [SerializeField]
-        private ClickPresentation _clickEffect;
 
         private Sprite[] badges;
         private Sprite[] bosses;
 
         private IBadgeBusinessInput _badgeBusinessInput;
         private IBadgeBusinessOutput _badgeOutput;
+
+        [SerializeField]
+        public PlayerClicked Clicked;
 
         private void Awake()
         {
@@ -37,21 +42,11 @@ namespace Badge
             _bossBadges.GetSprites(bosses);
 
             BadgePresentation badgePresentation = GetComponent<BadgePresentation>();
-            List<DroppableObject> droppableObjects = new List<DroppableObject>();
 
-            for (int i = 0; i < _droppableItems.Count; i++)
-            {
-                DroppableObject droppableObject;
-                _droppableItems[i].TryGetComponent(out droppableObject);
-
-                if(droppableObject==null)
-                    Debug.LogError("Droppable items error! in Badge.cs list of droppable items must contain DroppableObject.cs component!!");
-                droppableObjects.Add(droppableObject);
-            }
-
-            _badgeOutput = new BadgePresentator(badgePresentation, droppableObjects, badges, bosses, _clickEffect);
+            _badgeOutput = new BadgePresentator(badgePresentation, _droppingMotherships, badges, bosses);
             _badgeBusinessInput = new BadgeBusinessRules(PlayerDataAccess.GetPlayerDatabase(),
                                                          BadgeDatabaseAccess.GetBadgeDatabase(),
+                                                         AutomationDatabse.GetAutomationDatabase(),
                                                          _badgeOutput,
                                                          _bossCountdown);
         }
@@ -65,7 +60,7 @@ namespace Badge
         {
             //Спавнитться сразу же очень мног монеток так как хп у значка 0,
             //поэтому пока что закомментировал
-            //_badgeBusinessInput.TakeProgress();
+            _badgeBusinessInput.TakeProgress();
             HandlePlayerInput();
         }
 
@@ -98,23 +93,26 @@ namespace Badge
                             return;
 
                         Vector2 screenPosition = Camera.main.ScreenToWorldPoint(touches[i].position);
-                        _badgeBusinessInput.ClickProgress(screenPosition);
+                        _badgeBusinessInput.ClickProgress();
+                        Clicked?.Invoke(screenPosition);
                     }
                 }
             }
         }
-    }
 
-    /*public class DroppableItems : MonoBehaviour
-    {
-        [SerializeField]
-        private List<GameObject> _droppableItems;
-        [OdinSerialize]
-        private List<IDroppable> _droppableImplementations;
-
-        public void DropItems()
+        private void OnApplicationQuit()
         {
-
+            BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
+            PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();
         }
-    }*/
+
+        private void OnApplicationPause(bool pause)
+        {
+            if (pause)
+            {
+                BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
+                PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();
+            }
+        }
+    }
 }

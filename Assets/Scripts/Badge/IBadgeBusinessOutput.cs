@@ -8,6 +8,5 @@ namespace Badge
         void BadgeGotProgressCallback(BadgeData badgeData);
         void SpawnBadge();
         void SpawnBoss();
-        void PlayerClicked(Vector2 clickPosition);
     }
 }

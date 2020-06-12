@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Badge
 {
@@ -8,8 +6,6 @@ namespace Badge
     {
         [SerializeField]
         private SpriteRenderer _badgeSprite;
-        /*[SerializeField]
-        private GameObject _coin;*/
 
         public void UpdateBadgeProgress(float alpha)
         {
@@ -19,20 +15,9 @@ namespace Badge
             _badgeSprite.color = tempColor;
         }
 
-        /*public void SpawnCoin()
-        {
-            GameObject spawnedCoin = Instantiate(_coin, transform.position, Quaternion.identity);
-            LeanTween.move(spawnedCoin, new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.5f, 1.5f)), .5f);
-        }*/
-
         public void ShowNewBadge(Sprite sprite)
         {
             _badgeSprite.sprite = sprite;
-        }
-
-        public void Drop(GameObject item)
-        {
-            GameObject itemToSpawn = Instantiate(item, transform.position, Quaternion.identity);
         }
     }
 

@@ -7,5 +7,6 @@
         void SaveAutomationData(CurrentPlayerAutomationData automationData, int automationId);
         void Serialize();
         int GetLastUnlockedAutomationId();
+        OverallAutomationsData GetOverallAutomationsData();
     }
 }

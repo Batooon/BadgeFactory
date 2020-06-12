@@ -385,7 +385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageText: {fileID: 6662429085188290780}
   _upgradeCostText: {fileID: 6040134055137645849}
-  _notEnoughMoneyColorText: {r: 1, g: 0, b: 0, a: 0}
+  _notEnoughMoneyColorText: {r: 1, g: 0, b: 0, a: 1}
+  _defaultMoneyColorText: {r: 1, g: 0, b: 0.64123726, a: 1}
+  _upgradeButton: {fileID: 6040134054047985798}
 --- !u!114 &6508109405578542435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +427,7 @@ MonoBehaviour:
       Entry: 6
       Data: 
   _upgradeButton: {fileID: 6040134054047985798}
+  _automationId: 0
 --- !u!1 &5894238311498300329
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +704,8 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 6274829451412287834, guid: ee236398cd5e96e47b12af964bd32763,
+      type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 21300000, guid: ffe121f6bdc29c7438841552ce3c3151, type: 3}
   m_AnimationTriggers:

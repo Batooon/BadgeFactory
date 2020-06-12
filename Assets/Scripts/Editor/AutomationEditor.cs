@@ -54,7 +54,7 @@ public class AutomationEditor : ExtendedEditorWindow
         if (AutomationParent != null && AutomationPrefab != null && GUILayout.Button("Instantiate Automations"))
         {
             var automationEditor = serializedObject.targetObject as AutomationEditorObject;
-            IAutomationDatabase automationDatabase = AutomationDatabse.GetAutomaitonDatabase();
+            IAutomationDatabase automationDatabase = AutomationDatabse.GetAutomationDatabase();
 
             for (int i = 0; i < _currentArraylength; i++)
             {
@@ -73,6 +73,8 @@ public class AutomationEditor : ExtendedEditorWindow
                 CurrentPlayerAutomationData automationData = new CurrentPlayerAutomationData();
                 automationData.StartingCost = automationEditor.Automations[i].StartingCost;
                 automationData.StartingDamage = automationEditor.Automations[i].StartingDps;
+                automationData.Cost = automationData.StartingCost;
+                automationData.DamagePerSecond = automationData.StartingDamage;
 
                 automationDatabase.SaveAutomationData(automationData, i);
             }

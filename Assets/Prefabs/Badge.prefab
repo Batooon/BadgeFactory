@@ -48,11 +48,24 @@ MonoBehaviour:
   _badges: {fileID: 4343727234628468602, guid: 5f25e791295c8904a9d28012d10f6cd3, type: 2}
   _bossBadges: {fileID: 4343727234628468602, guid: 6335209beb1e7ba48862505c33845f82,
     type: 2}
-  _droppableItems:
-  - {fileID: 2849856455367244044, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
+  _droppingMotherships:
+  - {fileID: 0}
+  - {fileID: 0}
   _bossCountdown: {fileID: 0}
-  _clickEffect: {fileID: 5381133614420591779, guid: 3c8af22c733cd5540a5cb5e8c01bfff8,
-    type: 3}
+  Clicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: SpawnEffect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &339054605587432024
 MonoBehaviour:
   m_ObjectHideFlags: 0

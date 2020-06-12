@@ -3,6 +3,5 @@
     public interface IBadgeDatabase
     {
         BadgeData GetBadgeData();
-        void SaveBadgeData();
     }
 }

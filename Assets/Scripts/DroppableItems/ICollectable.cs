@@ -1,15 +1,15 @@
-﻿using Badge;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 namespace DroppableItems
 {
     public interface ICollectable
     {
-        int Collect();
+        void SetReward(in int reward);
+        void Collect();
     }
 
-    public interface IDroppable
+    public interface IItemsMothership
     {
-        IEnumerable<ICollectable> GetObjectsToSpawn(BadgeData badgeData);
+        void Spawn(Vector2 position);
     }
 }

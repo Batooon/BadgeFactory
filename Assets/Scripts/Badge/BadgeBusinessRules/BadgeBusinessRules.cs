@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Automation;
+using UnityEngine;
 
 namespace Badge.BusinessRules
 {
@@ -8,10 +9,12 @@ namespace Badge.BusinessRules
         private IBadgeDatabase _badgeDatabase;
         private IBadgeBusinessOutput _badgeOutput;
         private IBossCountdown _bossCountdown;
+        private IAutomationDatabase _automationDatabase;
 
         //TODO: Fluent builder?
         public BadgeBusinessRules(IPlayerDataProvider playerDataProvider,
                                   IBadgeDatabase badgeDatabase,
+                                  IAutomationDatabase automationDatabase,
                                   IBadgeBusinessOutput badgeOutput,
                                   IBossCountdown bossCountdown)
         {
@@ -19,6 +22,7 @@ namespace Badge.BusinessRules
             _badgeDatabase = badgeDatabase;
             _badgeOutput = badgeOutput;
             _bossCountdown = bossCountdown;
+            _automationDatabase = automationDatabase;
         }
 
         public void CreateNewBadge()
@@ -48,31 +52,29 @@ namespace Badge.BusinessRules
 
         public void OnBossNotDefeated()
         {
-            Data playerData=_playerDataProvider.GetPlayerData();
+            Data playerData = _playerDataProvider.GetPlayerData();
             playerData.Level -= 1;
             playerData.MaxLevelProgress = 10;
             playerData.LevelProgress = 0;
-            _playerDataProvider.SavePlayerData(in playerData);
             CreateNewBadge();
         }
 
-        public void ClickProgress(Vector2 clickPosition)
+        public void ClickProgress()
         {
-            Data playerData=_playerDataProvider.GetPlayerData();
-            BadgeData badgeData=_badgeDatabase.GetBadgeData();
+            OverallAutomationsData automationsData = _automationDatabase.GetOverallAutomationsData();
+            BadgeData badgeData = _badgeDatabase.GetBadgeData();
 
-            badgeData.CurrentHp += playerData.ClickPower;
+            badgeData.CurrentHp += automationsData.ClickPower;
 
             AddBadgeProgress();
-            _badgeOutput.PlayerClicked(clickPosition);
         }
 
         public void TakeProgress()
         {
-            Data playerData = _playerDataProvider.GetPlayerData();
+            OverallAutomationsData automationsData = _automationDatabase.GetOverallAutomationsData();
             BadgeData badgeData = _badgeDatabase.GetBadgeData();
 
-            badgeData.CurrentHp += (int)(playerData.AutomationsPower * Time.deltaTime);
+            badgeData.CurrentHp += (int)(automationsData.AutomationsPower * Time.deltaTime);
 
             AddBadgeProgress();
         }
@@ -82,7 +84,7 @@ namespace Badge.BusinessRules
             BadgeData badgeData = _badgeDatabase.GetBadgeData();
             Data playerData = _playerDataProvider.GetPlayerData();
             float exponent = 1f;
-            for (int i = 0; i < playerData.Level-1; i++)
+            for (int i = 0; i < playerData.Level - 1; i++)
             {
                 exponent *= 1.55f;
             }
@@ -91,13 +93,12 @@ namespace Badge.BusinessRules
                 maxBadgeHp *= 10;
             badgeData.MaxHp = maxBadgeHp;
             badgeData.CurrentHp = 0;
-            _badgeDatabase.SaveBadgeData();
         }
 
         private void AddBadgeProgress()
         {
-            Data playerData=_playerDataProvider.GetPlayerData();
-            BadgeData badgeData=_badgeDatabase.GetBadgeData();
+            Data playerData = _playerDataProvider.GetPlayerData();
+            BadgeData badgeData = _badgeDatabase.GetBadgeData();
 
             if (badgeData.CurrentHp >= badgeData.MaxHp)
             {
@@ -106,13 +107,11 @@ namespace Badge.BusinessRules
 
                 IncreaseLevel(playerData);
                 
-                _badgeOutput.OnBadgeCreated(badgeData);
                 CreateNewBadge(); 
+                _badgeOutput.OnBadgeCreated(badgeData);
             }
             else
                 _badgeOutput.BadgeGotProgressCallback(badgeData);
-
-            _badgeDatabase.SaveBadgeData();
         }
 
         private void IncreaseLevel(Data playerData)
@@ -122,7 +121,7 @@ namespace Badge.BusinessRules
                 if (playerData.LevelProgress == playerData.MaxLevelProgress)
                 {
                     playerData.Level += 1;
-                    playerData.LevelProgress = 0;
+                    playerData.LevelProgress = 1;
                     if (playerData.Level % 5 == 0)
                         playerData.MaxLevelProgress = 1;//TODO: сделать редактор, чтобы можно было настраивать максимальный прогресс
                     else
@@ -132,7 +131,6 @@ namespace Badge.BusinessRules
                 {
                     playerData.LevelProgress += 1;
                 }
-                //_playerDataProvider.SavePlayerData(in playerData);
             }
         }
     }

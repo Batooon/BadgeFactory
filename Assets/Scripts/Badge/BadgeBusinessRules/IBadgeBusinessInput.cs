@@ -7,6 +7,6 @@ namespace Badge.BusinessRules
         void TakeProgress();
         void CreateNewBadge();
         void OnBossNotDefeated();
-        void ClickProgress(Vector2 clickPosition);
+        void ClickProgress();
     }
 }

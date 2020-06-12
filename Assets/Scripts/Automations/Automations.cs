@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace Automations
 {
+    [RequireComponent(typeof(AutomationsPresentation))]
     public class Automations : MonoBehaviour
     {
         private PlayerDataAccess _playerData;
+        private AutomationDatabse _automationsDatabase;
         private IAutomationsBusinessInput _automationsInput;
         private AutomationsPresentation _automationPresentation;
+        private IAutomationsBusinessOutput _automationsOutput;
 
         public void OnGoldAmountChanged()
         {
@@ -16,29 +19,44 @@ namespace Automations
 
         private void Awake()
         {
+            _automationsDatabase = AutomationDatabse.GetAutomationDatabase();
             _playerData = PlayerDataAccess.GetPlayerDatabase();
             _automationPresentation = GetComponent<AutomationsPresentation>();
+            _automationsOutput = new AutomationsPresentator(_automationPresentation, _automationsDatabase.GetOverallAutomationsData());
 
             _automationsInput = new AutomationsBusinessRules(
-                AutomationDatabse.GetAutomaitonDatabase(),
-                new AutomationsPresentator(_automationPresentation),
+                _automationsDatabase,
+                _automationsOutput,
                 _playerData);
+
+            _playerData.PlayerData.GoldAmountChanged += _automationsInput.TryUnlockNewAutomation;
+            _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
+            _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
         }
 
-        private void OnEnable()
+        private void OnApplicationQuit()
         {
-            _playerData.GoldAmountChanged += OnGoldAmountChanged;
+            AutomationDatabse.GetAutomationDatabase().Serialize();
+            _playerData.PlayerData.GoldAmountChanged -= _automationsInput.TryUnlockNewAutomation;
+            _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
+            _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
         }
 
-        private void OnDisable()
+        private void OnApplicationPause(bool pause)
         {
-            _playerData.GoldAmountChanged -= OnGoldAmountChanged;
+            if (pause)
+            {
+                AutomationDatabse.GetAutomationDatabase().Serialize();
+                _playerData.PlayerData.GoldAmountChanged -= _automationsInput.TryUnlockNewAutomation;
+                _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
+                _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
+            }
         }
     }
 
     public interface IAutomationsBusinessInput
     {
-        void TryUnlockNewAutomation();
+        void TryUnlockNewAutomation(int newGoldAmount);
     }
 
     public class AutomationsBusinessRules : IAutomationsBusinessInput
@@ -56,21 +74,28 @@ namespace Automations
             _automationsOutput = automationOutput;
         }
 
-        public void TryUnlockNewAutomation()
+        public void TryUnlockNewAutomation(int newGoldAmount)
         {
             int lastUnlockedAutomationId = _automationDatabase.GetLastUnlockedAutomationId();
             int newAutomationId = lastUnlockedAutomationId + 1;
+            if (newAutomationId == _automationDatabase.GetAutomationsLength())
+                return;
             CurrentPlayerAutomationData newAutomationData = _automationDatabase.GetAutomationData(newAutomationId);
             CurrentPlayerAutomationData currentAutomation = _automationDatabase.GetAutomationData(lastUnlockedAutomationId);
-            Data playerData = _playerData.GetPlayerData();
 
             if(newAutomationData.IsUnlocked)
                 return;
 
-            if (playerData.GoldAmount >= currentAutomation.Cost)
+            if (newGoldAmount >= currentAutomation.Cost)
             {
-                if (_automationDatabase.GetAutomationsLength() >= newAutomationId)
-                    _automationsOutput.UnlockNewAutomation(newAutomationId); 
+                if (_automationDatabase.GetAutomationsLength() > newAutomationId)
+                {
+                    Data playerData = _playerData.GetPlayerData();
+                    newAutomationData.IsUnlocked = true;
+                    playerData.AutomationsAmountUnlocked += 1;
+                    _automationsOutput.UnlockNewAutomation(newAutomationId);
+                    //_automationDatabase.SaveAutomationData(newAutomationData, newAutomationId);
+                }
             }
         }
     }
@@ -78,20 +103,33 @@ namespace Automations
     public interface IAutomationsBusinessOutput
     {
         void UnlockNewAutomation(int newAutomationId);
+        void ClickPowerUpdated(int newPower);
+        void AutomationsPowerUpdated(int newPower);
     }
 
     public class AutomationsPresentator : IAutomationsBusinessOutput
     {
-        private AutomationsPresentation _automationPresentation;
+        private AutomationsPresentation _automationsPresentation;
 
-        public AutomationsPresentator(AutomationsPresentation automationPresentation)
+        public AutomationsPresentator(AutomationsPresentation automationsPresentation, OverallAutomationsData overallAutomationsData)
         {
-            _automationPresentation = automationPresentation;
+            _automationsPresentation = automationsPresentation;
+            _automationsPresentation.SetUIValues(overallAutomationsData.ClickPower.ConvertValue(), overallAutomationsData.AutomationsPower.ConvertValue());
+        }
+
+        public void AutomationsPowerUpdated(int newPower)
+        {
+            _automationsPresentation.UpdateAutomationsPower(newPower.ConvertValue());
+        }
+
+        public void ClickPowerUpdated(int newPower)
+        {
+            _automationsPresentation.UpdateClickPower(newPower.ConvertValue());
         }
 
         public void UnlockNewAutomation(int newAutomationId)
         {
-            _automationPresentation.UnlockNewAutomation(newAutomationId);
+            _automationsPresentation.UnlockNewAutomation(newAutomationId);
         }
     }
 }

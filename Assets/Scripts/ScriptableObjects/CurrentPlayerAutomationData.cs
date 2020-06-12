@@ -1,4 +1,5 @@
-﻿public struct CurrentPlayerAutomationData
+﻿[System.Serializable]
+public class CurrentPlayerAutomationData
 {
     public int StartingCost;
     public int StartingDamage;

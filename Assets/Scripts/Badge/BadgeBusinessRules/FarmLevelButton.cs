@@ -25,7 +25,7 @@ public class FarmLevelButton : MonoBehaviour
 
     private void Start()
     {
-        Data playerData=_playerData.GetPlayerData();
+        Data playerData = _playerData.GetPlayerData();
         ChangeSprite(playerData.NeedToIncreaseLevel);
     }
 
@@ -34,7 +34,6 @@ public class FarmLevelButton : MonoBehaviour
         Data playerData = _playerData.GetPlayerData();
         playerData.NeedToIncreaseLevel = !playerData.NeedToIncreaseLevel;
         ChangeSprite(playerData.NeedToIncreaseLevel);
-        _playerData.SavePlayerData(in playerData);
     }
 
     private void ChangeSprite(bool needToIncreaseLevel)

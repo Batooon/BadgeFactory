@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public interface IPlayerDataProvider
 {
     Data GetPlayerData();
-    void SavePlayerData(in Data playerData);
 }
 
 public delegate void QuitGameCallback();
@@ -18,6 +15,11 @@ public class SessionController : IPlayerDataProvider
     public event Action<int> GoldChanged;
     public event Action<int> LevelChanged;
     public event Action<int> LevelProgressChanged;
+    public event Action<int> GoldAmountChanged;
+    public event Action<int> PlayerLevelChanged;
+    public event Action<int> PlayerLevelProgressChanged;
+    public event Action<int> ClickPowerChanged;
+    public event Action<int> AutomationsPowerChanged;
     #endregion
 
     [SerializeField]

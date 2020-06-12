@@ -1,10 +1,12 @@
-﻿using System;
+﻿using System.IO;
 using UnityEngine;
 
 namespace Badge
 {
     public class BadgeDatabaseAccess : IBadgeDatabase
     {
+        private const string _dataPath = "BadgeData.json";
+
         private static BadgeDatabaseAccess _singleton;
         private BadgeData _badgeData;
 
@@ -21,14 +23,14 @@ namespace Badge
             return _badgeData;
         }
 
-        public void SaveBadgeData()
-        {
-            Debug.Log("BadgeData Saved(no)");
-        }
-
         private BadgeDatabaseAccess()
         {
-            _badgeData = new BadgeData();
+            _badgeData = FileOperations.Deserialize<BadgeData>(_dataPath);
+        }
+
+        public void Serialize()
+        {
+            FileOperations.Serialize(_badgeData,_dataPath);
         }
     }
 }
