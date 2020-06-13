@@ -2,6 +2,7 @@
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 using UnityEngine;
+using System;
 
 //Developer: Antoshka
 
@@ -37,18 +38,12 @@ public class PlayGames : MonoBehaviour
         PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_level_leaders);
     }
 
-    /*private void OnLevelWasLoaded(int level)
-    {
-        if (level == 0)
-            AuthenticateUser();
-    }*/
-
-    private void Awake()
+    /*private void Awake()
     {
         AuthenticateUser();
-    }
+    }*/
 
-    private void AuthenticateUser()
+    public static void AuthenticateUser(Action<bool> Success)
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
         PlayGamesPlatform.InitializeInstance(config);
@@ -64,6 +59,12 @@ public class PlayGames : MonoBehaviour
             {
                 Debug.LogError("Unable to Sign in in Google Play Games");
             }
+            Success?.Invoke(success);
         });
+    }
+
+    public static void LogOut()
+    {
+        PlayGamesPlatform.Instance.SignOut();
     }
 }
