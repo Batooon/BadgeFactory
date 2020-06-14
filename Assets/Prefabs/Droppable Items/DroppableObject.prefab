@@ -92,7 +92,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5914207333247201737}
   - component: {fileID: 3011466594964794944}
-  - component: {fileID: 1638664813}
   m_Layer: 0
   m_Name: DroppableObject
   m_TagString: Untagged
@@ -131,15 +130,3 @@ CircleCollider2D:
   m_Offset: {x: 0.00043037534, y: 0}
   serializedVersion: 2
   m_Radius: 0.34620062
---- !u!114 &1638664813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2489983123686816222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf491cc27d3fb4438d3c308a2332191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

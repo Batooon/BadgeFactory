@@ -1,5 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8868140655077278904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4105443839196562226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1eea30aad2f3cf4da134c51d062c1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _finished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1035748542}
+        m_MethodName: OnCollect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1035748542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4105443839196562226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05246b3da3ae5c48a36cbc220aeaee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lifetime: 20
 --- !u!331 &8942563149939380802
 SpriteMask:
   m_ObjectHideFlags: 0
@@ -50,20 +89,6 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
---- !u!114 &1035748542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4105443839196562226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c05246b3da3ae5c48a36cbc220aeaee7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lifetime: 20
-  _costReward: 10
 --- !u!1 &4993963113703673370
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2849856455367244044, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
+    - {fileID: 1638664813, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
 --- !u!1 &4105443839196562226 stripped
 GameObject:

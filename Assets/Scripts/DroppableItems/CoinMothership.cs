@@ -1,11 +1,12 @@
 ﻿using Badge;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DroppableItems
 {
     public class CoinMothership : DroppingMothership
     {
+        [SerializeField]
+        private Transform _coinsDestination;
         private IBadgeDatabase _badgeDatabase;
 
         private void Awake()
@@ -33,6 +34,8 @@ namespace DroppableItems
                 {
                     GameObject spawnedCoin = Instantiate(_itemToSpawn, position, Quaternion.identity) as GameObject;
                     ICollectable collectableComponent = spawnedCoin.GetComponent<ICollectable>();
+                    IItemTweener tweener = spawnedCoin.GetComponent<IItemTweener>();
+                    tweener.SetDestination(_coinsDestination.position);
                     SetCoinReward(in oneCoinCost, collectableComponent);
                 }
             }

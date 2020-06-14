@@ -19,7 +19,6 @@ namespace DroppableItems
             Data playerData = _playerDataProvider.GetPlayerData();
             playerData.GoldAmount += _costReward;
             _playerDataProvider.PlayerData = playerData;
-            //_playerDataProvider.SavePlayerData(in playerData);
         }
 
         public void SetReward(in int reward)
@@ -31,13 +30,16 @@ namespace DroppableItems
         {
             _playerDataProvider = PlayerDataAccess.GetPlayerDatabase();
             _itemTweener = GetComponent<IItemTweener>();
+        }
+
+        private void Start()
+        {
             _itemTweener.StartMotion();
             Destroy(gameObject, _lifetime);
         }
 
-        private void OnMouseEnter()
+        public void OnCollect()
         {
-            Data playerData = _playerDataProvider.GetPlayerData();
             Collect();
             Destroy(gameObject);
         }
