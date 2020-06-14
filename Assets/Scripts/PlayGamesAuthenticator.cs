@@ -32,13 +32,6 @@ public class PlayGamesAuthenticator : MonoBehaviour
 
     private void UpdateText(bool isAuthenticated)
     {
-        if (isAuthenticated)
-        {
-            _googlePlayGamesText.text = _signedInText;
-        }
-        else
-        {
-            _googlePlayGamesText.text = _signedOutText;
-        }
+        _googlePlayGamesText.text = isAuthenticated ? _signedInText : _signedOutText;
     }
 }
