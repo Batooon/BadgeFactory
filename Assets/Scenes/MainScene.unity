@@ -14592,6 +14592,21 @@ PrefabInstance:
       propertyPath: _droppingMotherships.Array.data[0]
       value: 
       objectReference: {fileID: 2694442379067419187}
+    - target: {fileID: 2912943404356027590, guid: ce6a41abd04664d42bc5d604271e072a,
+        type: 3}
+      propertyPath: _amountOfObjectsToSpawn.MinValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912943404356027590, guid: ce6a41abd04664d42bc5d604271e072a,
+        type: 3}
+      propertyPath: _amountOfObjectsToSpawn.MaxValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912943404356027590, guid: ce6a41abd04664d42bc5d604271e072a,
+        type: 3}
+      propertyPath: _chanceToSpawn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2912943404356027591, guid: ce6a41abd04664d42bc5d604271e072a,
         type: 3}
       propertyPath: m_Name
