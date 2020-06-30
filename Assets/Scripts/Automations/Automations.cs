@@ -12,9 +12,14 @@ namespace Automations
         private AutomationsPresentation _automationPresentation;
         private IAutomationsBusinessOutput _automationsOutput;
 
-        public void OnGoldAmountChanged()
+        public void OnGoldAmountChanged(int newAmount)
         {
+            //_automationsInput.CheckIfCanUpgradeSomething();
+        }
 
+        private void OnUpgradeAvailabilityChanged()
+        {
+            _automationsInput.CheckIfCanUpgradeSomething();
         }
 
         private void Awake()
@@ -29,9 +34,15 @@ namespace Automations
                 _automationsOutput,
                 _playerData);
 
+            _playerData.PlayerData.GoldAmountChanged += OnGoldAmountChanged;
             _playerData.PlayerData.GoldAmountChanged += _automationsInput.TryUnlockNewAutomation;
             _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
             _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
+
+            for (int i = 0; i < _automationsDatabase.GetAutomationsLength(); i++)
+            {
+                _automationsDatabase.GetAutomationData(i).UpgradeAvailabilityChanged += OnUpgradeAvailabilityChanged;
+            }
         }
 
         private void OnApplicationQuit()
@@ -50,6 +61,7 @@ namespace Automations
                 _playerData.PlayerData.GoldAmountChanged -= _automationsInput.TryUnlockNewAutomation;
                 _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
                 _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
+                _playerData.PlayerData.GoldAmountChanged -= OnGoldAmountChanged;
             }
         }
     }
@@ -57,6 +69,7 @@ namespace Automations
     public interface IAutomationsBusinessInput
     {
         void TryUnlockNewAutomation(int newGoldAmount);
+        void CheckIfCanUpgradeSomething();
     }
 
     public class AutomationsBusinessRules : IAutomationsBusinessInput
@@ -72,6 +85,19 @@ namespace Automations
             _playerData = playerData;
             _automationDatabase = automationDatabase;
             _automationsOutput = automationOutput;
+        }
+
+        public void CheckIfCanUpgradeSomething()
+        {
+            for (int i = 0; i < _automationDatabase.GetAutomationsLength(); i++)
+            {
+                if (_automationDatabase.GetAutomationData(i).CanUpgrade)
+                {
+                    _automationDatabase.GetOverallAutomationsData().CanUpgradeSomething = true;
+                    return;
+                }
+            }
+            _automationDatabase.GetOverallAutomationsData().CanUpgradeSomething = false;
         }
 
         public void TryUnlockNewAutomation(int newGoldAmount)
