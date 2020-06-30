@@ -8,5 +8,6 @@
         void Serialize();
         int GetLastUnlockedAutomationId();
         OverallAutomationsData GetOverallAutomationsData();
+        bool CanUpgradeSomething();
     }
 }
