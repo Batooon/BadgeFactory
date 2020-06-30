@@ -66,6 +66,7 @@ public class UsualAutomation : IAutomation
     {
         if (automationData.Level != 0)
             overallAutomationsData.AutomationsPower -= automationData.DamagePerSecond;
+
         automationData.Level += 1;
         automationData.DamagePerSecond = Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
         overallAutomationsData.AutomationsPower += automationData.DamagePerSecond;

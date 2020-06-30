@@ -120,7 +120,7 @@ public class PlayerDataAccess : IPlayerDataProvider
 
     public void SerializePlayerData()
     {
-        FileOperations.Serialize(_playerData,_playerDataPath);
+        FileOperations.Serialize(_playerData, _playerDataPath);
     }
 }
 
