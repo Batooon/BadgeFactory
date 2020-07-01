@@ -58,8 +58,6 @@ namespace Badge
 
         private void Update()
         {
-            //Спавнитться сразу же очень мног монеток так как хп у значка 0,
-            //поэтому пока что закомментировал
             _badgeBusinessInput.TakeProgress();
             HandlePlayerInput();
         }
