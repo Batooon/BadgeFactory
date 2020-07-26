@@ -4,12 +4,12 @@ namespace DroppableItems
 {
     public interface ICollectable
     {
-        void SetReward(in int reward);
-        void Collect();
+        void Init(in int reward, PlayerData playerData);
+        void OnMovingEnded();
     }
 
     public interface IItemsMothership
     {
-        void Spawn(Vector2 position);
+        void Spawn(Vector3 position);
     }
 }

@@ -1,48 +1,32 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace DroppableItems
 {
     public class Box : MonoBehaviour
     {
-        public event Action<Vector2> BoxOpened;
-
-        [SerializeField]
-        private int _hp;
-        [SerializeField]
-        private int _oneHitDamage;
-        [SerializeField]
-        private float _lifetime;
-        [SerializeField]
-        private GameObject _boxOpenedEffect;
+        [SerializeField] private float _lifetime;
 
         private IItemTweener _itemTweener;
+        private BadgeData _badgeData;
+        private BoxPromtPanelPresentation _promtPanel;
+        private UnityEvent _boxOpenEvent;
+        private int _boxReward;
 
-        private void Awake()
+        public int BoxReward => _boxReward;
+
+        public void Init(UnityEvent boxOpenEvent)
         {
+            _boxOpenEvent = boxOpenEvent;
             _itemTweener = GetComponent<IItemTweener>();
-        }
-
-        private void Start()
-        {
             _itemTweener.StartMotion();
             Destroy(gameObject, _lifetime);
         }
 
         private void OnMouseEnter()
         {
-            _hp -= _oneHitDamage;
-            if (_hp <= 0)
-            {
-                GameObject effect = Instantiate(_boxOpenedEffect, transform.position, Quaternion.identity);
-                BoxOpened?.Invoke(transform.position);
-                Destroy(gameObject);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            BoxOpened = null;
+            _boxOpenEvent?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

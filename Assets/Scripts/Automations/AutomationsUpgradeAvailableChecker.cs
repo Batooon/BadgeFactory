@@ -1,23 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Automation;
 
 public class AutomationsUpgradeAvailableChecker : MonoBehaviour
 {
-    [SerializeField]
-    private Image _upgradeAvailabilityImage;
+    [SerializeField] private Image _upgradeAvailabilityImage;
 
-    private AutomationDatabse _automationDatabase;
+    private AutomationsData _automationsData;
 
-    private void Awake()
+    public void Init(AutomationsData automationsData)
     {
-        _automationDatabase = AutomationDatabse.GetAutomationDatabase();
+        _automationsData = automationsData;
+        FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        _automationDatabase.GetOverallAutomationsData().UpgradeAvailable += FetchUpgradeAvailability;
-        FetchUpgradeAvailability(_automationDatabase.CanUpgradeSomething());
+        if (_automationsData == null)
+            return;
+        _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
+    }
+
+    private void OnDisable()
+    {
+        _automationsData.CanUpgradeSomethingChanged -= FetchUpgradeAvailability;
     }
 
     private void FetchUpgradeAvailability(bool canUpgradeSomething)
@@ -29,7 +34,7 @@ public class AutomationsUpgradeAvailableChecker : MonoBehaviour
     {
         if (pause)
         {
-            _automationDatabase.GetOverallAutomationsData().UpgradeAvailable -= FetchUpgradeAvailability;
+            _automationsData.CanUpgradeSomethingChanged -= FetchUpgradeAvailability;
         }
     }
 }

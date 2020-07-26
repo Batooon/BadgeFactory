@@ -1,16 +1,13 @@
-﻿using Automation;
-using System;
-using System.IO;
-using UnityEngine;
+﻿using System;
 
 public interface IAutomationUpgrader
 {
-    void UpgradeAutomation(CurrentPlayerAutomationData automationData);
+    void UpgradeAutomation(Automation automationData);
 }
 
 public interface IAutomationBusinessOutput
 {
-    void AutomationUpgraded(CurrentPlayerAutomationData autoamtionData, bool isEnougshMoney);
+    void AutomationUpgraded(Automation autoamtionData, bool isEnougshMoney);
     void AutomationNotUpgraded();
     void UnlockNewAutomation();
     void FetchUpgradeButton(bool isInteractable);
@@ -30,43 +27,38 @@ public struct AutomationUpgradeParams
 
 public class AutomationBusinessRules : IAutomationBusinessInput
 {
-    private IPlayerDataProvider _playerData;
-    private IAutomationDatabase _automationDatabaseProvider;
+    private Automation _automation;
+    private PlayerData _playerData;
+    private AutomationsData _automationsData;
     private IAutomationBusinessOutput _automationOutput;
 
     public AutomationBusinessRules(IAutomationBusinessOutput automationBusinessOutput,
-        IPlayerDataProvider playerDataProvider,
-        IAutomationDatabase automationDatabaseProvider)
+        PlayerData playerData,
+        Automation automation,
+        AutomationsData automationsData)
     {
+        _automation = automation;
+        _playerData = playerData;
         _automationOutput = automationBusinessOutput;
-        _playerData = playerDataProvider;
-        _automationDatabaseProvider = automationDatabaseProvider;
+        _automationsData = automationsData;
     }
 
     public void CheckIfUpgradeAvailable(int automationId, int goldValue)
     {
-        CurrentPlayerAutomationData automationData = _automationDatabaseProvider.GetAutomationData(automationId);
+        _automation.CanUpgrade = goldValue >= _automation.CurrentCost;
 
-        if (goldValue >= automationData.Cost && !automationData.CanUpgrade)
-            automationData.CanUpgrade = true;
-
-        else if (automationData.CanUpgrade && goldValue <= automationData.Cost)
-            automationData.CanUpgrade = false;
-
-        _automationOutput.FetchUpgradeButton(automationData.CanUpgrade);
+        _automationOutput.FetchUpgradeButton(_automation.CanUpgrade);
     }
 
     public void TryUpgradeAutomation(int automationId, IAutomation automation)
     {
-        Data playerData = _playerData.GetPlayerData();
-        CurrentPlayerAutomationData automationData = _automationDatabaseProvider.GetAutomationData(automationId);
-
-        if (playerData.GoldAmount >= automationData.Cost)
+        if (_playerData.Gold >= _automation.CurrentCost)
         {
-            //TODO: сделать улучшение сразу же на несколько уровней
-            playerData.GoldAmount -= automationData.Cost;
-            automation.Upgrade(automationData,_automationDatabaseProvider.GetOverallAutomationsData());
-            _automationOutput.AutomationUpgraded(automationData, playerData.GoldAmount >= automationData.Cost);
+            _playerData.Gold -= _automation.CurrentCost;
+            automation.Upgrade(_automation,_automationsData);
+            if (_automation.Level % 2000 == 0)
+                _playerData.BadgePoints += 1;
+            _automationOutput.AutomationUpgraded(_automation, _playerData.Gold >= _automation.CurrentCost);
         }
         else
         {
@@ -128,7 +120,7 @@ public class AutomationPresentator : IAutomationBusinessOutput
 {
     private AutomationPresentation _automationPresentation;
 
-    public AutomationPresentator(AutomationPresentation automationPresentation, CurrentPlayerAutomationData automationData)
+    public AutomationPresentator(AutomationPresentation automationPresentation, Automation automationData)
     {
         _automationPresentation = automationPresentation;
         SetUpAutomation(automationData);
@@ -139,7 +131,7 @@ public class AutomationPresentator : IAutomationBusinessOutput
         _automationPresentation.OnAutomationNotUpgraded();
     }
 
-    public void AutomationUpgraded(CurrentPlayerAutomationData automationData, bool isEnoughMoneyForNextUpgrade)
+    public void AutomationUpgraded(Automation automationData, bool isEnoughMoneyForNextUpgrade)
     {
         _automationPresentation.OnAutomationUpgraded(GetAutomationParams(automationData, isEnoughMoneyForNextUpgrade));
     }
@@ -154,16 +146,16 @@ public class AutomationPresentator : IAutomationBusinessOutput
         throw new NotImplementedException();
     }
 
-    private void SetUpAutomation(CurrentPlayerAutomationData automationData)
+    private void SetUpAutomation(Automation automationData)
     {
         _automationPresentation.SetUpAutomation(GetAutomationParams(automationData, automationData.CanUpgrade));
     }
 
-    private AutomationViewModel GetAutomationParams(CurrentPlayerAutomationData automationData, bool isEnoughMoneyForNextUpgrade)
+    private AutomationViewModel GetAutomationParams(Automation automationData, bool isEnoughMoneyForNextUpgrade)
     {
         AutomationViewModel automationParams;
-        automationParams.AutomationCost = automationData.Cost.ConvertValue();
-        automationParams.AutomationDamage = automationData.DamagePerSecond.ConvertValue();
+        automationParams.AutomationCost = automationData.CurrentCost.ConvertValue();
+        automationParams.AutomationDamage = automationData.CurrentDamage.ConvertValue();
         automationParams.IsEnoughMoney = isEnoughMoneyForNextUpgrade;
         return automationParams;
     }

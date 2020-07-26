@@ -1,24 +1,22 @@
-﻿using Badge;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace DroppableItems
 {
-    public class BoxMothership : MothershipDecorator
+    public class BoxMothership : DroppingMothership
     {
-        public override void Spawn(Vector2 position)
-        {
-            if (Random.Range(0, 101) <= _chanceToSpawn)
-            {
-                GameObject boxObj = Instantiate(_itemToSpawn, transform.position, Quaternion.identity);
-                Box box = boxObj.GetComponent<Box>();
-                box.BoxOpened += OnBoxOpened;
-            }
-        }
+        [SerializeField] private UnityEvent _boxOpenEvent;
+        [SerializeField] private BoxPromtPanelPresentation _promtPanel;
 
-        private void OnBoxOpened(Vector2 boxPosition)
+        public override void Spawn(Vector3 position)
         {
-            base.Spawn(boxPosition);
+            if (Random.value <= _chanceToSpawn) 
+            {
+                GameObject boxObject = Instantiate(_itemToSpawn, transform.position, Quaternion.identity);
+                Box box = boxObject.GetComponent<Box>();
+                _promtPanel.Init(_badgeData.CoinsReward * 20, _playerData, _badgeData);
+                box.Init(_boxOpenEvent);
+            }
         }
     }
 }

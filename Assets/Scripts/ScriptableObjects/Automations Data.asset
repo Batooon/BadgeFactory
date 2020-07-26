@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487902cc0f7519a44b5f5f61a37ab3e2, type: 3}
+  m_Name: Automations Data
+  m_EditorClassIdentifier: 
+  _automations:
+  - _canUpgrade: 0
+    _startingDamage: 10
+    _startingCost: 10
+    _level: 6
+    _currentCost: 15
+    _currentDamage: 64
+    _isUnlocked: 1
+  - _canUpgrade: 0
+    _startingDamage: 10
+    _startingCost: 10
+    _level: 6
+    _currentCost: 15
+    _currentDamage: 64
+    _isUnlocked: 1
+  - _canUpgrade: 0
+    _startingDamage: 10
+    _startingCost: 10
+    _level: 6
+    _currentCost: 15
+    _currentDamage: 64
+    _isUnlocked: 1
+  _clickPower: 65
+  _automationsPower: 128
+  _canUpgradeSomething: 0
+  _levelsToUpgrade: 1
+  _automation:
+    _canUpgrade: 1
+    _startingDamage: 10
+    _startingCost: 10
+    _level: 2
+    _currentCost: 11
+    _currentDamage: 21
+    _isUnlocked: 1

@@ -1,29 +1,22 @@
-﻿using Badge;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 namespace DroppableItems
 {
     public abstract class DroppingMothership : MonoBehaviour, IItemsMothership
     {
-        [SerializeField]
-        protected AmountOfObjectsToSpawn _amountOfObjectsToSpawn;
-        [SerializeField]
-        protected int _chanceToSpawn;
-        /*[SerializeField]
-        protected float _itemLifetime;*/
-        /*[SerializeField]
-        [RequireInterface(typeof(ICollectable))]*/
-        //protected ICollectable _collectableItem;
+        [SerializeField] protected AmountOfObjectsToSpawn _amountOfObjectsToSpawn;
+        [SerializeField, Range(0f, 1f)] protected float _chanceToSpawn;
         [Header("ICollectable component required!")]
-        [SerializeField]
-        protected GameObject _itemToSpawn;
+        [SerializeField] protected GameObject _itemToSpawn;
 
-        public abstract void Spawn(Vector2 position);
-
-        /*private void Awake()
+        protected BadgeData _badgeData;
+        protected PlayerData _playerData;
+        public void Init(BadgeData badgeData, PlayerData playerData)
         {
-            _collectableItem = _itemToSpawn.GetComponent<ICollectable>();
-        }*/
+            _badgeData = badgeData;
+            _playerData = playerData;
+        }
+
+        public abstract void Spawn(Vector3 position);
     }
 }

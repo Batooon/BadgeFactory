@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 9055515005767240262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.461634, y: 2.461634, z: 2.461634}
+  m_LocalScale: {x: 3.58895, y: 3.58895, z: 3.58895}
   m_Children: []
   m_Father: {fileID: 9055515005868438746}
   m_RootOrder: 0
@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 9055515005868438745}
   - component: {fileID: 6937341249118476066}
   - component: {fileID: 751218447287085062}
+  - component: {fileID: -7061353451879240042}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf491cc27d3fb4438d3c308a2332191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveTime: 0
 --- !u!61 &6937341249118476066
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,8 +167,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71c54a92010543448ac365675c4a782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 30
-  _oneHitDamage: 5
-  _lifetime: 25
-  _boxOpenedEffect: {fileID: 3329135165958302405, guid: b36ec265527a4ef46818f8b1fe9ecfe3,
-    type: 3}
+  BoxOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  _lifetime: 10
+--- !u!114 &-7061353451879240042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055515005868438744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1eea30aad2f3cf4da134c51d062c1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _finished:
+    m_PersistentCalls:
+      m_Calls: []
+  _easeType: 24
+  _animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 1.5
+  _groundYCoordinate: -5.808925
+  _groundXMaxCoordinate: 3.5
+  _groundXMinCoordinate: -3.5

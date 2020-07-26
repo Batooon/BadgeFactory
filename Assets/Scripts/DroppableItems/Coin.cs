@@ -1,47 +1,36 @@
-﻿using Badge;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DroppableItems
 {
     public class Coin : MonoBehaviour, ICollectable
     {
-        [SerializeField]
-        private float _lifetime;
+        [SerializeField] private ParticleSystem _collectEffect;
 
-        private PlayerDataAccess _playerDataProvider;
+        private PlayerData _playerData;
         private IItemTweener _itemTweener;
+        private Transform _transform;
 
         private int _costReward;
 
-        public void Collect()
-        {
-            Data playerData = _playerDataProvider.GetPlayerData();
-            playerData.GoldAmount += _costReward;
-            _playerDataProvider.PlayerData = playerData;
-        }
-
-        public void SetReward(in int reward)
+        public void Init(in int reward, PlayerData playerData)
         {
             _costReward = reward;
-        }
-
-        private void Awake()
-        {
-            _playerDataProvider = PlayerDataAccess.GetPlayerDatabase();
+            _playerData = playerData;
             _itemTweener = GetComponent<IItemTweener>();
-        }
-
-        private void Start()
-        {
+            _transform = GetComponent<Transform>();
             _itemTweener.StartMotion();
-            Destroy(gameObject, _lifetime);
         }
 
-        public void OnCollect()
+        public void OnMovingEnded()
         {
+            Instantiate(_collectEffect.gameObject, _transform.position, _transform.rotation);
             Collect();
             Destroy(gameObject);
+        }
+
+        private void Collect()
+        {
+            _playerData.Gold += _costReward;
         }
     }
 

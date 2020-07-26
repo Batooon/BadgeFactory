@@ -1,30 +1,35 @@
 ﻿using UnityEngine;
 using DroppableItems;
+using System;
 using UnityEngine.Events;
 
 public class CoinMover : MonoBehaviour, IItemTweener
 {
-    [SerializeField]
-    private UnityEvent _finished;
-
-    private Vector3 _destination;
+    [SerializeField] private UnityEvent _finished;
+    [SerializeField] private LeanTweenType _easeType;
+    [SerializeField] private AnimationCurve _animationCurve;
+    [SerializeField] private float _duration;
+    [SerializeField] private float _groundYCoordinate;
+    [SerializeField] private float _groundXMaxCoordinate;
+    [SerializeField] private float _groundXMinCoordinate;
 
     public void StartMotion()
     {
-        LeanTween.move(gameObject,
-            new Vector2(Random.Range(-1.5f, 1.5f),
-            Random.Range(-1.5f, 1.5f)),
-            .5f).setOnComplete(Collect);
+        if (_easeType == LeanTweenType.animationCurve)
+        {
+            LeanTween.moveY(gameObject, _groundYCoordinate, _duration).setEase(_animationCurve).setOnComplete(_finished.Invoke);
+            LeanTween.moveX(gameObject, UnityEngine.Random.Range(_groundXMinCoordinate, _groundXMaxCoordinate), _duration * 0.5f);
+        }
+        else
+        {
+            LeanTween.move(gameObject,
+            new Vector2(UnityEngine.Random.Range(_groundXMinCoordinate, _groundXMaxCoordinate),
+            _groundYCoordinate),
+            _duration)
+            .setEase(_easeType)
+            .setOnComplete(_finished.Invoke);
+        }
     }
 
-    private void Collect()
-    {
-        LeanTween.move(gameObject, _destination, .5f).setOnComplete(_finished.Invoke);
-        LeanTween.scale(gameObject, Vector2.zero, .5f);
-    }
-
-    public void SetDestination(Vector2 destination)
-    {
-        _destination = destination;
-    }
+    public void Init() { }
 }

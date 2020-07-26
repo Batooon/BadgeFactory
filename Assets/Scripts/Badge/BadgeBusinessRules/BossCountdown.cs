@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Badge.BusinessRules
+namespace BadgeImplementation.BusinessRules
 {
     [RequireComponent(typeof(BossCountdownPresentation))]
     public class BossCountdown : MonoBehaviour, IBossCountdown
@@ -11,7 +11,7 @@ namespace Badge.BusinessRules
         private Coroutine _countdown;
         private BossCountdownPresentation _bossCountdownPresentation;
 
-        private void Awake()
+        public void Init()
         {
             _bossCountdownPresentation = GetComponent<BossCountdownPresentation>();
         }

@@ -1,4 +1,4 @@
-﻿using Badge;
+﻿using BadgeImplementation;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +9,7 @@ namespace DroppableItems
         [SerializeField]
         protected List<DroppingMothership> _droppingMotherships;
 
-        /*public void SetMotherShip(DroppingMothership mothership)
-        {
-            _droppingMotherships = mothership;
-        }*/
-
-        public override void Spawn(Vector2 position)
+        public override void Spawn(Vector3 position)
         {
             foreach (var mothership in _droppingMotherships)
             {

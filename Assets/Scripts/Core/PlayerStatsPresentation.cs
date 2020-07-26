@@ -4,38 +4,58 @@ using UnityEngine.UI;
 
 public class PlayerStatsPresentation : MonoBehaviour
 {
-    [SerializeField]
-    private string _goldAmountTemplate;
-    [SerializeField]
-    private TextMeshProUGUI _goldAmount;
-    [SerializeField]
-    private string _levelTemplate;
-    [SerializeField]
-    private TextMeshProUGUI _levelText;
-    [SerializeField]
-    private Slider _levelProgress;
+    [SerializeField] private string _goldAmountTemplate;
+    [SerializeField] private string _levelTemplate;
+    [SerializeField] private TextMeshProUGUI _goldAmount;
+    [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private Slider _levelProgress;
 
-    private PlayerDataAccess _playerDataAccess;
-    private Data _playerData;
+    private PlayerData _playerData;
 
-    private void Start()
+    public void Init(PlayerData playerData)
     {
-        _playerDataAccess = PlayerDataAccess.GetPlayerDatabase();
-        _playerData = _playerDataAccess.GetPlayerData();
+        _playerData = playerData;
+
+        _playerData.GoldChanged += ChangeGoldAmount;
+        _playerData.LevelProgressChanged += ChangeLevelProgress;
+        _playerData.LevelChanged += ChangeLevel;
 
         _levelProgress.maxValue = _playerData.MaxLevelProgress;
         _levelProgress.minValue = 0;
-        _levelText.text = string.Format(_levelTemplate, _playerData.Level.ToString());
-        _goldAmount.text = string.Format(_goldAmountTemplate, _playerData.GoldAmount.ConvertValue());
-        _playerData.GoldAmountChanged += ChangeGoldAmount;
-        _playerData.PlayerLevelProgressChanged += ChangeLevelProgress;
-        _playerData.PlayerLevelChanged += ChangeLevel;
+
+        ChangeGoldAmount(_playerData.Gold);
+        ChangeLevelProgress(_playerData.LevelProgress);
+        ChangeLevel(_playerData.Level);
+    }
+
+    private void OnEnable()
+    {
+        if (_playerData == null)
+            return;
+
+        _playerData.GoldChanged += ChangeGoldAmount;
+        _playerData.LevelProgressChanged += ChangeLevelProgress;
+        _playerData.LevelChanged += ChangeLevel;
+
+        _levelProgress.maxValue = _playerData.MaxLevelProgress;
+        _levelProgress.minValue = 0;
+
+        ChangeGoldAmount(_playerData.Gold);
+        ChangeLevelProgress(_playerData.LevelProgress);
+        ChangeLevel(_playerData.Level);
+    }
+
+    private void OnDisable()
+    {
+        _playerData.GoldChanged -= ChangeGoldAmount;
+        _playerData.LevelProgressChanged -= ChangeLevelProgress;
+        _playerData.LevelChanged -= ChangeLevel;
     }
 
     public void ChangeLevel(int newLevel)
     {
         _levelText.text = string.Format(_levelTemplate, newLevel.ToString());
-        _levelProgress.value = PlayerDataAccess.GetPlayerDatabase().GetPlayerData().MaxLevelProgress;
+        _levelProgress.value = _playerData.MaxLevelProgress;
     }
 
     public void ChangeGoldAmount(int newGoldAmount)
@@ -46,12 +66,5 @@ public class PlayerStatsPresentation : MonoBehaviour
     public void ChangeLevelProgress(int newLevelProgressValue)
     {
         _levelProgress.value = newLevelProgressValue;
-    }
-
-    private void OnApplicationQuit()
-    {
-        _playerData.GoldAmountChanged -= ChangeGoldAmount;
-        _playerData.PlayerLevelProgressChanged -= ChangeLevelProgress;
-        _playerData.PlayerLevelChanged -= ChangeLevel;
     }
 }

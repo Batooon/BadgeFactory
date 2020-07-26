@@ -1,5 +1,5 @@
 ﻿
-namespace Badge
+/*namespace BadgeImplementation
 {
     [System.Serializable]
     public class BadgeData
@@ -9,4 +9,4 @@ namespace Badge
         public int CoinsReward;
         //редкость?
     }
-}
+}*/

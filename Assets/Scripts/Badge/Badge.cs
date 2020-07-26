@@ -1,39 +1,32 @@
-﻿using Badge.BusinessRules;
+﻿using BadgeImplementation.BusinessRules;
 using DroppableItems;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
-using UnityEngine.Events;
-using Automation;
 
-namespace Badge
+namespace BadgeImplementation
 {
     [System.Serializable]
     public class PlayerClicked : UnityEvent<Vector2> { }
 
-    [RequireComponent(typeof(BadgePresentation))] 
+    [RequireComponent(typeof(BadgePresentation))]
     public class Badge : MonoBehaviour
     {
-        [SerializeField]
-        private SpriteAtlas _badges;
-        [SerializeField]
-        private SpriteAtlas _bossBadges;
-        [SerializeField]
-        private List<DroppingMothership> _droppingMotherships;
-        [SerializeField]
-        private BossCountdown _bossCountdown;
+        [SerializeField] private SpriteAtlas _badges = null;
+        [SerializeField] private SpriteAtlas _bossBadges = null;
+        [SerializeField] private List<DroppingMothership> _droppingMotherships = null;
+        [SerializeField] private BossCountdown _bossCountdown = null;
+        [SerializeField] private PlayerClicked Clicked = null;
 
         private Sprite[] badges;
         private Sprite[] bosses;
-
-        private IBadgeBusinessInput _badgeBusinessInput;
+        private BadgeBusinessRules _badgeBusinessInput;
         private IBadgeBusinessOutput _badgeOutput;
+        private BadgePresentation _badgePresentation;
 
-        [SerializeField]
-        public PlayerClicked Clicked;
-
-        private void Awake()
+        public void Init(PlayerData playerData, AutomationsData automationsData, BadgeData badgeData)
         {
             badges = new Sprite[_badges.spriteCount];
             bosses = new Sprite[_bossBadges.spriteCount];
@@ -41,35 +34,58 @@ namespace Badge
             _badges.GetSprites(badges);
             _bossBadges.GetSprites(bosses);
 
-            BadgePresentation badgePresentation = GetComponent<BadgePresentation>();
+            _bossCountdown.Init();
 
-            _badgeOutput = new BadgePresentator(badgePresentation, _droppingMotherships, badges, bosses);
-            _badgeBusinessInput = new BadgeBusinessRules(PlayerDataAccess.GetPlayerDatabase(),
-                                                         BadgeDatabaseAccess.GetBadgeDatabase(),
-                                                         AutomationDatabse.GetAutomationDatabase(),
-                                                         _badgeOutput,
+            _badgeBusinessInput = new BadgeBusinessRules(playerData,
+                                                         badgeData,
+                                                         automationsData,
                                                          _bossCountdown);
+
+            _badgePresentation = GetComponent<BadgePresentation>();
+            _badgePresentation.Init(badgeData, _badgeBusinessInput);
+
+            //_badgeOutput = new BadgePresentator(_badgePresentation, _droppingMotherships, badges, bosses);
+
+            _badgeBusinessInput.BadgeCreated += OnBadgeCreated;
+            _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
+            _badgeBusinessInput.CreateBossEvent += CreateBoss;
+
+            foreach (var mothership in _droppingMotherships)
+            {
+                mothership.Init(badgeData, playerData);
+            }
+
+            _badgeBusinessInput.CreateNewBadge();
+            InvokeRepeating("TakeProgress", 1f, 1f);
         }
 
-        private void Start()
+        private void TakeProgress()
         {
-            _badgeBusinessInput.CreateNewBadge();
+            _badgeBusinessInput.TakeProgress();
         }
 
         private void Update()
         {
-            _badgeBusinessInput.TakeProgress();
             HandlePlayerInput();
         }
 
         private void OnEnable()
         {
-            _bossCountdown.BossNotDefeated+=OnBossNotDefeated;
+            _bossCountdown.BossNotDefeated += OnBossNotDefeated;
+            if (_badgeBusinessInput == null)
+                return;
+
+            _badgeBusinessInput.BadgeCreated += OnBadgeCreated;
+            _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
+            _badgeBusinessInput.CreateBossEvent += CreateBoss;
         }
 
         private void OnDisable()
         {
             _bossCountdown.BossNotDefeated -= OnBossNotDefeated;
+            _badgeBusinessInput.BadgeCreated -= OnBadgeCreated;
+            _badgeBusinessInput.CreateBadgeEvent -= CreateBadge;
+            _badgeBusinessInput.CreateBossEvent -= CreateBoss;
         }
 
         private void OnBossNotDefeated()
@@ -98,18 +114,36 @@ namespace Badge
             }
         }
 
+        private void OnBadgeCreated()
+        {
+            foreach (var mothership in _droppingMotherships)
+            {
+                mothership.Spawn(mothership.transform.position);
+            }
+        }
+
+        private void CreateBoss()
+        {
+            _badgePresentation.ShowNewBadge(bosses[Random.Range(0, bosses.Length)]);
+        }
+
+        private void CreateBadge()
+        {
+            _badgePresentation.ShowNewBadge(badges[Random.Range(0, badges.Length)]);
+        }
+
         private void OnApplicationQuit()
         {
-            BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
-            PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();
+            /*BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
+            PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();*/
         }
 
         private void OnApplicationPause(bool pause)
         {
             if (pause)
             {
-                BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
-                PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();
+                /*BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
+                PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();*/
             }
         }
     }

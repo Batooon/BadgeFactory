@@ -1,20 +1,58 @@
-﻿using Automation;
+﻿using AutomationImplementation;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Automations
+namespace AutomationsImplementation
 {
     public class AutomationsPresentation : MonoBehaviour
     {
-        [SerializeField]
-        private TextMeshProUGUI _clickPowerText;
-        [SerializeField]
-        private TextMeshProUGUI _automationsPowerText;
-        /*[SerializeField]
-        private TextMeshProUGUI _levelsToUpgradeText;*/
+        [SerializeField] private TextMeshProUGUI _clickPowerText;
+        [SerializeField] private TextMeshProUGUI _automationsPowerText;
 
+        private AutomationsData _automationsData;
         private List<GameObject> _automationObjects = new List<GameObject>();
+
+        public void Init(AutomationsData automationsData)
+        {
+            _automationsData = automationsData;
+
+            _automationsData.AutomationsPowerChanged += OnAutomationsPowerChanged;
+            _automationsData.ClickPowerChanged += OnClickPowerChanged;
+
+            OnAutomationsPowerChanged(_automationsData.AutomationsPower);
+            OnClickPowerChanged(_automationsData.ClickPower);
+        }
+
+        private void OnEnable()
+        {
+            if (_automationsData == null)
+                return;
+
+            _automationsData.AutomationsPowerChanged += OnAutomationsPowerChanged;
+            _automationsData.ClickPowerChanged += OnClickPowerChanged;
+
+            OnAutomationsPowerChanged(_automationsData.AutomationsPower);
+            OnClickPowerChanged(_automationsData.ClickPower);
+        }
+
+        private void OnDisable()
+        {
+            _automationsData.AutomationsPowerChanged -= OnAutomationsPowerChanged;
+            _automationsData.ClickPowerChanged -= OnClickPowerChanged;
+        }
+
+        private void OnAutomationsPowerChanged(int newPower)
+        {
+            _automationsPowerText.text = newPower.ConvertValue();
+        }
+
+        private void OnClickPowerChanged(int newClickPower)
+        {
+            _clickPowerText.text = newClickPower.ConvertValue();
+        }
+
+        //
 
         public void SetUIValues(string clickPower, string automationsPower)
         {
@@ -31,7 +69,7 @@ namespace Automations
         {
             _automationObjects.Add(automation);
         }
-
+        /*
         public void UpdateClickPower(string clickPower)
         {
             _clickPowerText.text = clickPower;
@@ -40,7 +78,15 @@ namespace Automations
         public void UpdateAutomationsPower(string automationsPower)
         {
             _automationsPowerText.text = automationsPower;
-        }
+        }*/
+        /*
+        public void HideAutomations()
+        {
+            for (int i = 1; i < _automationObjects.Count; i++)
+            {
+                _automationObjects[i].SetActive(false);
+            }
+        }*/
 
         private void Awake()
         {

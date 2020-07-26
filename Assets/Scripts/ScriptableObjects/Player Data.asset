@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327b1c5aa0f1bda469b7830d4f14a676, type: 3}
+  m_Name: Player Data
+  m_EditorClassIdentifier: 
+  BadgePoints: 0
+  _level: 1
+  _gold: 0
+  _levelProgress: 0
+  _maxLevelProgress: 10
+  _isReturningPlayer: 1
+  _bossCountdownTime: 30
+  _needToIncreaseLevel: 1
+  _damageBonus: 1

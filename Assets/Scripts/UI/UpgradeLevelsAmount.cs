@@ -1,66 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
 //Developer: Antoshka
-[RequireComponent(typeof(Button))]
 public class UpgradeLevelsAmount : MonoBehaviour
 {
-    public event Action<int> UpgradeLevelsAmountChanged;
+    [SerializeField] private List<int> _levels = new List<int>();
+    [SerializeField] private string _template = "x{0}";
+    [SerializeField] private TextMeshProUGUI _levelsText;
 
-    [SerializeField]
-    private int _amountOfLevels = 4;
-    [SerializeField]
-    private List<int> _levels = new List<int>();
-    private int _currentIndex;
-    private Button _button;
-    private TextMeshProUGUI _levelsText;
+    private AutomationsData _automationsData;
+    private int _maxIndex;
+    private int _currentLevelIndex;
 
-    private void Awake()
+    public void Init(AutomationsData automationsData)
     {
-        _currentIndex = PlayerPrefs.GetInt("LEVELSTOUPGRADEINDEX", 0);
-        foreach (var item in _levels)
-        {
-            if (item == 0)
-                Debug.LogError("Levels not filled, please solve this problem in the inspector!");
-        }
+        _automationsData = automationsData;
+        _maxIndex = _levels.Count - 1;
+        _currentLevelIndex = _levels.IndexOf(_automationsData.LevelsToUpgrade);
 
-        if (_levels.Count > _amountOfLevels)
-        {
-            for (int i = _levels.Count; i == _amountOfLevels; i--)
-                _levels.RemoveAt(i);
-        }
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(ChangeAmountOfLevel);
-        _levelsText = GetComponentInChildren<TextMeshProUGUI>();
-        _levelsText.text = $"x{_levels[_currentIndex]}";
+        if (_currentLevelIndex > _maxIndex)
+            _currentLevelIndex = _maxIndex;
+
+        _levelsText.text = string.Format(_template, _levels[_currentLevelIndex]);
     }
 
-    private void ChangeAmountOfLevel()
+    public void ChangeAmountOfLevelsToUpgrade()
     {
-        _currentIndex = _currentIndex == _levels.Count - 1 ? 0 : _currentIndex + 1;
+        if (_currentLevelIndex == _maxIndex)
+            _currentLevelIndex = 0;
+        else
+            _currentLevelIndex += 1;
 
-        _levelsText.text = $"x{_levels[_currentIndex]}";
-
-        UpgradeLevelsAmountChanged?.Invoke(_levels[_currentIndex]);
-    }
-
-    private void OnDisable()
-    {
-        PlayerPrefs.SetInt("LEVELSTOUPGRADEINDEX", _currentIndex);
-    }
-
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt("LEVELSTOUPGRADEINDEX", _currentIndex);
-    }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-            PlayerPrefs.SetInt("LEVELSTOUPGRADEINDEX", _currentIndex);
+        _levelsText.text = string.Format(_template, _levels[_currentLevelIndex]);
+        _automationsData.LevelsToUpgrade = _levels[_currentLevelIndex];
     }
 }

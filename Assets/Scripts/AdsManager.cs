@@ -1,56 +1,89 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.Events;
 
 //Developer: Antoshka
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
-    public bool IsTestMode = true;
+    public static AdsManager Instance;
 
-    private int _googlePlayId = 3445518;
-    private int _appStoreId = 3445519;
+    [SerializeField] private BannerPosition _bannerPosition;
 
-    private string _rewardedVideoPlacement = "rewardedVideo";
-    private string _bannerPlacement = "BottomBanner";
-    private string _adVideoPlacement = "video";
+#if UNITY_EDITOR
+    public bool _testMode = true;
+#else
+    public bool _testMode = false;
+#endif
 
-    public void OnUnityAdsDidError(string message)
+#if UNITY_ANDROID
+    private readonly string _storeId = "3445518";
+#elif UNITY_IOS
+    private readonly string _storeId = "3445519";
+#endif
+    private readonly string _rewardedVideoPlacement = "rewardedVideo";
+    private readonly string _bannerPlacement = "BottomBanner";
+    private readonly string _adVideoPlacement = "video";
+    private UnityEvent _rewardedAdFinished;
+
+    public void Init()
     {
-        Debug.Log("Error");
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        Advertisement.AddListener(this);
+        Advertisement.Initialize(_storeId, _testMode);
+    }
+
+    public void ShowRewardedAd(UnityEvent adFinished)
+    {
+        if (Advertisement.IsReady(_rewardedVideoPlacement))
+        {
+            Instance._rewardedAdFinished = adFinished;
+            Advertisement.Show(_rewardedVideoPlacement);
+        }
+    }
+
+    public void ShowBanner()
+    {
+        StartCoroutine(ActivateBanner());
+    }
+
+    public void HideBanner()
+    {
+        Advertisement.Banner.Hide();
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
-        if (placementId == _rewardedVideoPlacement && showResult == ShowResult.Finished)
+        if (placementId == _rewardedVideoPlacement)
         {
-            GameEvents.current.GainAdditionalGold();
+            if (showResult == ShowResult.Finished)
+            {
+                _rewardedAdFinished?.Invoke();
+            }
         }
     }
 
-    public void OnUnityAdsDidStart(string placementId)
-    {
-    }
+    public void OnUnityAdsReady(string placementId) { }
+    public void OnUnityAdsDidStart(string placementId) { }
+    public void OnUnityAdsDidError(string message) { }
 
-    public void OnUnityAdsReady(string placementId)
+    private IEnumerator ActivateBanner()
     {
-    }
+        while (Advertisement.IsReady(_bannerPlacement) == false)
+            yield return new WaitForSeconds(.5f);
 
-    public void DoubleReward()
-    {
-        Advertisement.Show(_rewardedVideoPlacement);
-    }
-
-    private void Start()
-    {
-#if UNITY_EDITOR
-        Advertisement.AddListener(this);
-        Advertisement.Initialize(_googlePlayId.ToString(), true);
-#elif UNITY_ANDROID
-        Advertisement.Initialize(_googlePlayId.ToString(), IsTestMode);
-#else
-        Advertisement.Initialize(_appStoreId.ToString(), IsTestMode);
-#endif
+        Advertisement.Banner.SetPosition(_bannerPosition);
+        Advertisement.Banner.Show(_bannerPlacement);
     }
 }

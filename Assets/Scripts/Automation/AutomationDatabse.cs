@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace Automation
+namespace AutomationImplementation
 {
     public class OverallAutomationsData
     {
         public event Action<int> ClickPowerChanged;
         public event Action<int> AutomationsPowerChanged;
         public event Action<bool> UpgradeAvailable;
+        public event Action<int> LevelsToUpgradeChanged;
 
         private int _clickPower;
         private int _automationsPower;
         private bool _canUpgradeSomething;
+        private int _levelsToUpgrade;
 
         public int ClickPower
         {
@@ -62,15 +64,31 @@ namespace Automation
                 }
             }
         }
+
+        public int LevelsToUpgrade
+        {
+            get
+            {
+                return _levelsToUpgrade;
+            }
+            set
+            {
+                if (_levelsToUpgrade != value)
+                {
+                    _levelsToUpgrade = value;
+                    LevelsToUpgradeChanged?.Invoke(value);
+                }
+            }
+        }
     }
 
-    [Serializable]
+    /*[Serializable]
     public class AutomationsData : ISerializationCallbackReceiver
     {
         public int ClickPower;
         public int AutomationsPower;
         public bool CanUpgradeSomething;
-        //TODO: количество уровней для улучшения
+        public int LevelsToUpgrade;
 
         public OverallAutomationsData OverallData = new OverallAutomationsData();
         public List<SerializedCurrentPLayerAutomationData> AutomationData = new List<SerializedCurrentPLayerAutomationData>();
@@ -80,6 +98,7 @@ namespace Automation
             OverallData.ClickPower = ClickPower;
             OverallData.AutomationsPower = AutomationsPower;
             OverallData.CanUpgradeSomething = CanUpgradeSomething;
+            OverallData.LevelsToUpgrade = LevelsToUpgrade;
         }
 
         public void OnBeforeSerialize()
@@ -87,10 +106,11 @@ namespace Automation
             ClickPower = OverallData.ClickPower;
             AutomationsPower = OverallData.AutomationsPower;
             CanUpgradeSomething = OverallData.CanUpgradeSomething;
+            LevelsToUpgrade = OverallData.LevelsToUpgrade;
         }
-    }
+    }*/
 
-    public class AutomationDatabse : IAutomationDatabase
+    /*public class AutomationDatabse : IAutomationDatabase
     {
         private static AutomationDatabse _singleton;
 
@@ -168,5 +188,5 @@ namespace Automation
         {
             _automationsData = FileOperations.Deserialize<AutomationsData>(_automationDataPath);
         }
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-﻿namespace Automation
+﻿namespace AutomationImplementation
 {
     public interface IAutomationDatabase
     {

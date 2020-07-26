@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿
+using System;
 
 namespace DroppableItems
 {
     public interface IItemTweener
     {
+        void Init();
         void StartMotion();
-        void SetDestination(Vector2 destination);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DroppableItems;
 using UnityEngine.U2D;
 
-namespace Badge
+namespace BadgeImplementation
 {
     public class BadgePresentator : IBadgeBusinessOutput
     {
@@ -33,15 +33,9 @@ namespace Badge
             _badgeSpawner = new UsualBadgeSpawner();
         }
 
-        public void BadgeGotProgressCallback(BadgeData badgeData)
-        {
-            float alpha = Mathf.Clamp01(Mathf.InverseLerp(0, badgeData.MaxHp, badgeData.CurrentHp));
-
-            _badgePresentation.UpdateBadgeProgress(alpha);
-        }
-
         public void OnBadgeCreated(BadgeData badgeData)
         {
+            _badgePresentation.OnBadgeCreated();
             foreach (var mothership in _droppable)
             {
                 mothership.Spawn(mothership.transform.position);
@@ -57,13 +51,18 @@ namespace Badge
         {
             _badgePresentation.ShowNewBadge(_badgeSpawner.Spawn(_badges));
         }
+
+        public void BadgeGotProgressCallback(BadgeData badgeData)
+        {
+
+        }
     }
 
     public class UsualBadgeSpawner : IBadgeSpawner
     {
         public Sprite Spawn(Sprite[] sprites)
         {
-            return sprites[UnityEngine.Random.Range(0, sprites.Length - 1)];
+            return sprites[UnityEngine.Random.Range(0, sprites.Length)];
         }
     }
 

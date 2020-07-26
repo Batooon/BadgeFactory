@@ -1,67 +1,91 @@
-﻿using Automation;
+﻿using AutomationImplementation;
 using UnityEngine;
 
-namespace Automations
+namespace AutomationsImplementation
 {
     [RequireComponent(typeof(AutomationsPresentation))]
     public class Automations : MonoBehaviour
     {
-        private PlayerDataAccess _playerData;
-        private AutomationDatabse _automationsDatabase;
+        [SerializeField] private AutomationsUpgradeAvailableChecker _upgradeAvailableChecker = null;
+        [SerializeField] private UpgradeLevelsAmount _upgradeLevelsAmount = null;
+
+        private PlayerData _playerData;
+        private AutomationsData _automationsData;
         private IAutomationsBusinessInput _automationsInput;
         private AutomationsPresentation _automationPresentation;
         private IAutomationsBusinessOutput _automationsOutput;
 
-        public void OnGoldAmountChanged(int newAmount)
+        public void Init(PlayerData playerData, AutomationsData automationsData)
         {
-            //_automationsInput.CheckIfCanUpgradeSomething();
+            _playerData = playerData;
+            _automationsData = automationsData;
+            _automationPresentation = GetComponent<AutomationsPresentation>();
+            _automationPresentation.Init(_automationsData);
+            _automationsOutput = new AutomationsPresentator(_automationPresentation, _automationsData);
+
+            _automationsInput = new AutomationsBusinessRules(
+                automationsData,
+                _automationsOutput,
+                playerData);
+
+            for (int i = 0; i < _automationsData.Automations.Count; i++)
+            {
+                _automationsData.Automations[i].CanUpgradeChanged += OnUpgradeAvailabilityChanged;
+            }
+
+            foreach (Transform automation in transform)
+            {
+                AutomationLogic automationLogic = automation.GetComponent<AutomationLogic>();
+                automationLogic.Init(_playerData, _automationsData, _automationsData[automationLogic.AutomationId]);
+            }
+
+            _upgradeLevelsAmount.Init(_automationsData);
+
+            _upgradeAvailableChecker.Init(_automationsData);
+
+            _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
+            _automationsData.ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
+            _automationsData.AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
+            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
         }
 
-        private void OnUpgradeAvailabilityChanged()
+        private void OnEnable()
+        {
+            if (_playerData == null)
+                return;
+
+            if (_automationsData == null)
+                return;
+
+            _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
+            _automationsData.ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
+            _automationsData.AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
+            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+        }
+
+        private void OnDisable()
+        {
+            if (_playerData == null)
+                return;
+            if (_automationsData == null)
+                return;
+
+            _playerData.GoldChanged -= _automationsInput.TryUnlockNewAutomation;
+            _automationsData.ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
+            _automationsData.AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
+            _automationsData.LevelsToUpgradeChanged -= RecalculateCost;
+        }
+
+        private void OnUpgradeAvailabilityChanged(bool canUpgrade)
         {
             _automationsInput.CheckIfCanUpgradeSomething();
         }
 
-        private void Awake()
+        private void RecalculateCost(int levelsToUpgrade)
         {
-            _automationsDatabase = AutomationDatabse.GetAutomationDatabase();
-            _playerData = PlayerDataAccess.GetPlayerDatabase();
-            _automationPresentation = GetComponent<AutomationsPresentation>();
-            _automationsOutput = new AutomationsPresentator(_automationPresentation, _automationsDatabase.GetOverallAutomationsData());
-
-            _automationsInput = new AutomationsBusinessRules(
-                _automationsDatabase,
-                _automationsOutput,
-                _playerData);
-
-            _playerData.PlayerData.GoldAmountChanged += OnGoldAmountChanged;
-            _playerData.PlayerData.GoldAmountChanged += _automationsInput.TryUnlockNewAutomation;
-            _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
-            _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
-
-            for (int i = 0; i < _automationsDatabase.GetAutomationsLength(); i++)
+            for (int i = 0; i < _automationsData.Automations.Count; i++)
             {
-                _automationsDatabase.GetAutomationData(i).UpgradeAvailabilityChanged += OnUpgradeAvailabilityChanged;
-            }
-        }
-
-        private void OnApplicationQuit()
-        {
-            AutomationDatabse.GetAutomationDatabase().Serialize();
-            _playerData.PlayerData.GoldAmountChanged -= _automationsInput.TryUnlockNewAutomation;
-            _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
-            _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
-        }
-
-        private void OnApplicationPause(bool pause)
-        {
-            if (pause)
-            {
-                AutomationDatabse.GetAutomationDatabase().Serialize();
-                _playerData.PlayerData.GoldAmountChanged -= _automationsInput.TryUnlockNewAutomation;
-                _automationsDatabase.GetOverallAutomationsData().AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
-                _automationsDatabase.GetOverallAutomationsData().ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
-                _playerData.PlayerData.GoldAmountChanged -= OnGoldAmountChanged;
+                _automationsData.Automations[i].RecalculateCost(levelsToUpgrade);
             }
         }
     }
@@ -74,54 +98,47 @@ namespace Automations
 
     public class AutomationsBusinessRules : IAutomationsBusinessInput
     {
-        private IPlayerDataProvider _playerData;
-        private IAutomationDatabase _automationDatabase;
+        private PlayerData _playerData;
+        private AutomationsData _automationsData;
         private IAutomationsBusinessOutput _automationsOutput;
 
-        public AutomationsBusinessRules(IAutomationDatabase automationDatabase,
+        public AutomationsBusinessRules(AutomationsData automationsData,
                                         IAutomationsBusinessOutput automationOutput,
-                                        IPlayerDataProvider playerData)
+                                        PlayerData playerData)
         {
             _playerData = playerData;
-            _automationDatabase = automationDatabase;
+            _automationsData = automationsData;
             _automationsOutput = automationOutput;
         }
 
         public void CheckIfCanUpgradeSomething()
         {
-            for (int i = 0; i < _automationDatabase.GetAutomationsLength(); i++)
+            for (int i = 0; i < _automationsData.Automations.Count; i++)
             {
-                if (_automationDatabase.GetAutomationData(i).CanUpgrade)
+                if (_automationsData.Automations[i].CanUpgrade)
                 {
-                    _automationDatabase.GetOverallAutomationsData().CanUpgradeSomething = true;
+                    _automationsData.CanUpgradeSomething = true;
                     return;
                 }
             }
-            _automationDatabase.GetOverallAutomationsData().CanUpgradeSomething = false;
+            _automationsData.CanUpgradeSomething = false;
         }
 
         public void TryUnlockNewAutomation(int newGoldAmount)
         {
-            int lastUnlockedAutomationId = _automationDatabase.GetLastUnlockedAutomationId();
+            int lastUnlockedAutomationId = _automationsData.GetLastUnlockedAutomationId();
             int newAutomationId = lastUnlockedAutomationId + 1;
-            if (newAutomationId == _automationDatabase.GetAutomationsLength())
-                return;
-            CurrentPlayerAutomationData newAutomationData = _automationDatabase.GetAutomationData(newAutomationId);
-            CurrentPlayerAutomationData currentAutomation = _automationDatabase.GetAutomationData(lastUnlockedAutomationId);
 
-            if(newAutomationData.IsUnlocked)
+            if (newAutomationId >= _automationsData.Automations.Count)
                 return;
 
-            if (newGoldAmount >= currentAutomation.Cost)
+            Automation newAutomationData = _automationsData.Automations[newAutomationId];
+            Automation currentAutomation = _automationsData.Automations[lastUnlockedAutomationId];
+
+            if (newGoldAmount >= currentAutomation.CurrentCost)
             {
-                if (_automationDatabase.GetAutomationsLength() > newAutomationId)
-                {
-                    Data playerData = _playerData.GetPlayerData();
-                    newAutomationData.IsUnlocked = true;
-                    playerData.AutomationsAmountUnlocked += 1;
-                    _automationsOutput.UnlockNewAutomation(newAutomationId);
-                    //_automationDatabase.SaveAutomationData(newAutomationData, newAutomationId);
-                }
+                newAutomationData.IsUnlocked = true;
+                _automationsOutput.UnlockNewAutomation(newAutomationId);
             }
         }
     }
@@ -137,20 +154,20 @@ namespace Automations
     {
         private AutomationsPresentation _automationsPresentation;
 
-        public AutomationsPresentator(AutomationsPresentation automationsPresentation, OverallAutomationsData overallAutomationsData)
+        public AutomationsPresentator(AutomationsPresentation automationsPresentation, AutomationsData automationsData)
         {
             _automationsPresentation = automationsPresentation;
-            _automationsPresentation.SetUIValues(overallAutomationsData.ClickPower.ConvertValue(), overallAutomationsData.AutomationsPower.ConvertValue());
+            _automationsPresentation.SetUIValues(automationsData.ClickPower.ConvertValue(), automationsData.AutomationsPower.ConvertValue());
         }
 
         public void AutomationsPowerUpdated(int newPower)
         {
-            _automationsPresentation.UpdateAutomationsPower(newPower.ConvertValue());
+            //_automationsPresentation.UpdateAutomationsPower(newPower.ConvertValue());
         }
 
         public void ClickPowerUpdated(int newPower)
         {
-            _automationsPresentation.UpdateClickPower(newPower.ConvertValue());
+            //_automationsPresentation.UpdateClickPower(newPower.ConvertValue());
         }
 
         public void UnlockNewAutomation(int newAutomationId)

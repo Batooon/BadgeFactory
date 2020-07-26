@@ -16,7 +16,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1035748542}
-        m_MethodName: OnCollect
+        m_MethodName: OnMovingEnded
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26,6 +26,62 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _easeType: 38
+  _animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -24.211664
+      outSlope: -24.211664
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.08145243
+      value: -1.9720988
+      inSlope: 0.40555593
+      outSlope: 0.40555593
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2016159
+    - serializedVersion: 3
+      time: 0.35644788
+      value: 0.9933456
+      inSlope: 10.783613
+      outSlope: -8.102738
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.27337188
+    - serializedVersion: 3
+      time: 0.42917868
+      value: 0.40402687
+      inSlope: -2.318772
+      outSlope: -2.318772
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49839148
+      value: 1
+      inSlope: 8.610737
+      outSlope: 8.610737
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 1.5
+  _groundYCoordinate: -5.808925
+  _groundXMaxCoordinate: 3
+  _groundXMinCoordinate: -3.5
 --- !u!114 &1035748542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,7 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05246b3da3ae5c48a36cbc220aeaee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifetime: 20
+  _collectEffect: {fileID: 6222874252426084285, guid: 0c20695f5e5529d4099bbdbbcb626494,
+    type: 3}
 --- !u!1001 &1907068966404193004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,7 +173,7 @@ PrefabInstance:
     - target: {fileID: 5914207333247201737, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 5914207333247201737, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}
@@ -131,7 +188,7 @@ PrefabInstance:
     - target: {fileID: 5914207333247201737, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 5914207333247201737, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}
@@ -141,7 +198,7 @@ PrefabInstance:
     - target: {fileID: 5914207333247201737, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5914207333247201737, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}
@@ -153,9 +210,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2849856455367244044, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
-    - {fileID: 1638664813, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 018cfb0091465924fa40a2f4ca3b74a6, type: 3}
 --- !u!1 &4105443839196562226 stripped
 GameObject:

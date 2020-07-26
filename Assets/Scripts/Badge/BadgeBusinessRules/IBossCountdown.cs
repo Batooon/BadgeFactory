@@ -1,4 +1,4 @@
-﻿namespace Badge.BusinessRules
+﻿namespace BadgeImplementation.BusinessRules
 {
     public interface IBossCountdown
     {

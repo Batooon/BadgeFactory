@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Badge.BusinessRules
+namespace BadgeImplementation.BusinessRules
 {
     public interface IBadgeBusinessInput
     {

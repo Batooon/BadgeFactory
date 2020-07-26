@@ -7,7 +7,7 @@ public class SerializedPlayerData : ISerializationCallbackReceiver
     public int Level;
     public int LevelProgress;
     public int GoldAmount;
-    public Data PlayerData;
+    public Data PlayerData = new Data();
 
     public void OnAfterDeserialize()
     {

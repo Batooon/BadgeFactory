@@ -23,6 +23,7 @@ public class SerializedCurrentPLayerAutomationData : ISerializationCallbackRecei
 public class CurrentPlayerAutomationData
 {
     public event Action UpgradeAvailabilityChanged;
+    public event Action<int> CostChanged;
     public int StartingCost;
     public int StartingDamage;
     public int Level;
@@ -45,4 +46,14 @@ public class CurrentPlayerAutomationData
 
     private bool _canUpgrade;
 
+    public void RecalculateCost(int levelsToUpgrade)
+    {
+        float upgradeFactor = 1.07f;
+        float costFactor = 1f;
+
+        for (int i = 0; i < Level - 1 + levelsToUpgrade; i++)
+            costFactor *= upgradeFactor;
+        Cost = (int)(StartingCost * costFactor);
+        CostChanged?.Invoke(Cost);
+    }
 }

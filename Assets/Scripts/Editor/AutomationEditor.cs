@@ -1,5 +1,5 @@
-﻿using Automation;
-using Automations;
+﻿using AutomationImplementation;
+using AutomationsImplementation;
 using UnityEditor;
 using UnityEngine;
 
@@ -54,7 +54,7 @@ public class AutomationEditor : ExtendedEditorWindow
         if (AutomationParent != null && AutomationPrefab != null && GUILayout.Button("Instantiate Automations"))
         {
             var automationEditor = serializedObject.targetObject as AutomationEditorObject;
-            IAutomationDatabase automationDatabase = AutomationDatabse.GetAutomationDatabase();
+            //IAutomationDatabase automationDatabase = AutomationDatabse.GetAutomationDatabase();
 
             for (int i = 0; i < _currentArraylength; i++)
             {
@@ -76,9 +76,9 @@ public class AutomationEditor : ExtendedEditorWindow
                 automationData.Cost = automationData.StartingCost;
                 automationData.DamagePerSecond = automationData.StartingDamage;
 
-                automationDatabase.SaveAutomationData(automationData, i);
+                //automationDatabase.SaveAutomationData(automationData, i);
             }
-            automationDatabase.Serialize();
+            //automationDatabase.Serialize();
         }
 
         EditorGUILayout.EndVertical();
