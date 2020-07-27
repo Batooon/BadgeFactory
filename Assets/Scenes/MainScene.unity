@@ -4610,7 +4610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &471374526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8886,7 +8886,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3904073174434130720, guid: f624f2380d80834459005e9ca0245436,
+  m_Sprite: {fileID: 4560715183353885367, guid: f624f2380d80834459005e9ca0245436,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -9831,6 +9831,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1976095262}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &955882283
 MonoBehaviour:
@@ -11148,7 +11159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3904073174434130720, guid: f624f2380d80834459005e9ca0245436,
+  m_Sprite: {fileID: 4560715183353885367, guid: f624f2380d80834459005e9ca0245436,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -11985,6 +11996,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1976095262}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1284593786
 GameObject:
   m_ObjectHideFlags: 0
@@ -12731,7 +12753,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 10.300003, y: -11.200012}
-  m_SizeDelta: {x: 49.247032, y: 49.247032}
+  m_SizeDelta: {x: 67.7226, y: 67.7226}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1328001853
 MonoBehaviour:
@@ -12752,7 +12774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3904073174434130720, guid: f624f2380d80834459005e9ca0245436,
+  m_Sprite: {fileID: 4560715183353885367, guid: f624f2380d80834459005e9ca0245436,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -17625,7 +17647,7 @@ GameObject:
   - component: {fileID: 1976095265}
   - component: {fileID: 1976095264}
   m_Layer: 5
-  m_Name: Background
+  m_Name: SettingsBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17669,7 +17691,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f77fc60203e146d40872033fa16f1570, type: 3}
+  m_Sprite: {fileID: -6023891814158891007, guid: f624f2380d80834459005e9ca0245436,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
