@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: f624f2380d80834459005e9ca0245436
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -88265402397571493
+    second: nastro_0
+  - first:
+      213: 680684399393610889
+    second: nastro_1
+  - first:
+      213: 4560715183353885367
+    second: nastro_2
+  - first:
+      213: 7671570309464509706
+    second: nastro_3
+  - first:
+      213: 4705117825570247995
+    second: nastro_4
+  - first:
+      213: 2190570371064604244
+    second: nastro_5
+  - first:
+      213: 1750703675818942774
+    second: nastro_6
+  - first:
+      213: 3275766744359016352
+    second: nastro_7
+  - first:
+      213: -6023891814158891007
+    second: nastro_8
+  - first:
+      213: -1816675768475022507
+    second: nastro_9
+  - first:
+      213: 7747149015255321171
+    second: nastro_10
+  - first:
+      213: -2426201278665955744
+    second: nastro_11
+  - first:
+      213: -2634758849270317135
+    second: nastro_12
+  - first:
+      213: 757088539506222332
+    second: nastro_13
+  - first:
+      213: 3904073174434130720
+    second: nastro_14
+  - first:
+      213: 6323737699997052394
+    second: nastro_15
+  - first:
+      213: -122388397802083181
+    second: nastro_16
+  - first:
+      213: 8790666721940837591
+    second: nastro_17
+  - first:
+      213: 2131832045011394500
+    second: nastro_18
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: nastro_0
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 10249
+        width: 2171
+        height: 694
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56c22c851b66cef0800000000000000
+      internalID: -88265402397571493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_1
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 9381
+        width: 455
+        height: 456
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98c9106dad6427900800000000000000
+      internalID: 680684399393610889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_2
+      rect:
+        serializedVersion: 2
+        x: 2568
+        y: 9337
+        width: 262
+        height: 270
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b2f989ab4aea4f30800000000000000
+      internalID: 4560715183353885367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5392
+        width: 1150
+        height: 3739
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0dc01dfc84e67a60800000000000000
+      internalID: 7671570309464509706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_4
+      rect:
+        serializedVersion: 2
+        x: 1885
+        y: 7854
+        width: 945
+        height: 945
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b35197bcbbfeb4140800000000000000
+      internalID: 4705117825570247995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_5
+      rect:
+        serializedVersion: 2
+        x: 3362
+        y: 7904
+        width: 889
+        height: 882
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4562dc67528766e10800000000000000
+      internalID: 2190570371064604244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_6
+      rect:
+        serializedVersion: 2
+        x: 4714
+        y: 5398
+        width: 2556
+        height: 3711
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 631a820b7bfbb4810800000000000000
+      internalID: 1750703675818942774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_7
+      rect:
+        serializedVersion: 2
+        x: 7498
+        y: 7897
+        width: 896
+        height: 882
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a79e8c8f7cd57d20800000000000000
+      internalID: 3275766744359016352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_8
+      rect:
+        serializedVersion: 2
+        x: 10247
+        y: 1158
+        width: 4508
+        height: 8017
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1080dab9f46d66ca0800000000000000
+      internalID: -6023891814158891007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_9
+      rect:
+        serializedVersion: 2
+        x: 1885
+        y: 6743
+        width: 945
+        height: 940
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55b8cf3830fd9c6e0800000000000000
+      internalID: -1816675768475022507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_10
+      rect:
+        serializedVersion: 2
+        x: 3362
+        y: 6787
+        width: 889
+        height: 882
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35a8f44bbf6638b60800000000000000
+      internalID: 7747149015255321171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_11
+      rect:
+        serializedVersion: 2
+        x: 7454
+        y: 6149
+        width: 897
+        height: 888
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0666487aac6645ed0800000000000000
+      internalID: -2426201278665955744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_12
+      rect:
+        serializedVersion: 2
+        x: 1885
+        y: 5611
+        width: 943
+        height: 948
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bffc6049c47f6bd0800000000000000
+      internalID: -2634758849270317135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_13
+      rect:
+        serializedVersion: 2
+        x: 3362
+        y: 5663
+        width: 889
+        height: 881
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4a9c4f308b18a00800000000000000
+      internalID: 757088539506222332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_14
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 4656
+        width: 293
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02b27431edd0e2630800000000000000
+      internalID: 3904073174434130720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_15
+      rect:
+        serializedVersion: 2
+        x: 1885
+        y: 4256
+        width: 896
+        height: 885
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aede11dfeed62c750800000000000000
+      internalID: 6323737699997052394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_16
+      rect:
+        serializedVersion: 2
+        x: 3391
+        y: 4274
+        width: 896
+        height: 881
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39ca06096603d4ef0800000000000000
+      internalID: -122388397802083181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_17
+      rect:
+        serializedVersion: 2
+        x: 4640
+        y: 739
+        width: 4202
+        height: 4615
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d491240fc8bef970800000000000000
+      internalID: 8790666721940837591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nastro_18
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 0
+        width: 3549
+        height: 3700
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cfd2b333f9c59d10800000000000000
+      internalID: 2131832045011394500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
