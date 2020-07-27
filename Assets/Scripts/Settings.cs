@@ -1,10 +1,9 @@
 ﻿using Localization;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class VolumeSetter
 {
@@ -20,9 +19,9 @@ public class VolumeSetter
         _volumeParam = volumeParam;
     }
 
-    public void SwitchVolumeOnOff(bool playMusic)
+    public void SwitchVolumeOnOff(bool offMusic)
     {
-        _musicMixer.SetFloat(_volumeParam, playMusic ? _unmuted : _muted);
+        _musicMixer.SetFloat(_volumeParam, offMusic ? _muted : _unmuted);
     }
 }
 
@@ -35,7 +34,8 @@ public class LocalizationDropdownSetter : ILanguageSetter
 {
     private LocalizationService _localizationService;
     private string[] _languages;
-    private TMP_Dropdown _dropdown;
+    //private TMP_Dropdown _dropdown;
+    //private ToggleGroup _toggleGroup;
 
     public LocalizationDropdownSetter(string[] languages)
     {
@@ -58,15 +58,12 @@ public class LocalizationDropdownSetter : ILanguageSetter
 
 public class Settings : MonoBehaviour
 {
-    [SerializeField]
-    private AudioMixer _mixer;
-    [SerializeField]
-    private TMP_Dropdown _languageDropdown;
+    [SerializeField] private AudioMixer _mixer;
+    [SerializeField] private TMP_Dropdown _languageDropdown;
 
-    [SerializeField]
-    private string _musicVolumeParam;
-    [SerializeField]
-    private string _soundVolumeParam;
+    [SerializeField] private string _musicVolumeParam;
+    [SerializeField] private string _soundVolumeParam;
+    [SerializeField] private ToggleGroup _toggleGroup;
 
     private VolumeSetter _musicSwitcher;
     private VolumeSetter _soundsSwitcher;
@@ -93,14 +90,14 @@ public class Settings : MonoBehaviour
         _languageDropdown.RefreshShownValue();
     }
 
-    public void OnOffMusic(bool playMusic)
+    public void OnOffMusic(bool offMusic)
     {
-        _musicSwitcher.SwitchVolumeOnOff(playMusic);
+        _musicSwitcher.SwitchVolumeOnOff(offMusic);
     }
 
-    public void OnOffSounds(bool playSounds)
+    public void OnOffSounds(bool offSounds)
     {
-        _soundsSwitcher.SwitchVolumeOnOff(playSounds);
+        _soundsSwitcher.SwitchVolumeOnOff(offSounds);
     }
 
     public void ChangeLanguage(int dropdownIndex)
