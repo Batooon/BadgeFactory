@@ -5,35 +5,26 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class FarmLevelButton : MonoBehaviour
 {
-    [SerializeField]
-    private Sprite _farm;
-    [SerializeField]
-    private Sprite _levelIncrease;
+    [SerializeField] private Sprite _farm;
+    [SerializeField] private Sprite _levelIncrease;
 
-    private IPlayerDataProvider _playerData;
-
+    private PlayerData _playerData;
     private Button _button;
     private Image _image;
 
-    private void Awake()
+    public void Init(PlayerData playerData)
     {
-        _playerData = PlayerDataAccess.GetPlayerDatabase();
+        _playerData = playerData;
         _image = GetComponent<Image>();
-        _button=GetComponent<Button>();
+        _button = GetComponent<Button>();
         _button.onClick.AddListener(ChangeFarmLevelButton);
-    }
-
-    private void Start()
-    {
-        Data playerData = _playerData.GetPlayerData();
-        ChangeSprite(playerData.NeedToIncreaseLevel);
+        ChangeSprite(_playerData.NeedToIncreaseLevel);
     }
 
     public void ChangeFarmLevelButton()
     {
-        Data playerData = _playerData.GetPlayerData();
-        playerData.NeedToIncreaseLevel = !playerData.NeedToIncreaseLevel;
-        ChangeSprite(playerData.NeedToIncreaseLevel);
+        _playerData.NeedToIncreaseLevel = !_playerData.NeedToIncreaseLevel;
+        ChangeSprite(_playerData.NeedToIncreaseLevel);
     }
 
     private void ChangeSprite(bool needToIncreaseLevel)
