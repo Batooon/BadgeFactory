@@ -17,7 +17,7 @@ public class OfflineProgress : MonoBehaviour
         _badgeData = badgeData;
         _automationsData = automationsData;
 
-        if (_playerData.IsReturningPlayer)
+        if (_playerData.IsReturningPlayer && _automationsData.AutomationsPower > 0)
             InitPanel();
 
         if (_playerData.IsReturningPlayer == false)
