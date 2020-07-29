@@ -93,7 +93,8 @@ namespace BadgeImplementation.BusinessRules
 
         private void ResetBadgeCoinsReward()
         {
-            _badgeData.CoinsReward = Mathf.CeilToInt((_badgeData.MaxHp / 15) * (_playerData.Level > 75 ? Mathf.Min(3, Mathf.Pow(1.025f, _playerData.Level - 75)) : 1));
+            float value = _badgeData.MaxHp / 15f * ((_playerData.Level > 75) ? Mathf.Min(3, Mathf.Pow(1.025f, _playerData.Level - 75)) : 1);
+            _badgeData.CoinsReward = Mathf.CeilToInt(value);
         }
 
         private void AddBadgeProgress()
