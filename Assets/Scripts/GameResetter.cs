@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEditor;
 
 public class GameResetter : MonoBehaviour
 {
@@ -28,20 +27,5 @@ public class GameResetter : MonoBehaviour
         StopAllCoroutines();
         ResetGameEvent?.Invoke();
         _progressResetter.ResetProgress();
-    }
-}
-
-[CustomEditor(typeof(GameResetter))]
-public class GameResetterEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        if(GUILayout.Button("Reset Game"))
-        {
-            GameResetter resetter = (GameResetter)target;
-            resetter.ResetGame();
-        }
-
-        base.OnInspectorGUI();
     }
 }
