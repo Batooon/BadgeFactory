@@ -10,6 +10,7 @@ public class AutomationsUpgradeAvailableChecker : MonoBehaviour
     public void Init(AutomationsData automationsData)
     {
         _automationsData = automationsData;
+        _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
         FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
     }
 
