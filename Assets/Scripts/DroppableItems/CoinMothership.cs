@@ -20,7 +20,7 @@ namespace DroppableItems
 
                 for (int i = 0; i < coinsToSpawn; i++)
                 {
-                    GameObject spawnedCoin = Instantiate(_itemToSpawn, position, Quaternion.identity) as GameObject;
+                    GameObject spawnedCoin = Instantiate(_itemToSpawn, position, _itemToSpawn.transform.rotation) as GameObject;
                     ICollectable collectableComponent = spawnedCoin.GetComponent<ICollectable>();
                     SetCoinReward(in oneCoinCost, collectableComponent);
                 }

@@ -12,7 +12,7 @@ namespace DroppableItems
         {
             if (Random.value <= _chanceToSpawn) 
             {
-                GameObject boxObject = Instantiate(_itemToSpawn, transform.position, Quaternion.identity);
+                GameObject boxObject = Instantiate(_itemToSpawn, transform.position, _itemToSpawn.transform.rotation);
                 Box box = boxObject.GetComponent<Box>();
                 _promtPanel.Init(_badgeData.CoinsReward * 20, _playerData, _badgeData);
                 box.Init(_boxOpenEvent);
