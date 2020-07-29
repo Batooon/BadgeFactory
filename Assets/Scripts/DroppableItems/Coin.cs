@@ -23,7 +23,8 @@ namespace DroppableItems
 
         public void OnMovingEnded()
         {
-            Instantiate(_collectEffect.gameObject, _transform.position, _transform.rotation);
+            GameObject effect = Instantiate(_collectEffect.gameObject, _transform.position, _transform.rotation);
+            Destroy(effect, _collectEffect.main.duration);
             Collect();
             Destroy(gameObject);
         }
