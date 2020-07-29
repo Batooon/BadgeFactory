@@ -58,6 +58,7 @@ public class LocalizationDropdownSetter : ILanguageSetter
 
 public class Settings : MonoBehaviour
 {
+    [SerializeField] private SettingsPresentation _settingsPresentation;
     [SerializeField] private AudioMixer _mixer;
     [SerializeField] private TMP_Dropdown _languageDropdown;
 
@@ -68,6 +69,7 @@ public class Settings : MonoBehaviour
     private VolumeSetter _musicSwitcher;
     private VolumeSetter _soundsSwitcher;
     private ILanguageSetter _languageSetter;
+    private SettingsData _settingsData;
 
     private string[] _languages =
     {
@@ -77,27 +79,59 @@ public class Settings : MonoBehaviour
     };
     private string _currentLanguage;
 
-    private void Awake()
+    public void Init(SettingsData settingsData)
     {
+        _settingsData = settingsData;
         _musicSwitcher = new VolumeSetter(_mixer, _musicVolumeParam);
         _soundsSwitcher = new VolumeSetter(_mixer, _soundVolumeParam);
         _languageSetter = new LocalizationDropdownSetter(_languages);
+        _languageDropdown.value = Array.BinarySearch(_languages, _currentLanguage);
+        _languageDropdown.RefreshShownValue();
+        _settingsPresentation.Init(_settingsData);
+
+        _settingsData.MusicChanged += _musicSwitcher.SwitchVolumeOnOff;
+        _settingsData.SoundChanged += _soundsSwitcher.SwitchVolumeOnOff;
     }
 
     private void Start()
     {
-        _languageDropdown.value = Array.BinarySearch(_languages, _currentLanguage);
-        _languageDropdown.RefreshShownValue();
+        _musicSwitcher.SwitchVolumeOnOff(_settingsData.MusicOff);
+        _soundsSwitcher.SwitchVolumeOnOff(_settingsData.SoundOff);
     }
 
-    public void OnOffMusic(bool offMusic)
+    private void OnEnable()
     {
-        _musicSwitcher.SwitchVolumeOnOff(offMusic);
+        if (_settingsData == null)
+            return;
+
+        _settingsData.MusicChanged += _musicSwitcher.SwitchVolumeOnOff;
+        _settingsData.SoundChanged += _soundsSwitcher.SwitchVolumeOnOff;
+
+        _musicSwitcher.SwitchVolumeOnOff(_settingsData.MusicOff);
+        _soundsSwitcher.SwitchVolumeOnOff(_settingsData.SoundOff);
     }
 
-    public void OnOffSounds(bool offSounds)
+    private void OnDisable()
     {
-        _soundsSwitcher.SwitchVolumeOnOff(offSounds);
+        _settingsData.MusicChanged -= _musicSwitcher.SwitchVolumeOnOff;
+        _settingsData.SoundChanged -= _soundsSwitcher.SwitchVolumeOnOff;
+    }
+
+    public void OnOffMusic(bool isMusicOff)
+    {
+        _settingsData.MusicOff = isMusicOff;
+        //_musicSwitcher.SwitchVolumeOnOff(isMusicOff);
+    }
+
+    public void OnOffSounds(bool isSoundsOff)
+    {
+        _settingsData.SoundOff = isSoundsOff;
+        //_soundsSwitcher.SwitchVolumeOnOff(isSoundsOff);
+    }
+
+    public void OnOffVibration(bool isVibrationOff)
+    {
+        _settingsData.VibrationOff = isVibrationOff;
     }
 
     public void ChangeLanguage(int dropdownIndex)
