@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Services : MonoBehaviour
 {
-    [SerializeField] private PlayerData _playerData = null;
-    [SerializeField] private AutomationsData _automationsData = null;
-    [SerializeField] private BadgeData _badgeData = null;
-    [SerializeField] private PlayerData _defaultPlayerData = null;
-    [SerializeField] private AutomationsData _defaultAutomationsData = null;
-    [SerializeField] private BadgeData _defaultBadgeData = null;
-    [SerializeField] private Badge _badge = null;
-    [SerializeField] private Automations _automations = null;
-    [SerializeField] private PlayerStatsPresentation _playerStatsPresentation = null;
-    [SerializeField] private GameResetter _gameResetter = null;
-    [SerializeField] private OfflineProgress _offlineProgress = null;
-    [SerializeField] private AdsManager _adsManager = null;
-    [SerializeField] private FarmLevelButton _farmLevelButton = null;
+    [SerializeField] private Vibration _vibration;
+    [SerializeField] private Settings _settings;
+    [SerializeField] private SettingsData _settingsData;
+    [SerializeField] private PlayerData _playerData;
+    [SerializeField] private AutomationsData _automationsData;
+    [SerializeField] private BadgeData _badgeData;
+    [SerializeField] private PlayerData _defaultPlayerData;
+    [SerializeField] private AutomationsData _defaultAutomationsData;
+    [SerializeField] private BadgeData _defaultBadgeData;
+    [SerializeField] private Badge _badge;
+    [SerializeField] private Automations _automations;
+    [SerializeField] private PlayerStatsPresentation _playerStatsPresentation;
+    [SerializeField] private GameResetter _gameResetter;
+    [SerializeField] private OfflineProgress _offlineProgress;
+    [SerializeField] private AdsManager _adsManager;
+    [SerializeField] private FarmLevelButton _farmLevelButton;
 
     private void Awake()
     {
@@ -58,6 +61,8 @@ public class Services : MonoBehaviour
             }
         }
 
+        _settings.Init(_settingsData);
+        _vibration.Init(_settingsData);
         _farmLevelButton.Init(_playerData);
         _adsManager.Init();
         _offlineProgress.Init(_playerData, _badgeData, _automationsData);
