@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHp: 0
   _maxHp: 10
-  _coinsReward: 5
+  _coinsReward: 1

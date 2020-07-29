@@ -13,36 +13,85 @@ MonoBehaviour:
   m_Name: Default Automations Data
   m_EditorClassIdentifier: 
   _automations:
-  - _canUpgrade: 1
-    _startingDamage: 10
-    _startingCost: 10
+  - _canUpgrade: 0
+    _startingDamage: 1
+    _startingCost: 5
     _level: 0
-    _currentCost: 10
-    _currentDamage: 10
+    _currentCost: 5
+    _currentDamage: 1
     _isUnlocked: 1
   - _canUpgrade: 0
-    _startingDamage: 0
-    _startingCost: 0
+    _startingDamage: 5
+    _startingCost: 50
     _level: 0
-    _currentCost: 0
-    _currentDamage: 0
+    _currentCost: 50
+    _currentDamage: 5
     _isUnlocked: 0
   - _canUpgrade: 0
-    _startingDamage: 0
-    _startingCost: 0
+    _startingDamage: 22
+    _startingCost: 250
     _level: 0
-    _currentCost: 0
-    _currentDamage: 0
+    _currentCost: 250
+    _currentDamage: 22
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 74
+    _startingCost: 1000
+    _level: 0
+    _currentCost: 1000
+    _currentDamage: 74
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 245
+    _startingCost: 4000
+    _level: 0
+    _currentCost: 4000
+    _currentDamage: 245
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 976
+    _startingCost: 20000
+    _level: 0
+    _currentCost: 20000
+    _currentDamage: 976
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 3725
+    _startingCost: 100000
+    _level: 0
+    _currentCost: 100000
+    _currentDamage: 3725
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 10859
+    _startingCost: 400000
+    _level: 0
+    _currentCost: 400000
+    _currentDamage: 10859
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 47143
+    _startingCost: 2500000
+    _level: 0
+    _currentCost: 2500000
+    _currentDamage: 47143
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 186900
+    _startingCost: 15000000
+    _level: 0
+    _currentCost: 15000000
+    _currentDamage: 186900
     _isUnlocked: 0
   _clickPower: 1
   _automationsPower: 0
   _canUpgradeSomething: 0
   _levelsToUpgrade: 1
   _automation:
-    _canUpgrade: 1
-    _startingDamage: 10
-    _startingCost: 10
+    _canUpgrade: 0
+    _startingDamage: 1
+    _startingCost: 5
     _level: 0
-    _currentCost: 10
-    _currentDamage: 10
+    _currentCost: 5
+    _currentDamage: 1
     _isUnlocked: 1

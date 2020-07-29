@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3081d07960feaa4f9954a405247dbcf, type: 3}
   m_Name: Default Player Data
   m_EditorClassIdentifier: 
+  BadgePoints: 0
   _level: 1
   _gold: 0
   _levelProgress: 0
   _maxLevelProgress: 10
-  _isReturningPlayer: 1
+  _isReturningPlayer: 0
   _bossCountdownTime: 30
   _needToIncreaseLevel: 1
-  _automationsAmountUnlocked: 1
+  _damageBonus: 0
