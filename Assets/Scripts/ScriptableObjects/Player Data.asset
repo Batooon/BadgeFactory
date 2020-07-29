@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BadgePoints: 0
   _level: 1
-  _gold: 0
-  _levelProgress: 0
+  _gold: 2
+  _levelProgress: 1
   _maxLevelProgress: 10
-  _isReturningPlayer: 1
+  _isReturningPlayer: 0
   _bossCountdownTime: 30
   _needToIncreaseLevel: 1
-  _damageBonus: 1
+  _damageBonus: 0
