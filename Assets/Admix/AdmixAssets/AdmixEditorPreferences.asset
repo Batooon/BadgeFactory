@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AdmixEditorPreferences
   m_EditorClassIdentifier: 
   ApplicationsList: []
-  _accessToken: ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lKak0yTXpabUZtT1MwMFl6aGxMVFEwWVdVdFltSTBPUzAyWWpjMFl6UXhaRFl6TmpFaUxDSmxlSEFpT2pFMU9UWXhNek0zTnpnc0ltbGhkQ0k2TVRVNU5UVXpNemMzT0gwLnRDd3BURmtheGdVOXdTU3NaSENyY3dvME1qdUxSamphYk9VWDFpRV9OQlk=
-  _userLogin: rozum.ant@gmail.com
-  _profileStatus: 1000
+  _accessToken: 
+  _userLogin: 
+  _profileStatus: 0
