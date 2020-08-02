@@ -12,17 +12,33 @@ internal static class ValueConverter
 
     public static string ConvertValue(this int origin)
     {
-        string number = origin.ToString();
-        int length = number.Length;
+        float number = origin;
         int thousands = 0;
 
-        while (origin > 1000)
+        while (number > 1000)
         {
-            origin /= 1000;
+            number /= 1000;
             thousands += 1;
         }
 
-        string value = origin.ToString("F", CultureInfo.InstalledUICulture) + suffixes[thousands];
+        string value = number.ToString("F", CultureInfo.InstalledUICulture) + suffixes[thousands];
+
+        return value;
+    }
+
+    public static string ConvertValue(this long origin)
+    {
+        int thousands = 0;
+
+        float number = origin;
+
+        while (number > 1000)
+        {
+            number /= 1000;
+            thousands += 1;
+        }
+
+        string value = number.ToString("F", CultureInfo.InstalledUICulture) + suffixes[thousands];
 
         return value;
     }

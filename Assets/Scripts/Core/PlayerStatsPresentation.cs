@@ -58,7 +58,7 @@ public class PlayerStatsPresentation : MonoBehaviour
         _levelProgress.value = _playerData.MaxLevelProgress;
     }
 
-    public void ChangeGoldAmount(int newGoldAmount)
+    public void ChangeGoldAmount(long newGoldAmount)
     {
         _goldAmount.text = string.Format(_goldAmountTemplate, newGoldAmount.ConvertValue());
     }

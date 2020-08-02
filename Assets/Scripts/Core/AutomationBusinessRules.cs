@@ -16,7 +16,7 @@ public interface IAutomationBusinessOutput
 public interface IAutomationBusinessInput
 {
     void TryUpgradeAutomation(int automationId, IAutomation automation);
-    void CheckIfUpgradeAvailable(int automationId, int goldValue);
+    void CheckIfUpgradeAvailable(int automationId, long goldValue);
 }
 
 public struct AutomationUpgradeParams
@@ -43,7 +43,7 @@ public class AutomationBusinessRules : IAutomationBusinessInput
         _automationsData = automationsData;
     }
 
-    public void CheckIfUpgradeAvailable(int automationId, int goldValue)
+    public void CheckIfUpgradeAvailable(int automationId, long goldValue)
     {
         _automation.CanUpgrade = goldValue >= _automation.CurrentCost;
 

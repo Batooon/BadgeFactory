@@ -9,7 +9,7 @@ namespace DroppableItems
             if (Random.value <= _chanceToSpawn)
             {
                 int coinsToSpawn = Random.Range(_amountOfObjectsToSpawn.MinValue, _amountOfObjectsToSpawn.MaxValue);
-                int oneCoinCost;
+                long oneCoinCost;
                 if (_badgeData.CoinsReward >= coinsToSpawn)
                     oneCoinCost = Mathf.CeilToInt(_badgeData.CoinsReward / coinsToSpawn);
                 else
@@ -27,7 +27,7 @@ namespace DroppableItems
             }
         }
 
-        private void SetCoinReward(in int coinReward, ICollectable collectable)
+        private void SetCoinReward(in long coinReward, ICollectable collectable)
         {
             collectable.Init(in coinReward, _playerData);
         }

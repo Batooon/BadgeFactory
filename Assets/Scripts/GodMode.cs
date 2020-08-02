@@ -2,9 +2,15 @@
 
 public class GodMode : MonoBehaviour
 {
+    private PlayerData _playerData;
+
+    public void Init(PlayerData playerData)
+    {
+        _playerData = playerData;
+    }
+
     public void AddSomeGold()
     {
-        Data playerData = PlayerDataAccess.GetPlayerDatabase().GetPlayerData();
-        playerData.GoldAmount += 100000;
+        _playerData.Gold += 12478;
     }
 }

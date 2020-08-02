@@ -45,4 +45,10 @@ public class AutomationsController : MonoBehaviour
     {
         _automationsModel.Save();
     }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            _automationsModel.Save();
+    }
 }

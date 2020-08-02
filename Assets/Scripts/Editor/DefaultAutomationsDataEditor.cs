@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(AutomationsData))]
-public class AutomationsEditor : Editor
+[CustomEditor(typeof(DefaultAutomationsData))]
+public class DefaultAutomationsDataEditor : Editor
 {
-    private AutomationsData _automationsData;
+    private DefaultAutomationsData _automationsData;
 
     private void Awake()
     {
-        _automationsData = (AutomationsData)target;
+        _automationsData = (DefaultAutomationsData)target;
     }
 
     public override void OnInspectorGUI()

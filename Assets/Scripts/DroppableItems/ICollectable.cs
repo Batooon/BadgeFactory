@@ -4,7 +4,7 @@ namespace DroppableItems
 {
     public interface ICollectable
     {
-        void Init(in int reward, PlayerData playerData);
+        void Init(in long reward, PlayerData playerData);
         void OnMovingEnded();
     }
 

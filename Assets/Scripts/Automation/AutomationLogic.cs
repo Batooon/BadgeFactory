@@ -40,8 +40,37 @@ namespace AutomationImplementation
                 _automationsData);
 
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
+
             _playerData.GoldChanged += OnGoldAmountUpdated;
             _automationData.CostChanged += FetchCost;
+            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+
+            OnGoldAmountUpdated(_playerData.Gold);
+            FetchCost(_automationData.CurrentCost);
+            RecalculateCost(_automationsData.LevelsToUpgrade);
+        }
+
+        private void OnEnable()
+        {
+            if (_playerData == null)
+                return;
+            if (_automationsData == null)
+                return;
+
+            _playerData.GoldChanged += OnGoldAmountUpdated;
+            _automationData.CostChanged += FetchCost;
+            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+
+            OnGoldAmountUpdated(_playerData.Gold);
+            FetchCost(_automationData.CurrentCost);
+            RecalculateCost(_automationsData.LevelsToUpgrade);
+        }
+
+        private void OnDisable()
+        {
+            _playerData.GoldChanged -= OnGoldAmountUpdated;
+            _automationData.CostChanged -= FetchCost;
+            _automationsData.LevelsToUpgradeChanged -= RecalculateCost;
         }
 
         private void Start()
@@ -56,9 +85,8 @@ namespace AutomationImplementation
             _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation);
         }
 
-        public void OnGoldAmountUpdated(int goldAmount)
+        public void OnGoldAmountUpdated(long goldAmount)
         {
-            //Обновить кнопку улучшения
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, goldAmount);
         }
 
@@ -67,15 +95,15 @@ namespace AutomationImplementation
             _automation = automation;
         }
 
-        private void FetchCost(int cost)
+        private void FetchCost(long cost)
         {
             _automationPresentation.FetchCost(cost);
         }
 
-        private void OnApplicationQuit()
+        private void RecalculateCost(int levelsToUpgrade)
         {
-            _playerData.GoldChanged -= OnGoldAmountUpdated;
-            _automationData.CostChanged -= FetchCost;
+            _automation.RecalculateCost(levelsToUpgrade, _automationData);
+            _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
         }
     }
 }

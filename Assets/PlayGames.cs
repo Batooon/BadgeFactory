@@ -1,8 +1,7 @@
 ﻿using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using UnityEngine.SocialPlatforms;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 //Developer: Antoshka
 
@@ -37,11 +36,6 @@ public class PlayGames : MonoBehaviour
     {
         PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_level_leaders);
     }
-
-    /*private void Awake()
-    {
-        AuthenticateUser();
-    }*/
 
     public static void AuthenticateUser(Action<bool> Success)
     {

@@ -33,7 +33,7 @@ namespace BadgeImplementation
             _badgeData.HpChanged -= UpdateBadgeProgress;
         }
 
-        private void UpdateBadgeProgress(int newHp)
+        private void UpdateBadgeProgress(long newHp)
         {
             float alpha = Mathf.Clamp01(Mathf.InverseLerp(0, _badgeData.MaxHp, _badgeData.CurrentHp));
 

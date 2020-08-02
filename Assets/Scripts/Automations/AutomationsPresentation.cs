@@ -42,12 +42,12 @@ namespace AutomationsImplementation
             _automationsData.ClickPowerChanged -= OnClickPowerChanged;
         }
 
-        private void OnAutomationsPowerChanged(int newPower)
+        private void OnAutomationsPowerChanged(long newPower)
         {
             _automationsPowerText.text = newPower.ConvertValue();
         }
 
-        private void OnClickPowerChanged(int newClickPower)
+        private void OnClickPowerChanged(long newClickPower)
         {
             _clickPowerText.text = newClickPower.ConvertValue();
         }

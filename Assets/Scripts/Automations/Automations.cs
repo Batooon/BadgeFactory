@@ -36,7 +36,7 @@ namespace AutomationsImplementation
             foreach (Transform automation in transform)
             {
                 AutomationLogic automationLogic = automation.GetComponent<AutomationLogic>();
-                automationLogic.Init(_playerData, _automationsData, _automationsData[automationLogic.AutomationId]);
+                automationLogic.Init(_playerData, _automationsData, _automationsData.Automations[automationLogic.AutomationId]);
             }
 
             _upgradeLevelsAmount.Init(_automationsData);
@@ -44,9 +44,8 @@ namespace AutomationsImplementation
             _upgradeAvailableChecker.Init(_automationsData);
 
             _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
-            _automationsData.ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
-            _automationsData.AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
-            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+
+            _automationsInput.TryUnlockNewAutomation(_playerData.Gold);
         }
 
         private void OnEnable()
@@ -58,9 +57,8 @@ namespace AutomationsImplementation
                 return;
 
             _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
-            _automationsData.ClickPowerChanged += _automationsOutput.ClickPowerUpdated;
-            _automationsData.AutomationsPowerChanged += _automationsOutput.AutomationsPowerUpdated;
-            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+
+            _automationsInput.TryUnlockNewAutomation(_playerData.Gold);
         }
 
         private void OnDisable()
@@ -71,28 +69,17 @@ namespace AutomationsImplementation
                 return;
 
             _playerData.GoldChanged -= _automationsInput.TryUnlockNewAutomation;
-            _automationsData.ClickPowerChanged -= _automationsOutput.ClickPowerUpdated;
-            _automationsData.AutomationsPowerChanged -= _automationsOutput.AutomationsPowerUpdated;
-            _automationsData.LevelsToUpgradeChanged -= RecalculateCost;
         }
 
         private void OnUpgradeAvailabilityChanged(bool canUpgrade)
         {
             _automationsInput.CheckIfCanUpgradeSomething();
         }
-
-        private void RecalculateCost(int levelsToUpgrade)
-        {
-            for (int i = 0; i < _automationsData.Automations.Count; i++)
-            {
-                _automationsData.Automations[i].RecalculateCost(levelsToUpgrade);
-            }
-        }
     }
 
     public interface IAutomationsBusinessInput
     {
-        void TryUnlockNewAutomation(int newGoldAmount);
+        void TryUnlockNewAutomation(long newGoldAmount);
         void CheckIfCanUpgradeSomething();
     }
 
@@ -124,7 +111,7 @@ namespace AutomationsImplementation
             _automationsData.CanUpgradeSomething = false;
         }
 
-        public void TryUnlockNewAutomation(int newGoldAmount)
+        public void TryUnlockNewAutomation(long newGoldAmount)
         {
             int lastUnlockedAutomationId = _automationsData.GetLastUnlockedAutomationId();
             int newAutomationId = lastUnlockedAutomationId + 1;
@@ -146,8 +133,8 @@ namespace AutomationsImplementation
     public interface IAutomationsBusinessOutput
     {
         void UnlockNewAutomation(int newAutomationId);
-        void ClickPowerUpdated(int newPower);
-        void AutomationsPowerUpdated(int newPower);
+        void ClickPowerUpdated(long newPower);
+        void AutomationsPowerUpdated(long newPower);
     }
 
     public class AutomationsPresentator : IAutomationsBusinessOutput
@@ -160,12 +147,12 @@ namespace AutomationsImplementation
             _automationsPresentation.SetUIValues(automationsData.ClickPower.ConvertValue(), automationsData.AutomationsPower.ConvertValue());
         }
 
-        public void AutomationsPowerUpdated(int newPower)
+        public void AutomationsPowerUpdated(long newPower)
         {
             //_automationsPresentation.UpdateAutomationsPower(newPower.ConvertValue());
         }
 
-        public void ClickPowerUpdated(int newPower)
+        public void ClickPowerUpdated(long newPower)
         {
             //_automationsPresentation.UpdateClickPower(newPower.ConvertValue());
         }

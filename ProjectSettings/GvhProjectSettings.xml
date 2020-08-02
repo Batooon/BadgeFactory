@@ -7,4 +7,5 @@
   <projectSetting name="Google.VersionHandler.RenameToDisableFilesEnabled" value="True" />
   <projectSetting name="Google.VersionHandler.VerboseLoggingEnabled" value="False" />
   <projectSetting name="Google.VersionHandler.VersionHandlingEnabled" value="True" />
+  <projectSetting name="GooglePlayServices.UseJetifier" value="True" />
 </projectSettings>

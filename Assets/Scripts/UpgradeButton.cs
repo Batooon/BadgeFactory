@@ -37,7 +37,8 @@ public class UpgradeButton : MonoBehaviour
 
     private void OnApplicationPause(bool pause)
     {
-        _button.onClick.RemoveListener(UpgradeClickPower);
+        if (pause)
+            _button.onClick.RemoveListener(UpgradeClickPower);
     }
 
     public void Init()

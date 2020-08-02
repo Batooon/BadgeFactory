@@ -11,6 +11,7 @@ public class AutomationsUpgradeAvailableChecker : MonoBehaviour
     {
         _automationsData = automationsData;
         _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
+
         FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
     }
 
@@ -18,7 +19,9 @@ public class AutomationsUpgradeAvailableChecker : MonoBehaviour
     {
         if (_automationsData == null)
             return;
+
         _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
+        FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
     }
 
     private void OnDisable()
@@ -29,13 +32,5 @@ public class AutomationsUpgradeAvailableChecker : MonoBehaviour
     private void FetchUpgradeAvailability(bool canUpgradeSomething)
     {
         _upgradeAvailabilityImage.gameObject.SetActive(canUpgradeSomething);
-    }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            _automationsData.CanUpgradeSomethingChanged -= FetchUpgradeAvailability;
-        }
     }
 }

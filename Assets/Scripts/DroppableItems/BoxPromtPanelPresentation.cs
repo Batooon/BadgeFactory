@@ -10,7 +10,7 @@ namespace DroppableItems
         private PlayerData _playerData;
         private BadgeData _badgeData;
 
-        public void Init(int goldAmount, PlayerData playerData, BadgeData badgeData)
+        public void Init(long goldAmount, PlayerData playerData, BadgeData badgeData)
         {
             _playerData = playerData;
             _badgeData = badgeData;

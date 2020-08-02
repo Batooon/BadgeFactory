@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Settings Data")]
-public class SettingsData : ScriptableObject
+[Serializable]
+public class SettingsData
 {
     [SerializeField] private bool _vibrationOff;
     [SerializeField] private bool _soundOff;

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: -253376139, guid: e97a86927d98e084a8bf97d7deb72c19, type: 3}
   m_Name: AdmixPreferences
   m_EditorClassIdentifier: 
-  ApplicationName: 
-  GenericPackageName: com.DefaultCompany.ProductName
+  ApplicationName: Badge Factory
+  GenericPackageName: com.RozumStudio.BadgeFactory
   ApplicationIdentifier: 
   _applicationToken: 
   _logBehaviour: 2

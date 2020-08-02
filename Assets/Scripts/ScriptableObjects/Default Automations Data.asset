@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 487902cc0f7519a44b5f5f61a37ab3e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 90a21fd753e89724ba9c28eeb750dce4, type: 3}
   m_Name: Default Automations Data
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultAutomationsData
   _automations:
   - _canUpgrade: 0
     _startingDamage: 1
@@ -83,10 +83,55 @@ MonoBehaviour:
     _currentCost: 15000000
     _currentDamage: 186900
     _isUnlocked: 0
-  _clickPower: 1
-  _automationsPower: 0
-  _canUpgradeSomething: 0
-  _levelsToUpgrade: 1
+  - _canUpgrade: 0
+    _startingDamage: 782000
+    _startingCost: 100000000
+    _level: 0
+    _currentCost: 100000000
+    _currentDamage: 782000
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 3721000
+    _startingCost: 800000000
+    _level: 0
+    _currentCost: 800000000
+    _currentDamage: 3721000
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 17010000
+    _startingCost: 6500000000
+    _level: 0
+    _currentCost: 6500000000
+    _currentDamage: 17010000
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 69480000
+    _startingCost: 50000000000
+    _level: 0
+    _currentCost: 50000000000
+    _currentDamage: 69480000
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 460700000
+    _startingCost: 450000000000
+    _level: 0
+    _currentCost: 450000000000
+    _currentDamage: 460700000
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 3017000000
+    _startingCost: 4000000000000
+    _level: 0
+    _currentCost: 4000000000000
+    _currentDamage: 3017000000
+    _isUnlocked: 0
+  - _canUpgrade: 0
+    _startingDamage: 20000000000
+    _startingCost: 36000000000000
+    _level: 0
+    _currentCost: 36000000000000
+    _currentDamage: 20000000000
+    _isUnlocked: 0
   _automation:
     _canUpgrade: 0
     _startingDamage: 1

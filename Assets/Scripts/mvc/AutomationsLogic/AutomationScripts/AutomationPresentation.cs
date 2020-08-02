@@ -67,7 +67,7 @@ public class AutomationPresentation : MonoBehaviour
         _automation.UnlockChanged -= OnUnlockedChanged;
     }
 
-    private void OnCostChanged(int newCost)
+    private void OnCostChanged(long newCost)
     {
         _upgradeCostText.text = newCost.ConvertValue();
     }
@@ -77,7 +77,7 @@ public class AutomationPresentation : MonoBehaviour
 
     }
 
-    private void OnDamageChanged(int newDamage)
+    private void OnDamageChanged(long newDamage)
     {
         _damageText.text = newDamage.ConvertValue();
     }
@@ -116,7 +116,7 @@ public class AutomationPresentation : MonoBehaviour
         _upgradeCostText.color = isInteractable ? _defaultMoneyColorText : _notEnoughMoneyColorText;
     }
 
-    public void FetchCost(int cost)
+    public void FetchCost(long cost)
     {
         _upgradeCostText.text = cost.ConvertValue();
     }
@@ -135,24 +135,46 @@ public class UsualAutomation : IAutomation
 {
     private const float _upgradeFactor = 1.07f;
 
+    public void RecalculateCost(int levelsToUpgrade,Automation automationData)
+    {
+        int level = automationData.Level;
+        long newCost = 0;
+
+        if (automationData.Level == 0 && levelsToUpgrade == 1)
+        {
+            automationData.CurrentCost = automationData.StartingCost;
+            return;
+        }
+
+        for (int i = 0; i < levelsToUpgrade; i++)
+        {
+            newCost += Mathf.FloorToInt(automationData.StartingCost * Mathf.Pow(_upgradeFactor, level - 1));
+            level += 1;
+        }
+
+        automationData.CurrentCost = newCost;
+    }
+
     public void Upgrade(Automation automationData, AutomationsData automationsData)
     {
+        long newDamage = 0;
+
         if (automationData.Level != 0)
             automationsData.AutomationsPower -= automationData.CurrentDamage;
 
         for (int i = 0; i < automationsData.LevelsToUpgrade; i++)
         {
             automationData.Level += 1;
-            automationData.CurrentDamage = Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
+            newDamage += Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
             if (automationData.Level >= 200 && automationData.Level % 25 == 0 && automationData.Level < 4000)
-                automationData.CurrentDamage *= 4;
+                newDamage *= 4;
             if (automationData.Level >= 1000 && automationData.Level % 1000 == 0 && automationData.Level < 4000)
-                automationData.CurrentDamage *= 10;
-
-            automationData.CurrentCost = Mathf.FloorToInt(automationData.StartingCost * Mathf.Pow(_upgradeFactor, automationData.Level - 1));
+                newDamage *= 10;
         }
 
+        automationData.CurrentDamage = newDamage;
         automationsData.AutomationsPower += automationData.CurrentDamage;
+        RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }
 }
 
@@ -161,21 +183,48 @@ public class ClickAutomation : IAutomation
 {
     private const float _upgradeFactor = 1.07f;
 
+    public void RecalculateCost(int levelsToUpgrade, Automation automationData)
+    {
+        int level = automationData.Level;
+        long newCost = 0;
+
+        if (automationData.Level == 0 && levelsToUpgrade == 1)
+        {
+            automationData.CurrentCost = automationData.StartingCost;
+            return;
+        }
+
+        for (int i = 0; i < levelsToUpgrade; i++)
+        {
+            if (level < 15)
+            {
+                newCost += Mathf.FloorToInt((5 + level) * Mathf.Pow(_upgradeFactor, level - 1));
+                level += 1;
+            }
+            else
+            {
+                newCost += Mathf.FloorToInt(20 * Mathf.Pow(_upgradeFactor, level - 1));
+                level += 1;
+            }
+        }
+        automationData.CurrentCost = newCost;
+    }
+
     public void Upgrade(Automation automationData, AutomationsData automationsData)
     {
+        long newDamage = 0;
+
         if (automationData.Level != 1)
             automationsData.ClickPower -= automationData.CurrentDamage;
 
         for (int i = 0; i < automationsData.LevelsToUpgrade; i++)
         {
             automationData.Level += 1;
-            automationData.CurrentDamage = Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
-            if (automationData.Level < 15)
-                automationData.CurrentCost = Mathf.FloorToInt((5 + automationData.Level) * Mathf.Pow(_upgradeFactor, automationData.Level - 1));
-            else
-                automationData.CurrentCost = Mathf.FloorToInt(20 * Mathf.Pow(_upgradeFactor, automationData.Level - 1));
+            newDamage += Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
         }
 
+        automationData.CurrentDamage = newDamage;
         automationsData.ClickPower += automationData.CurrentDamage;
+        RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }
 }

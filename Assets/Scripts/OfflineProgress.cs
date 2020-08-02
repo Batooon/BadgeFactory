@@ -6,10 +6,11 @@ public class OfflineProgress : MonoBehaviour
 {
     [SerializeField] private GameObject _whileYouWereAwayPanel;
     [SerializeField] private TextMeshProUGUI _goldText;
+
     private PlayerData _playerData;
     private BadgeData _badgeData;
     private AutomationsData _automationsData;
-    private int _earnedGold;
+    private long _earnedGold;
 
     public void Init(PlayerData playerData, BadgeData badgeData, AutomationsData automationsData)
     {
@@ -35,30 +36,13 @@ public class OfflineProgress : MonoBehaviour
         _whileYouWereAwayPanel.SetActive(true);
     }
 
-    private int CalculateEarnings()
+    private long CalculateEarnings()
     {
-        TimeSpan timeDifference = DateTime.Now - _playerData.LastTimeInGame;
-
+        TimeSpan timeDifference = DateTime.UtcNow - _playerData.LastTimeInGame;
+        Debug.Log(timeDifference.TotalSeconds);
         double secondsToCreateBadge = _badgeData.MaxHp / _automationsData.AutomationsPower;
         int createdBadges = (int)(timeDifference.TotalSeconds / secondsToCreateBadge);
+        Debug.Log(createdBadges);
         return _earnedGold = _badgeData.CoinsReward * createdBadges;
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveDate();
-    }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            SaveDate();
-        }
-    }
-
-    private void SaveDate()
-    {
-        _playerData.LastTimeInGame = DateTime.Now;
     }
 }

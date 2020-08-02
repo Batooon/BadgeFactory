@@ -9,15 +9,9 @@ public class GameResetter : MonoBehaviour
     public void Init(
         PlayerData playerData,
         AutomationsData automationsData,
-        BadgeData badgeData,
-        PlayerData defaultPlayerData,
-        AutomationsData defaultAutomationsData,
-        BadgeData defaultBadgeData)
+        BadgeData badgeData)
     {
-        _progressResetter = new ProgressResetter(defaultPlayerData,
-                                                 defaultBadgeData,
-                                                 defaultAutomationsData,
-                                                 playerData,
+        _progressResetter = new ProgressResetter(playerData,
                                                  badgeData,
                                                  automationsData);
     }

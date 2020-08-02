@@ -10,9 +10,9 @@ namespace DroppableItems
         private IItemTweener _itemTweener;
         private Transform _transform;
 
-        private int _costReward;
+        private long _costReward;
 
-        public void Init(in int reward, PlayerData playerData)
+        public void Init(in long reward, PlayerData playerData)
         {
             _costReward = reward;
             _playerData = playerData;

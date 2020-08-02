@@ -1,26 +1,13 @@
-﻿using AutomationImplementation;
-using BadgeImplementation;
-
-public class ProgressResetter
+﻿public class ProgressResetter
 {
-    private PlayerData _defaultPlayerData;
-    private BadgeData _defautBadgeData;
-    private AutomationsData _defaultAutomationsData;
-
     private PlayerData _playerData;
     private BadgeData _badgeData;
     private AutomationsData _automationsData;
 
-    public ProgressResetter(PlayerData defaultPlayerData,
-                            BadgeData defautBadgeData,
-                            AutomationsData defaultAutomationsData,
-                            PlayerData playerData,
+    public ProgressResetter(PlayerData playerData,
                             BadgeData badgeData,
                             AutomationsData automationsData)
     {
-        _defaultPlayerData = defaultPlayerData;
-        _defautBadgeData = defautBadgeData;
-        _defaultAutomationsData = defaultAutomationsData;
         _playerData = playerData;
         _badgeData = badgeData;
         _automationsData = automationsData;
@@ -28,10 +15,11 @@ public class ProgressResetter
 
     public void ResetProgress()
     {
-        /*_playerData = _defaultPlayerData;
-        _badgeData = _defautBadgeData;
-        _automationsData = _defaultAutomationsData;*/
+        _playerData = new PlayerData();
+        _badgeData = new BadgeData();
+        _automationsData = new AutomationsData();
 
+        /*
         _playerData.BossCountdownTime = 30;
         _playerData.Gold = 0;
         _playerData.Level = 1;
@@ -55,6 +43,6 @@ public class ProgressResetter
             automationData.CurrentDamage = automationData.StartingDamage;
             automationData.Level = i == 0 ? 1 : 0;
             automationData.IsUnlocked = i == 0;
-        }
+        }*/
     }
 }
