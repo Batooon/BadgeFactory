@@ -143,13 +143,13 @@ TextureImporter:
       name: "\u043F\u0440\u043E\u0433\u0440\u0435\u0441_1"
       rect:
         serializedVersion: 2
-        x: 412
+        x: 409
         y: 965
         width: 2223
         height: 287
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 108, y: 25, z: 108, w: 25}
+      border: {x: 108, y: 0, z: 108, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -191,7 +191,7 @@ TextureImporter:
         height: 305
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 108, y: 0, z: 108, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0

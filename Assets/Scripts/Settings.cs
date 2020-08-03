@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class VolumeSetter
 {
     private const float _muted = -80f;
-    private const float _unmuted = 0f;
+    private const float _unmuted = -25f;
 
     private AudioMixer _musicMixer;
     private string _volumeParam;

@@ -14,6 +14,7 @@ namespace BadgeImplementation
     [RequireComponent(typeof(BadgePresentation))]
     public class Badge : MonoBehaviour
     {
+        [SerializeField] private BadgeProgressPresentation _badgeProgressPresentation;
         [SerializeField] private SpriteAtlas _badges = null;
         [SerializeField] private SpriteAtlas _bossBadges = null;
         [SerializeField] private List<DroppingMothership> _droppingMotherships = null;
@@ -44,8 +45,6 @@ namespace BadgeImplementation
             _badgePresentation = GetComponent<BadgePresentation>();
             _badgePresentation.Init(badgeData, _badgeBusinessInput);
 
-            //_badgeOutput = new BadgePresentator(_badgePresentation, _droppingMotherships, badges, bosses);
-
             _badgeBusinessInput.BadgeCreated += OnBadgeCreated;
             _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
             _badgeBusinessInput.CreateBossEvent += CreateBoss;
@@ -56,6 +55,7 @@ namespace BadgeImplementation
             }
 
             _badgeBusinessInput.CreateNewBadge();
+            _badgeProgressPresentation.Init(badgeData);
             InvokeRepeating("TakeProgress", 1f, 1f);
         }
 
