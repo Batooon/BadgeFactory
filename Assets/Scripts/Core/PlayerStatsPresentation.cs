@@ -24,8 +24,12 @@ public class PlayerStatsPresentation : MonoBehaviour
         _levelProgress.minValue = 0;
 
         ChangeGoldAmount(_playerData.Gold);
-        ChangeLevelProgress(_playerData.LevelProgress);
         ChangeLevel(_playerData.Level);
+    }
+
+    private void Start()
+    {
+        ChangeLevelProgress(_playerData.LevelProgress);
     }
 
     private void OnEnable()
