@@ -82,7 +82,7 @@ namespace AutomationImplementation
 
         public void OnUpgradeButtonPressed()
         {
-            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation);
+            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation, _automationUnlocked);
         }
 
         public void OnGoldAmountUpdated(long goldAmount)

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.Events;
 
 public interface IAutomationUpgrader
 {
@@ -15,7 +16,7 @@ public interface IAutomationBusinessOutput
 
 public interface IAutomationBusinessInput
 {
-    void TryUpgradeAutomation(int automationId, IAutomation automation);
+    void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked);
     void CheckIfUpgradeAvailable(int automationId, long goldValue);
 }
 
@@ -50,10 +51,12 @@ public class AutomationBusinessRules : IAutomationBusinessInput
         _automationOutput.FetchUpgradeButton(_automation.CanUpgrade);
     }
 
-    public void TryUpgradeAutomation(int automationId, IAutomation automation)
+    public void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked)
     {
         if (_playerData.Gold >= _automation.CurrentCost)
         {
+            if (_automation.Level == 0)
+                automationUnlocked?.Invoke();
             _playerData.Gold -= _automation.CurrentCost;
             automation.Upgrade(_automation,_automationsData);
             if (_automation.Level % 2000 == 0)

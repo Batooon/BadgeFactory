@@ -26,7 +26,7 @@ MonoBehaviour:
     _level: 0
     _currentCost: 50
     _currentDamage: 5
-    _isUnlocked: 0
+    _isUnlocked: 1
   - _canUpgrade: 0
     _startingDamage: 22
     _startingCost: 250
