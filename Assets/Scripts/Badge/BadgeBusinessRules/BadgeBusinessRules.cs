@@ -72,7 +72,7 @@ namespace BadgeImplementation.BusinessRules
 
         public void TakeProgress()
         {
-            _badgeData.CurrentHp += _automationsData.AutomationsPower + _automationsData.AutomationsPower * _playerData.DamageBonus / 100;
+            _badgeData.CurrentHp += (long)((_automationsData.AutomationsPower + _automationsData.AutomationsPower * _playerData.DamageBonus / 100) * Time.deltaTime);
 
             AddBadgeProgress();
         }
