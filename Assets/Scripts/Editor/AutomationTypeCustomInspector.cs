@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Graphs;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(SelectImplementationAttribute))]
@@ -12,7 +11,7 @@ public class AutomationTypeCustomInspector : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        if (_implementations == null || GUILayout.Button("Refresh implementations"))
+        if (_implementations == null || GUI.Button(position, "Refresh implementations")) 
         {
             _implementations = GetImplementations((attribute as SelectImplementationAttribute).FieldType)
                 .Where(impl => !impl.IsSubclassOf(typeof(UnityEngine.Object))).ToArray();
@@ -23,7 +22,7 @@ public class AutomationTypeCustomInspector : PropertyDrawer
         _implementationTypeIndex = EditorGUILayout.Popup(new GUIContent("Implementation"),
             _implementationTypeIndex, _implementations.Select(impl => impl.FullName).ToArray());
 
-        if (GUILayout.Button("Create instance"))
+        if (GUI.Button(position,"Create instance"))
         {
             property.managedReferenceValue = Activator.CreateInstance(_implementations[_implementationTypeIndex]);
         }
