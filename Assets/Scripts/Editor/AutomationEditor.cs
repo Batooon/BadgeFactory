@@ -1,5 +1,4 @@
-﻿using AutomationImplementation;
-using AutomationsImplementation;
+﻿using AutomationsImplementation;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,13 +9,10 @@ public class AutomationEditor : ExtendedEditorWindow
     private GameObject AutomationPrefab;
     private Transform AutomationParent;
 
-    //private AutomationEditorObject automationEditor;
-
     public static void Open(AutomationEditorObject automation)
     {
         AutomationEditor window = GetWindow<AutomationEditor>("Automations Editor");
         window.serializedObject = new SerializedObject(automation);
-        //window.automationEditor = automation;
     }
 
     private void OnInspectorUpdate()
@@ -54,14 +50,13 @@ public class AutomationEditor : ExtendedEditorWindow
         if (AutomationParent != null && AutomationPrefab != null && GUILayout.Button("Instantiate Automations"))
         {
             var automationEditor = serializedObject.targetObject as AutomationEditorObject;
-            //IAutomationDatabase automationDatabase = AutomationDatabse.GetAutomationDatabase();
 
             for (int i = 0; i < _currentArraylength; i++)
             {
                 AutomationsPresentation automationsPresentation=AutomationParent.GetComponent<AutomationsPresentation>();
                 AutomationEditorParams automationParams = automationEditor.Automations[i];
 
-                GameObject automation = Instantiate(AutomationPrefab, AutomationParent);
+                GameObject automation = PrefabUtility.InstantiatePrefab(AutomationPrefab, AutomationParent) as GameObject;
                 AutomationInitializer automationInitializer = automation.GetComponent<AutomationInitializer>();
 
                 automationInitializer.InitializeAutomation(automationParams.Automation,
@@ -75,10 +70,7 @@ public class AutomationEditor : ExtendedEditorWindow
                 automationData.StartingDamage = automationEditor.Automations[i].StartingDps;
                 automationData.Cost = automationData.StartingCost;
                 automationData.DamagePerSecond = automationData.StartingDamage;
-
-                //automationDatabase.SaveAutomationData(automationData, i);
             }
-            //automationDatabase.Serialize();
         }
 
         EditorGUILayout.EndVertical();
