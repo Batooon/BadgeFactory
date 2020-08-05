@@ -13,24 +13,108 @@ MonoBehaviour:
   m_Name: AutomationEditor
   m_EditorClassIdentifier: 
   Automations:
-  - Icon: {fileID: -5192772851045366800, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+  - Icon: {fileID: 6905243584492744649, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
     Name: Click Power
     StartingCost: 10
     StartingDps: 1
     Automation:
       id: 0
-  - Icon: {fileID: -5192772851045366800, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+  - Icon: {fileID: -4844623993006676672, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
     Name: First Automation
     StartingCost: 10
     StartingDps: 10
     Automation:
       id: 1
-  - Icon: {fileID: -5192772851045366800, guid: 0687a519cf1537344a334210cdd983f4, type: 3}
+  - Icon: {fileID: 1413419038896134873, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
     Name: Second Automation
     StartingCost: 10
     StartingDps: 10
     Automation:
       id: 2
+  - Icon: {fileID: 6242693543108810963, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 3
+  - Icon: {fileID: 435943775232490636, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 4
+  - Icon: {fileID: -7044470211952353649, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 5
+  - Icon: {fileID: 2222993025149708358, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 6
+  - Icon: {fileID: 2160650861857263594, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 7
+  - Icon: {fileID: 2160650861857263594, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 8
+  - Icon: {fileID: 3126131057087820559, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 9
+  - Icon: {fileID: 2629431910808776896, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 10
+  - Icon: {fileID: 3378306129010075189, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 11
+  - Icon: {fileID: 2934731257101098492, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 12
+  - Icon: {fileID: -8131452026199397032, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 13
+  - Icon: {fileID: -7044219867794951175, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 14
+  - Icon: {fileID: -5177236737621341706, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 15
+  - Icon: {fileID: 5940143727825069781, guid: 5b5f620bbc60ddc4286645d8ce577964, type: 3}
+    Name: Second Automation
+    StartingCost: 10
+    StartingDps: 10
+    Automation:
+      id: 16
   references:
     version: 1
     00000000:
@@ -38,4 +122,32 @@ MonoBehaviour:
     00000001:
       type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
     00000002:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000003:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000004:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000005:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000006:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000007:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000008:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000009:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    0000000A:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    0000000B:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    0000000C:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    0000000D:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    0000000E:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    0000000F:
+      type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
+    00000010:
       type: {class: UsualAutomation, ns: , asm: Assembly-CSharp}
