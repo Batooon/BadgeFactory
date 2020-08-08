@@ -56,7 +56,6 @@ namespace BadgeImplementation
 
             _badgeBusinessInput.CreateNewBadge();
             _badgeProgressPresentation.Init(badgeData);
-            //InvokeRepeating("TakeProgress", 1f, 1f);
         }
 
         private void TakeProgress()
