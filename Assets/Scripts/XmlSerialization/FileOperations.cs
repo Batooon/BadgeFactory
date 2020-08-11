@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using UnityEngine;
 
 public static class FileOperations
@@ -17,9 +18,22 @@ public static class FileOperations
     {
         return File.Exists(GetFilePath(fileName));
     }
+
     public static void DeleteFile(string fileName)
     {
         File.Delete(GetFilePath(fileName));
+    }
+
+    public static byte[] GetBytes(object item)
+    {
+        string json = JsonUtility.ToJson(item);
+        byte[] byteArray = Encoding.UTF8.GetBytes(json);
+        return byteArray;
+    }
+
+    public static T GetDataFromBytes<T>(byte[] data)
+    {
+        return JsonUtility.FromJson<T>(Encoding.UTF8.GetString(data));
     }
 
     private static string GetFilePath(string fileName)

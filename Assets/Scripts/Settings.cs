@@ -1,5 +1,6 @@
 ﻿using Localization;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class VolumeSetter
 {
     private const float _muted = -80f;
-    private const float _unmuted = -25f;
+    private const float _unmuted = -5f;
 
     private AudioMixer _musicMixer;
     private string _volumeParam;
@@ -65,6 +66,7 @@ public class Settings : MonoBehaviour
     [SerializeField] private string _musicVolumeParam;
     [SerializeField] private string _soundVolumeParam;
     [SerializeField] private ToggleGroup _toggleGroup;
+    [SerializeField] private List<Toggle> _toggleLanguages;
 
     private VolumeSetter _musicSwitcher;
     private VolumeSetter _soundsSwitcher;
@@ -85,9 +87,17 @@ public class Settings : MonoBehaviour
         _musicSwitcher = new VolumeSetter(_mixer, _musicVolumeParam);
         _soundsSwitcher = new VolumeSetter(_mixer, _soundVolumeParam);
         _languageSetter = new LocalizationDropdownSetter(_languages);
-        _languageDropdown.value = Array.BinarySearch(_languages, _currentLanguage);
+        int currentLanguageIndex = Array.BinarySearch(_languages, _currentLanguage);
+        for (int i = 0; i < _toggleLanguages.Count; i++)
+        {
+            LanguageChanger languageChanger = _toggleLanguages[i].GetComponent<LanguageChanger>();
+            if (languageChanger != null)
+                _toggleLanguages[i].isOn = languageChanger.LanguageIndex == currentLanguageIndex;
+        }
+
         _languageDropdown.RefreshShownValue();
         _settingsPresentation.Init(_settingsData);
+        ChangeLanguage(currentLanguageIndex);
 
         _settingsData.MusicChanged += _musicSwitcher.SwitchVolumeOnOff;
         _settingsData.SoundChanged += _soundsSwitcher.SwitchVolumeOnOff;

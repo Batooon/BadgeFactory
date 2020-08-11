@@ -12,10 +12,17 @@ public class PlayGamesAuthenticator : MonoBehaviour
     public void Init()
     {
         PlayGames.LoggedIn += UpdateState;
-        UpdateState(PlayGamesPlatform.Instance.IsAuthenticated());
 
         __googlePlayToggle.isOn = PlayGamesPlatform.Instance.IsAuthenticated();
         __googlePlayToggle.onValueChanged.AddListener(OnTogglePressed);
+
+        UpdateState(PlayGames.IsAuthenticated);
+    }
+
+    private void OnEnable()
+    {
+        PlayGames.LoggedIn += UpdateState;
+        UpdateState(PlayGames.IsAuthenticated);
     }
 
     private void OnDisable()
@@ -26,7 +33,7 @@ public class PlayGamesAuthenticator : MonoBehaviour
     private void OnTogglePressed(bool isAuthenticated)
     {
         if (isAuthenticated)
-            PlayGames.AuthenticateUser(UpdateState);
+            PlayGames.Initialize(isAuthenticated);
         else
             PlayGames.LogOut();
     }

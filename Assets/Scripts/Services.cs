@@ -1,6 +1,7 @@
 ﻿using AutomationsImplementation;
 using BadgeImplementation;
 using UnityEngine;
+using GooglePlayGames.BasicApi.SavedGame;
 
 public class Services : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Services : MonoBehaviour
     [SerializeField] private AdsManager _adsManager;
     [SerializeField] private FarmLevelButton _farmLevelButton;
     [SerializeField] private PlayGamesAuthenticator _playGamesAuthenticator;
+    [SerializeField] private bool _playGamesDebugMode;
 #if UNITY_EDITOR
     [SerializeField] private GodMode _godMode;
 #endif
@@ -75,7 +77,19 @@ public class Services : MonoBehaviour
         _automations.Init(_playerData, _automationsData);
         _playerData.IsReturningPlayer = true;
         _playGamesAuthenticator.Init();
-        PlayGames.AuthenticateUser((bool value) => Debug.Log(value));
+        PlayGames.Initialize(_playGamesDebugMode, new CloudSavesUI(3, true, true));
+        PlayGames.Authenticate((bool value) =>
+        {
+            Debug.Log(value);
+            if (_playerData.IsReturningPlayer)
+            {
+                PlayGames.ReadSavedData(PlayGames.DefaultFileName, (status, data) =>
+                {
+                    if (status == SavedGameRequestStatus.Success && data.Length > 0)
+                        LoadCloudData(data);
+                });
+            }
+        });
     }
 
     private void OnApplicationQuit()
@@ -99,11 +113,52 @@ public class Services : MonoBehaviour
         FileOperations.Serialize(_settingsData, _settingsDataFileName);
     }
 
+    private void SaveCloudData()
+    {
+        CloudSaveData cloudData = new CloudSaveData(_playerData, _automationsData, _badgeData);
+        byte[] data = FileOperations.GetBytes(cloudData);
+        PlayGames.WriteSavedGame(data);
+    }
+
+    private void LoadCloudData(byte[] data)
+    {
+        CloudSaveData cloudData;
+        cloudData = FileOperations.GetDataFromBytes<CloudSaveData>(data);
+        _playerData = cloudData.Data;
+        _badgeData = cloudData.Badge;
+        _automationsData = cloudData.AutomationData;
+    }
+
     private void GetData()
     {
         _playerData = FileOperations.Deserialize<PlayerData>(_playerDataFileName);
         _badgeData = FileOperations.Deserialize<BadgeData>(_badgeDataFileName);
         _automationsData = FileOperations.Deserialize<AutomationsData>(_automationsDataFileName);
         _settingsData = FileOperations.Deserialize<SettingsData>(_settingsDataFileName);
+    }
+
+    public void OpenSavesUIMenu()
+    {
+        PlayGames.ShowSavesUI((status, data) =>
+        {
+            if (status == SavedGameRequestStatus.Success && data.Length > 0)
+            {
+                LoadCloudData(data);
+            }
+        }, () => SaveCloudData());
+    }
+}
+
+public struct CloudSaveData
+{
+    public PlayerData Data;
+    public AutomationsData AutomationData;
+    public BadgeData Badge;
+
+    public CloudSaveData(PlayerData playerData,AutomationsData automationsData,BadgeData badgeData)
+    {
+        Data = playerData;
+        AutomationData = automationsData;
+        Badge = badgeData;
     }
 }
