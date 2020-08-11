@@ -50,26 +50,18 @@ public class AutomationEditor : ExtendedEditorWindow
         if (AutomationParent != null && AutomationPrefab != null && GUILayout.Button("Instantiate Automations"))
         {
             var automationEditor = serializedObject.targetObject as AutomationEditorObject;
+            //AutomationsPresentation automationsPresentation = AutomationParent.GetComponent<AutomationsPresentation>();
 
             for (int i = 0; i < _currentArraylength; i++)
             {
-                AutomationsPresentation automationsPresentation=AutomationParent.GetComponent<AutomationsPresentation>();
                 AutomationEditorParams automationParams = automationEditor.Automations[i];
 
-                GameObject automation = PrefabUtility.InstantiatePrefab(AutomationPrefab, AutomationParent) as GameObject;
+                GameObject automation = Instantiate(AutomationPrefab, AutomationParent);
                 AutomationInitializer automationInitializer = automation.GetComponent<AutomationInitializer>();
 
                 automationInitializer.InitializeAutomation(automationParams.Automation,
                     automationParams.Name,
                     automationParams.Icon);
-
-                automationsPresentation.AddAutomation(automation);
-
-                CurrentPlayerAutomationData automationData = new CurrentPlayerAutomationData();
-                automationData.StartingCost = automationEditor.Automations[i].StartingCost;
-                automationData.StartingDamage = automationEditor.Automations[i].StartingDps;
-                automationData.Cost = automationData.StartingCost;
-                automationData.DamagePerSecond = automationData.StartingDamage;
             }
         }
 

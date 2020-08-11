@@ -1,5 +1,4 @@
 ﻿
-using AutomationImplementation;
 
 public interface IAutomation
 {

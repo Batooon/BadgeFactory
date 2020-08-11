@@ -16,6 +16,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1035748542}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnMovingEnded
         m_Mode: 1
         m_Arguments:
@@ -118,6 +119,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MaskInteraction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412031636773443673, guid: 018cfb0091465924fa40a2f4ca3b74a6,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2489983123686816222, guid: 018cfb0091465924fa40a2f4ca3b74a6,
         type: 3}

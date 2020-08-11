@@ -40,7 +40,7 @@ namespace BadgeImplementation
             _badgeData.HpChanged -= UpdateBadgeProgress;
         }
 
-        private void UpdateBadgeProgress(long newHp)
+        private void UpdateBadgeProgress(float newHp)
         {
             int i = 0;
             float currentComponentProgress = _badgeData.MaxHp / _badgeSpriteComponents.Count;

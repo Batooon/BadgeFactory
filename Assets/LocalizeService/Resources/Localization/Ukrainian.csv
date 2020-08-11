@@ -16,3 +16,8 @@ Automation9,Автоматизована рука
 Automation10,Офіс
 Automation11,Автоматичний конвеєр
 Automation12,Значковий гуру
+ExitPromt,"Ви впевнені, що хочете вийти з гри?"
+Yes,ТАК
+No,НІ
+Settings,НАЛАШТУВАННЯ
+Level,Рівень

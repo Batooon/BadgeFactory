@@ -38,7 +38,7 @@ public class BadgeProgressPresentation : MonoBehaviour
         UpdateMaxSliderValue(_badgeData.MaxHp);
     }
 
-    private void UpdateSlider(long badgeHp)
+    private void UpdateSlider(float badgeHp)
     {
         _progressSlider.value = badgeHp;
     }

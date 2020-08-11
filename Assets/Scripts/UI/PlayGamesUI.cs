@@ -8,6 +8,6 @@ public class PlayGamesUI : MonoBehaviour
 {
     public void ShowLeaderBoards()
     {
-        PlayGames.ShowLeaderboardUI();
+        //PlayGames.ShowLeaderboardUI();
     }
 }

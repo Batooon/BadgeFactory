@@ -1,4 +1,5 @@
 ﻿using OdinSerializer;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -10,7 +11,8 @@ namespace AutomationImplementation
     {
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private int _automationId;
-        [OdinSerialize] private IAutomation _automation;
+        [SerializeField] private List<UpgradeComponent> _upgradeComponents;
+        [SerializeField, RequireInterface(typeof(IAutomation))] private Object _automation;
         [SerializeField] private UnityEvent _automationUnlocked;
 
         private AutomationsData _automationsData;
@@ -22,6 +24,8 @@ namespace AutomationImplementation
         private AutomationPresentation _automationPresentation;
 
         public int AutomationId => _automationId;
+
+        public IAutomation Automation => _automation as IAutomation;
 
         public void Init(PlayerData playerData, AutomationsData automationsData, Automation automationData)
         {
@@ -39,11 +43,15 @@ namespace AutomationImplementation
                 _automationData,
                 _automationsData);
 
+            foreach (var component in _upgradeComponents)
+                component.Init(_playerData, _automationsData, _automationData, _automationId);
+
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
 
             _playerData.GoldChanged += OnGoldAmountUpdated;
             _automationData.CostChanged += FetchCost;
             _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+            _automationData.PowerUpPercentageChanged += OnAutomationPowerChanged;
 
             OnGoldAmountUpdated(_playerData.Gold);
             FetchCost(_automationData.CurrentCost);
@@ -56,10 +64,13 @@ namespace AutomationImplementation
                 return;
             if (_automationsData == null)
                 return;
+            if (_automationData == null)
+                return;
 
             _playerData.GoldChanged += OnGoldAmountUpdated;
             _automationData.CostChanged += FetchCost;
             _automationsData.LevelsToUpgradeChanged += RecalculateCost;
+            _automationData.PowerUpPercentageChanged += OnAutomationPowerChanged;
 
             OnGoldAmountUpdated(_playerData.Gold);
             FetchCost(_automationData.CurrentCost);
@@ -71,6 +82,7 @@ namespace AutomationImplementation
             _playerData.GoldChanged -= OnGoldAmountUpdated;
             _automationData.CostChanged -= FetchCost;
             _automationsData.LevelsToUpgradeChanged -= RecalculateCost;
+            _automationData.PowerUpPercentageChanged -= OnAutomationPowerChanged;
         }
 
         private void Start()
@@ -82,17 +94,20 @@ namespace AutomationImplementation
 
         public void OnUpgradeButtonPressed()
         {
-            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation, _automationUnlocked);
+            _automationBusinessRules.TryUpgradeAutomation(_automationId, Automation, _automationUnlocked);
         }
 
         public void OnGoldAmountUpdated(long goldAmount)
         {
+            if (_automationBusinessRules == null)
+                return;
+
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, goldAmount);
         }
 
-        public void SetAutomationType(IAutomation automation)
+        private void OnAutomationPowerChanged(int percentage)
         {
-            _automation = automation;
+            _automationBusinessRules.RecalculateAutomationPower(_automationId, percentage);
         }
 
         private void FetchCost(long cost)
@@ -102,8 +117,15 @@ namespace AutomationImplementation
 
         private void RecalculateCost(int levelsToUpgrade)
         {
-            _automation.RecalculateCost(levelsToUpgrade, _automationData);
+            Automation.RecalculateCost(levelsToUpgrade, _automationData);
+            if (_automationBusinessRules == null)
+                return;
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
+        }
+
+        public void SetAutomationType(IAutomation automation)
+        {
+            //Automation = automation;
         }
     }
 }

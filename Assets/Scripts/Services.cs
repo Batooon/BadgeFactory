@@ -19,6 +19,7 @@ public class Services : MonoBehaviour
     [SerializeField] private OfflineProgress _offlineProgress;
     [SerializeField] private AdsManager _adsManager;
     [SerializeField] private FarmLevelButton _farmLevelButton;
+    [SerializeField] private PlayGamesAuthenticator _playGamesAuthenticator;
 #if UNITY_EDITOR
     [SerializeField] private GodMode _godMode;
 #endif
@@ -73,6 +74,7 @@ public class Services : MonoBehaviour
         _badge.Init(_playerData, _automationsData, _badgeData);
         _automations.Init(_playerData, _automationsData);
         _playerData.IsReturningPlayer = true;
+        _playGamesAuthenticator.Init();
         PlayGames.AuthenticateUser((bool value) => Debug.Log(value));
     }
 

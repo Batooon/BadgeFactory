@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class ClickAutomation : IAutomation
+public class ClickAutomation : MonoBehaviour, IAutomation
 {
     private const float _upgradeFactor = 1.07f;
 
@@ -46,7 +45,7 @@ public class ClickAutomation : IAutomation
             newDamage += Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
         }
 
-        automationData.CurrentDamage = newDamage;
+        automationData.CurrentDamage = newDamage + (newDamage * (automationData.PowerUpPercentage / 100));
         automationsData.ClickPower += automationData.CurrentDamage;
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }

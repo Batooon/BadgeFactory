@@ -68,6 +68,13 @@ public class AutomationBusinessRules : IAutomationBusinessInput
             _automationOutput.AutomationNotUpgraded();
         }
     }
+
+    public void RecalculateAutomationPower(int automationId, int addPercentageAmount)
+    {
+        int percentage = addPercentageAmount / 100;
+        long damage = _automationsData.Automations[automationId].CurrentDamage;
+        _automationsData.Automations[automationId].CurrentDamage += damage * percentage;
+    }
 }
 
 public class PlayerDataAccess : IPlayerDataProvider

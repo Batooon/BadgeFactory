@@ -7,20 +7,23 @@ using UnityEngine;
 
 public class PlayGames : MonoBehaviour
 {
+    public static event Action<bool> LoggedIn;
+
     public static void UnlockAchievement(string id)
     {
         //Social.ReportProgress(id, 100,);
     }
 
-    public static void IncrementAchievement(string id,int stepsToIncrement)
+    public static void IncrementAchievement(string id, int stepsToIncrement)
     {
-        PlayGamesPlatform.Instance.IncrementAchievement(id, stepsToIncrement, success => { });
+        //PlayGamesPlatform.Instance.IncrementAchievement(id, stepsToIncrement, success => { 
     }
 
     public static void ShowAchievementsUI()
     {
         Social.ShowAchievementsUI();
     }
+
     public static void AddScoreToleaderBoard(long score)
     {
         Social.ReportScore(score, GPGSIds.leaderboard_level_leaders, (bool success)=>
@@ -45,15 +48,11 @@ public class PlayGames : MonoBehaviour
 
         Social.localUser.Authenticate((bool success) =>
         {
-            if (success)
-            {
-                Debug.Log("Logged succsessfuly");
-            }
-            else
-            {
-                Debug.LogError("Unable to Sign in in Google Play Games");
-            }
-            Success?.Invoke(success);
+            Debug.Log(success ?
+                "Logged succsessfuly" :
+                "Unable to Sign in in Google Play Games");
+
+            LoggedIn?.Invoke(success);
         });
     }
 

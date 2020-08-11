@@ -16,3 +16,8 @@ Automation9,Автоматизированная рука
 Automation10,офис
 Automation11,Автоматический конвеер
 Automation12,Значковый гуру
+ExitPromt,"Вы уверены, что хотите выйти из игры?"
+Yes,ДА
+No,НЕТ
+Settings,НАСТРОЙКИ
+Level,Уровень

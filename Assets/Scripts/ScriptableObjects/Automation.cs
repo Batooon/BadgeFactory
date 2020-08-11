@@ -11,12 +11,14 @@ public class Automation
     [SerializeField] private long _currentCost;
     [SerializeField] private long _currentDamage;
     [SerializeField] private bool _isUnlocked;
+    [SerializeField] private int _powerUpPercentage;
 
     public event Action<bool> CanUpgradeChanged;
     public event Action<int> LevelChanged;
     public event Action<long> CostChanged;
     public event Action<long> DamageChanged;
     public event Action<bool> UnlockChanged;
+    public event Action<int> PowerUpPercentageChanged;
 
     public bool CanUpgrade
     {
@@ -59,6 +61,16 @@ public class Automation
         {
             _isUnlocked = value;
             UnlockChanged?.Invoke(_isUnlocked);
+        }
+    }
+
+    public int PowerUpPercentage
+    {
+        get => _powerUpPercentage;
+        set
+        {
+            PowerUpPercentageChanged?.Invoke(value - _powerUpPercentage);
+            _powerUpPercentage = value;
         }
     }
 }

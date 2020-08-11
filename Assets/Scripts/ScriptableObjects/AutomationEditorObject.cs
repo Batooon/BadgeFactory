@@ -9,8 +9,7 @@ public class AutomationEditorParams
     public string Name;
     public int StartingCost;
     public int StartingDps;
-    [SerializeReference]
-    [SelectImplementation(typeof(IAutomation))]
+    [SerializeReference, SelectImplementation(typeof(IAutomation))]
     public IAutomation Automation;
 }
 

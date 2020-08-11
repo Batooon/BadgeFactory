@@ -16,3 +16,8 @@ Automation9,Automated arm
 Automation10,Office
 Automation11,Automatic conveyor
 Automation12,Badge guru
+ExitPromt,Are you sure? Do you really want to quit?
+Yes,YES
+No,NO
+Settings,SETTINGS
+Level,Level

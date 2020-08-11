@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
@@ -10,7 +9,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
     public static AdsManager Instance;
 
-    [SerializeField] private BannerPosition _bannerPosition;
+    [SerializeField] private BannerPosition _bottomBannerPosition;
 
 #if UNITY_EDITOR
     public bool _testMode = true;
@@ -21,10 +20,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 #if UNITY_ANDROID
     private readonly string _storeId = "3445518";
 #elif UNITY_IOS
-    private readonly string _storeId = "3445519";
+        private readonly string _storeId = "3445519";
 #endif
+
     private readonly string _rewardedVideoPlacement = "rewardedVideo";
-    private readonly string _bannerPlacement = "BottomBanner";
+    private readonly string _bottomBannerPlacement = "BottomBanner";
     private readonly string _adVideoPlacement = "video";
     private UnityEvent _rewardedAdFinished;
 
@@ -44,6 +44,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         Advertisement.Initialize(_storeId, _testMode);
     }
 
+    private void Start()
+    {
+        StartCoroutine(ActivateBanners());
+    }
+
     public void ShowRewardedAd(UnityEvent adFinished)
     {
         if (Advertisement.IsReady(_rewardedVideoPlacement))
@@ -55,7 +60,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void ShowBanner()
     {
-        StartCoroutine(ActivateBanner());
+        if (Advertisement.IsReady(_bottomBannerPlacement)) 
+            Advertisement.Banner.Show(_bottomBannerPlacement);
     }
 
     public void HideBanner()
@@ -78,12 +84,12 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     public void OnUnityAdsDidStart(string placementId) { }
     public void OnUnityAdsDidError(string message) { }
 
-    private IEnumerator ActivateBanner()
+    private IEnumerator ActivateBanners()
     {
-        while (Advertisement.IsReady(_bannerPlacement) == false)
+        while (Advertisement.IsReady(_bottomBannerPlacement) == false)
             yield return new WaitForSeconds(.5f);
 
-        Advertisement.Banner.SetPosition(_bannerPosition);
-        Advertisement.Banner.Show(_bannerPlacement);
+        Advertisement.Banner.SetPosition(_bottomBannerPosition);
+        Advertisement.Banner.Hide();
     }
 }

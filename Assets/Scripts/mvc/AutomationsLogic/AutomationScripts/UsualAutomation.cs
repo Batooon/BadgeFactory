@@ -1,12 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class UsualAutomation : IAutomation
+public class UsualAutomation : MonoBehaviour, IAutomation
 {
     private const float _upgradeFactor = 1.07f;
 
-    public void RecalculateCost(int levelsToUpgrade,Automation automationData)
+    public void RecalculateCost(int levelsToUpgrade, Automation automationData)
     {
         int level = automationData.Level;
         long newCost = 0;
@@ -43,7 +42,7 @@ public class UsualAutomation : IAutomation
                 newDamage *= 10;
         }
 
-        automationData.CurrentDamage = newDamage;
+        automationData.CurrentDamage = newDamage + (newDamage * (automationData.PowerUpPercentage / 100));
         automationsData.AutomationsPower += automationData.CurrentDamage;
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }

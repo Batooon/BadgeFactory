@@ -1,37 +1,38 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using GooglePlayGames;
-using TMPro;
 
 public class PlayGamesAuthenticator : MonoBehaviour
 {
-    [SerializeField]
-    private string _signedInText;
-    [SerializeField]
-    private string _signedOutText;
-    [SerializeField]
-    private Toggle __googlePlayToggle;
-    [SerializeField]
-    private TextMeshProUGUI _googlePlayGamesText;
+    [SerializeField] private Image _referenceImage;
+    [SerializeField] private Sprite _authenticatedIcon;
+    [SerializeField] private Sprite _notAuthenticatedIcon;
+    [SerializeField] private Toggle __googlePlayToggle;
 
-    private void Awake()
+    public void Init()
     {
-        UpdateText(PlayGamesPlatform.Instance.IsAuthenticated());
+        PlayGames.LoggedIn += UpdateState;
+        UpdateState(PlayGamesPlatform.Instance.IsAuthenticated());
 
         __googlePlayToggle.isOn = PlayGamesPlatform.Instance.IsAuthenticated();
         __googlePlayToggle.onValueChanged.AddListener(OnTogglePressed);
     }
 
+    private void OnDisable()
+    {
+        PlayGames.LoggedIn -= UpdateState;
+    }
+
     private void OnTogglePressed(bool isAuthenticated)
     {
         if (isAuthenticated)
-            PlayGames.AuthenticateUser(UpdateText);
+            PlayGames.AuthenticateUser(UpdateState);
         else
             PlayGames.LogOut();
     }
 
-    private void UpdateText(bool isAuthenticated)
+    private void UpdateState(bool isAuthenticated)
     {
-        _googlePlayGamesText.text = isAuthenticated ? _signedInText : _signedOutText;
+        _referenceImage.sprite = isAuthenticated ? _authenticatedIcon : _notAuthenticatedIcon;
     }
 }
