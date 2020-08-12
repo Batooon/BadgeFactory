@@ -87,6 +87,20 @@ MonoBehaviour:
     m_StrikethroughThickness: 3.5
     m_TabWidth: 15
   m_GlyphTable:
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 0
+      m_Height: 0
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 15.125
+    m_GlyphRect:
+      m_X: 0
+      m_Y: 0
+      m_Width: 0
+      m_Height: 0
+    m_Scale: 1
+    m_AtlasIndex: 0
   - m_Index: 2
     m_Metrics:
       m_Width: 37.296875
@@ -4331,6 +4345,10 @@ MonoBehaviour:
     m_AtlasIndex: 0
   m_CharacterTable:
   - m_ElementType: 1
+    m_Unicode: 32
+    m_GlyphIndex: 1
+    m_Scale: 1
+  - m_ElementType: 1
     m_Unicode: 44
     m_GlyphIndex: 70
     m_Scale: 1
@@ -7452,7 +7470,7 @@ MonoBehaviour:
     atlasWidth: 1024
     atlasHeight: 1024
     characterSetSelectionMode: 6
-    characterSequence: 0030-007F,0400-04FF,002C,002E
+    characterSequence: 0030-007F,0400-04FF,002C,002E,0020
     referencedFontAssetGUID: 
     referencedTextAssetGUID: 
     fontStyle: 0

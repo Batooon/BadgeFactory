@@ -51,7 +51,7 @@ namespace AutomationImplementation
             _playerData.GoldChanged += OnGoldAmountUpdated;
             _automationData.CostChanged += FetchCost;
             _automationsData.LevelsToUpgradeChanged += RecalculateCost;
-            _automationData.PowerUpPercentageChanged += OnAutomationPowerChanged;
+            //_automationData.PowerUpPercentageChanged += OnAutomationPowerChanged;
 
             OnGoldAmountUpdated(_playerData.Gold);
             FetchCost(_automationData.CurrentCost);
@@ -105,7 +105,7 @@ namespace AutomationImplementation
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, goldAmount);
         }
 
-        private void OnAutomationPowerChanged(int percentage)
+        private void OnAutomationPowerChanged(float percentage)
         {
             _automationBusinessRules.RecalculateAutomationPower(_automationId, percentage);
         }

@@ -1,27 +1,27 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
+[RequireComponent(typeof(Toggle)), RequireComponent(typeof(IUpgrade))]
 public class UpgradeComponent : MonoBehaviour
 {
     [SerializeField] private int _levelToUnlock;
     [SerializeField] private long _upgradeCost;
-    [SerializeField] private int _percentage;
+    [SerializeField] private float _percentage;
     [SerializeField] private TextMeshProUGUI _percentageText;
     [SerializeField] private string _percentageTemplate;
     [SerializeField] private TextMeshProUGUI _costText;
     [SerializeField] private string _costTemplate;
-    [SerializeField, RequireInterface(typeof(IUpgrade))] private Object _upgrade;
+    [SerializeField] private UnityEvent _powerUpUnlocked;
 
+    private IUpgrade _upgrade;
     private int _automationIndex;
     private AutomationsData _automationsData;
     private Automation _automation;
-
-    private IUpgrade Upgrade => _upgrade as IUpgrade;
-
+    private bool _upgradeBuyed;
     private PlayerData _playerData;
-    private Button _buyUpgradeButton;
+    private Toggle _buyUpgradeToggle;
     private bool _isPowerUpUnlocked;
 
     public void Init(PlayerData playerData, AutomationsData automationsData, Automation automation, int automationIndex)
@@ -30,12 +30,17 @@ public class UpgradeComponent : MonoBehaviour
         _automationsData = automationsData;
         _automationIndex = automationIndex;
         _automation = automation;
-        _buyUpgradeButton = GetComponent<Button>();
+        _buyUpgradeToggle = GetComponent<Toggle>();
+        _upgrade = GetComponent<IUpgrade>();
+        _upgradeBuyed = _buyUpgradeToggle.interactable;
 
-        _buyUpgradeButton.interactable = _playerData.Level >= _levelToUnlock;
         _automation.LevelChanged += OnPlayerLevelChanged;
+        _playerData.GoldChanged += OnGoldAmountChanged;
         _percentageText.text = string.Format(_percentageTemplate, _percentage);
         _costText.text = string.Format(_costTemplate, _upgradeCost.ConvertValue());
+
+        OnPlayerLevelChanged(_automation.Level);
+        OnGoldAmountChanged(_playerData.Gold);
     }
 
     private void OnEnable()
@@ -43,39 +48,48 @@ public class UpgradeComponent : MonoBehaviour
         if (_playerData == null)
             return;
 
-        _buyUpgradeButton.interactable = _automation.Level >= _levelToUnlock && _upgradeCost <= _playerData.Gold;
+        _buyUpgradeToggle.interactable = _automation.Level >= _levelToUnlock && _upgradeCost <= _playerData.Gold;
         _playerData.LevelChanged += OnPlayerLevelChanged;
-        _buyUpgradeButton.onClick.AddListener(OnBuyComponentButtonPressed);
+        _playerData.GoldChanged += OnGoldAmountChanged;
+        OnPlayerLevelChanged(_automation.Level);
+        OnGoldAmountChanged(_playerData.Gold);
     }
 
     private void OnDisable()
     {
         _playerData.LevelChanged -= OnPlayerLevelChanged;
-        _buyUpgradeButton.onClick.RemoveListener(OnBuyComponentButtonPressed);
+        _playerData.GoldChanged -= OnGoldAmountChanged;
     }
 
-    private void OnBuyComponentButtonPressed()
+    public void OnBuyComponentButtonPressed(bool buyed)
     {
         if (_automation.Level < _levelToUnlock)
             return;
 
         _playerData.Gold -= _upgradeCost;
-        Upgrade.Upgrade(_automationsData, _percentage, _automationIndex);
+        _upgrade.Upgrade(_automationsData, _percentage, _automationIndex);
+        _buyUpgradeToggle.interactable = false;
+        _upgradeBuyed = true;
+        _powerUpUnlocked?.Invoke();
     }
 
     public void OnPlayerLevelChanged(int newLevel)
     {
+        if (_upgradeBuyed)
+            return;
         _isPowerUpUnlocked = _automation.Level >= _levelToUnlock;
-        _buyUpgradeButton.interactable = _isPowerUpUnlocked && _upgradeCost <= _playerData.Gold;
+        _buyUpgradeToggle.interactable = _isPowerUpUnlocked && _upgradeCost <= _playerData.Gold;
     }
 
     private void OnGoldAmountChanged(long newGoldAmount)
     {
-        _buyUpgradeButton.interactable = _upgradeCost <= newGoldAmount && _isPowerUpUnlocked;
+        if (_upgradeBuyed)
+            return;
+        _buyUpgradeToggle.interactable = _upgradeCost <= newGoldAmount && _isPowerUpUnlocked;
     }
 }
 
 public interface IUpgrade
 {
-    void Upgrade(AutomationsData automationsData, int percentage, int automationIndex);
+    void Upgrade(AutomationsData automationsData, float percentage, int automationIndex);
 }

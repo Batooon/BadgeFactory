@@ -40,9 +40,11 @@ public class UsualAutomation : MonoBehaviour, IAutomation
                 newDamage *= 4;
             if (automationData.Level >= 1000 && automationData.Level % 1000 == 0 && automationData.Level < 4000)
                 newDamage *= 10;
+
+            newDamage += newDamage * Mathf.RoundToInt(automationData.PowerUpPercentage / 100);
         }
 
-        automationData.CurrentDamage = newDamage + (newDamage * (automationData.PowerUpPercentage / 100));
+        automationData.CurrentDamage = newDamage;
         automationsData.AutomationsPower += automationData.CurrentDamage;
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public interface IAutomationUpgrader
@@ -69,9 +70,9 @@ public class AutomationBusinessRules : IAutomationBusinessInput
         }
     }
 
-    public void RecalculateAutomationPower(int automationId, int addPercentageAmount)
+    public void RecalculateAutomationPower(int automationId, float addPercentageAmount)
     {
-        int percentage = addPercentageAmount / 100;
+        int percentage = Mathf.RoundToInt(addPercentageAmount / 100);
         long damage = _automationsData.Automations[automationId].CurrentDamage;
         _automationsData.Automations[automationId].CurrentDamage += damage * percentage;
     }
