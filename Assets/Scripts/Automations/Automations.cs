@@ -1,4 +1,5 @@
 ﻿using AutomationImplementation;
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace AutomationsImplementation
@@ -11,7 +12,7 @@ namespace AutomationsImplementation
 
         private PlayerData _playerData;
         private AutomationsData _automationsData;
-        private IAutomationsBusinessInput _automationsInput;
+        private AutomationsBusinessRules _automationsInput;
         private AutomationsPresentation _automationPresentation;
         private IAutomationsBusinessOutput _automationsOutput;
 
@@ -57,6 +58,8 @@ namespace AutomationsImplementation
                 return;
 
             _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
+            _automationsData.AutomationsPowerPercentageChanged += OnAutomationsPercentageChanged;
+            _automationsData.ClickPowerPercentageChanged += OnClickPowerPercentageChanged;
 
             _automationsInput.TryUnlockNewAutomation(_playerData.Gold);
         }
@@ -69,11 +72,23 @@ namespace AutomationsImplementation
                 return;
 
             _playerData.GoldChanged -= _automationsInput.TryUnlockNewAutomation;
+            _automationsData.AutomationsPowerPercentageChanged -= OnAutomationsPercentageChanged;
+            _automationsData.ClickPowerPercentageChanged -= OnClickPowerPercentageChanged;
         }
 
         private void OnUpgradeAvailabilityChanged(bool canUpgrade)
         {
             _automationsInput.CheckIfCanUpgradeSomething();
+        }
+
+        private void OnClickPowerPercentageChanged(float addedPercentage)
+        {
+            _automationsInput.RecalculateAutomationsPower(addedPercentage);
+        }
+
+        private void OnAutomationsPercentageChanged(float addedPercentage)
+        {
+            _automationsInput.RecalculateClickPower(addedPercentage);
         }
     }
 
@@ -127,6 +142,16 @@ namespace AutomationsImplementation
                 newAutomationData.IsUnlocked = true;
                 _automationsOutput.UnlockNewAutomation(newAutomationId);
             }
+        }
+
+        public void RecalculateAutomationsPower(float percentage)
+        {
+            _automationsData.AutomationsPower += Mathf.RoundToInt(_automationsData.AutomationsPower * percentage);
+        }
+
+        public void RecalculateClickPower(float percentage)
+        {
+            _automationsData.ClickPower += Mathf.RoundToInt(_automationsData.AutomationsPower * percentage);
         }
     }
 

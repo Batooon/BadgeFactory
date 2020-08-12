@@ -46,6 +46,7 @@ public class UsualAutomation : MonoBehaviour, IAutomation
 
         automationData.CurrentDamage = newDamage;
         automationsData.AutomationsPower += automationData.CurrentDamage;
+        automationsData.AutomationsPower += Mathf.RoundToInt(automationsData.AutomationsPower * automationsData.AutomationsPowerPercentageIncrease);
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }
 }

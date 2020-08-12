@@ -8,18 +8,15 @@ using UnityEngine.U2D;
 
 namespace BadgeImplementation
 {
-    [System.Serializable]
-    public class PlayerClicked : UnityEvent<Vector2> { }
-
     [RequireComponent(typeof(BadgePresentation))]
     public class Badge : MonoBehaviour
     {
         [SerializeField] private BadgeProgressPresentation _badgeProgressPresentation;
-        [SerializeField] private SpriteAtlas _badges = null;
-        [SerializeField] private SpriteAtlas _bossBadges = null;
-        [SerializeField] private List<DroppingMothership> _droppingMotherships = null;
-        [SerializeField] private BossCountdown _bossCountdown = null;
-        [SerializeField] private PlayerClicked Clicked = null;
+        [SerializeField] private SpriteAtlas _badges;
+        [SerializeField] private SpriteAtlas _bossBadges;
+        [SerializeField] private List<DroppingMothership> _droppingMotherships;
+        [SerializeField] private BossCountdown _bossCountdown;
+        [SerializeField] private UnityEvent _clicked;
 
         private Sprite[] badges;
         private Sprite[] bosses;
@@ -106,9 +103,8 @@ namespace BadgeImplementation
                         if (EventSystem.current.IsPointerOverGameObject(touches[i].fingerId))
                             return;
 
-                        Vector2 screenPosition = Camera.main.ScreenToWorldPoint(touches[i].position);
                         _badgeBusinessInput.ClickProgress();
-                        Clicked?.Invoke(screenPosition);
+                        _clicked?.Invoke();
                     }
                 }
             }
@@ -130,21 +126,6 @@ namespace BadgeImplementation
         private void CreateBadge()
         {
             _badgePresentation.ShowNewBadge(badges[Random.Range(0, badges.Length)]);
-        }
-
-        private void OnApplicationQuit()
-        {
-            /*BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
-            PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();*/
-        }
-
-        private void OnApplicationPause(bool pause)
-        {
-            if (pause)
-            {
-                /*BadgeDatabaseAccess.GetBadgeDatabase().Serialize();
-                PlayerDataAccess.GetPlayerDatabase().SerializePlayerData();*/
-            }
         }
     }
 }

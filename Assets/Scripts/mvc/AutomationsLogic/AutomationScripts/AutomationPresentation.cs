@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +14,14 @@ public class AutomationPresentation : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _damageText;
     [SerializeField] private TextMeshProUGUI _upgradeCostText;
+    [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private string _levelTextTemplate;
+    [SerializeField] private string _damageTextTemplate;
     [SerializeField] private Color _notEnoughMoneyColorText;
     [SerializeField] private Color _defaultMoneyColorText;
     [SerializeField] private Button _upgradeButton;
+    [SerializeField] private List<int> _starsLevels;
+    [SerializeField] private List<Image> _starPlaceholders;
 
     private Automation _automation;
 
@@ -26,7 +32,7 @@ public class AutomationPresentation : MonoBehaviour
         _automation.CanUpgradeChanged += OnUpgradeAvailabilityChanged;
         _automation.CostChanged += OnCostChanged;
         _automation.DamageChanged += OnDamageChanged;
-        _automation.LevelChanged += OnLevelChanged;
+        //_automation.LevelChanged += OnLevelChanged;
         _automation.UnlockChanged += OnUnlockedChanged;
 
         OnUnlockedChanged(_automation.IsUnlocked);
@@ -73,12 +79,21 @@ public class AutomationPresentation : MonoBehaviour
     
     private void OnLevelChanged(int newLevel)
     {
+        _levelText.text = string.Format(_levelTextTemplate, newLevel);
+        for (int i = _starsLevels.Count - 1; i >= 0; i--)
+        {
+            if (i >= _starPlaceholders.Count)
+                return;
 
+            Color tempColor = _starPlaceholders[i].color;
+            tempColor.a = newLevel >= _starsLevels[i] ? 255 : 0;
+            _starPlaceholders[i].color = tempColor;
+        }
     }
 
     private void OnDamageChanged(long newDamage)
     {
-        _damageText.text = newDamage.ConvertValue();
+        _damageText.text = string.Format(_damageTextTemplate, newDamage.ConvertValue());
     }
 
     private void OnUpgradeAvailabilityChanged(bool canUpgrade)

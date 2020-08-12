@@ -48,6 +48,7 @@ public class ClickAutomation : MonoBehaviour, IAutomation
 
         automationData.CurrentDamage = newDamage;
         automationsData.ClickPower += automationData.CurrentDamage;
+        automationsData.ClickPower += Mathf.RoundToInt(automationsData.ClickPower * automationsData.ClickPowerPercentageIncrease);
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);
     }
 }

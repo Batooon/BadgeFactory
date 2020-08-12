@@ -70,14 +70,19 @@ public class UpgradeComponent : MonoBehaviour
         _upgrade.Upgrade(_automationsData, _percentage, _automationIndex);
         _buyUpgradeToggle.interactable = false;
         _upgradeBuyed = true;
-        _powerUpUnlocked?.Invoke();
     }
 
     public void OnPlayerLevelChanged(int newLevel)
     {
         if (_upgradeBuyed)
             return;
-        _isPowerUpUnlocked = _automation.Level >= _levelToUnlock;
+
+        if (_automation.Level >= _levelToUnlock)
+        {
+            _isPowerUpUnlocked = true;
+            _powerUpUnlocked?.Invoke();
+        }
+
         _buyUpgradeToggle.interactable = _isPowerUpUnlocked && _upgradeCost <= _playerData.Gold;
     }
 
