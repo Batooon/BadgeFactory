@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 1566008119, guid: abf3c058d94959640bec02372a894b38, type: 3}
   m_Name: AdmixEditorPreferences
   m_EditorClassIdentifier: 
-  ApplicationsList: []
-  _accessToken: 
-  _userLogin: 
-  _profileStatus: 0
+  ApplicationsList:
+  - Badge Factory
+  _accessToken: ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lKak0yTXpabUZtT1MwMFl6aGxMVFEwWVdVdFltSTBPUzAyWWpjMFl6UXhaRFl6TmpFaUxDSmxlSEFpT2pFMU9UYzVNVFUyTWpJc0ltbGhkQ0k2TVRVNU56TXhOVFl5TW4wLlpXSHc4T0ZOMkUyTjFWaWxwMkRZMkM4cFJSZ3lJUzcyR1J4VDRmZVdQZWs=
+  _userLogin: rozum.ant@gmail.com
+  _profileStatus: 1000

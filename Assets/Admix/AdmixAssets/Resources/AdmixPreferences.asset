@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ApplicationName: Badge Factory
   GenericPackageName: com.RozumStudio.BadgeFactory
-  ApplicationIdentifier: 
-  _applicationToken: 
+  ApplicationIdentifier: 08cb5666-a82d-44e5-9736-b2adf28bcc0a
+  _applicationToken: ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lJd09HTmlOVFkyTmkxaE9ESmtMVFEwWlRVdE9UY3pOaTFpTW1Ga1pqSTRZbU5qTUdFaUxDSjFjMlZ5U1dRaU9pSmpNMk16Wm1GbU9TMDBZemhsTFRRMFlXVXRZbUkwT1MwMllqYzBZelF4WkRZek5qRWlMQ0poY0hCRmJtZHBibVVpT2lKVmJtbDBlU0lzSW1saGRDSTZNVFU1TnpNeU1qSTBOSDAuZ1R3dHR6eE44ZnI1SWRyVFU3TkpmRk9DeHJLZnMxSWlha1BDZWtORmw2RQ==
   _logBehaviour: 2
   SceneIdentifiersManager:
-    SceneStructsList: []
-  AppStateMode: 0
+    SceneStructsList:
+    - _sceneName: MainScene
+      _sceneIdentifier: 47b7e1fe-387e-4bbf-8a8a-a5b595bdcb38
+      _scenePath: Assets/Scenes/MainScene.unity
+      _applicationName: Badge Factory
+  AppStateMode: 1
