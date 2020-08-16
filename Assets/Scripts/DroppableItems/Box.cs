@@ -9,7 +9,6 @@ namespace DroppableItems
 
         private IItemTweener _itemTweener;
         private BadgeData _badgeData;
-        private BoxPromtPanelPresentation _promtPanel;
         private UnityEvent _boxOpenEvent;
         private int _boxReward;
 

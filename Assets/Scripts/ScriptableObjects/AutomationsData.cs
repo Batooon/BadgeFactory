@@ -13,8 +13,6 @@ public class AutomationsData
     [SerializeField] private float _clickPowerPercentageIncrease;
     [SerializeField] private float _automationsPowerPercentageIncrease;
 
-    private int _automationIndex = 0;
-
     public event Action<long> ClickPowerChanged;
     public event Action<long> AutomationsPowerChanged;
     public event Action<bool> CanUpgradeSomethingChanged;
@@ -22,6 +20,7 @@ public class AutomationsData
     public event Action<float> ClickPowerPercentageChanged;
     public event Action<float> AutomationsPowerPercentageChanged;
 
+    private int _automationIndex = 0;
     public long ClickPower { get => _clickPower; set { _clickPower = value; ClickPowerChanged?.Invoke(_clickPower); } }
     public long AutomationsPower { get => _automationsPower; set { _automationsPower = value; AutomationsPowerChanged?.Invoke(_automationsPower); } }
     public bool CanUpgradeSomething { get => _canUpgradeSomething; set { _canUpgradeSomething = value; CanUpgradeSomethingChanged?.Invoke(_canUpgradeSomething); } }
@@ -57,5 +56,16 @@ public class AutomationsData
         }
 
         throw new ArgumentNullException("Нет открытых автомаций! Должна быть как минимум одна!");
+    }
+
+    public void Reset(DefaultAutomationsData defaultAutomations)
+    {
+        ClickPower = 1;
+        AutomationsPower = 0;
+        ClickPowerPercentageIncrease = 0;
+        AutomationsPowerPercentageIncrease = 0;
+        CanUpgradeSomething = false;
+        for (int i = 0; i < _automations.Count; i++)
+            _automations[i].Reset(defaultAutomations.Automations[i]);
     }
 }

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace DroppableItems
 {
     public class Coin : MonoBehaviour, ICollectable
     {
         [SerializeField] private ParticleSystem _collectEffect;
+        [SerializeField] private UnityEvent _collect;
 
         private PlayerData _playerData;
         private IItemTweener _itemTweener;
@@ -23,6 +25,7 @@ namespace DroppableItems
 
         public void OnMovingEnded()
         {
+            _collect?.Invoke();
             GameObject effect = Instantiate(_collectEffect.gameObject, _transform.position, _transform.rotation);
             Destroy(effect, _collectEffect.main.duration);
             Collect();

@@ -1,26 +1,31 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DroppableItems
 {
+    [Serializable]
+    public class LongUnityEvent : UnityEvent<long> { }
+
     public class BoxPromtPanelPresentation : MonoBehaviour
     {
+        [SerializeField] private LongUnityEvent _rewardPlayer;
         [SerializeField] private string _template;
         [SerializeField] private TextMeshProUGUI _promtText;
-        private PlayerData _playerData;
-        private BadgeData _badgeData;
+        private long _goldReward;
 
-        public void Init(long goldAmount, PlayerData playerData, BadgeData badgeData)
+        public void Init(long goldReward)
         {
-            _playerData = playerData;
-            _badgeData = badgeData;
-            _promtText.text = string.Format(_template, goldAmount);
+            _goldReward = goldReward;
+            _promtText.text = string.Format(_template, _goldReward);
         }
 
         public void AdWatched()
         {
-            _playerData.Gold += _badgeData.CoinsReward * 20;
+            //_playerData.Gold += _goldReward;
             gameObject.SetActive(false);
+            _rewardPlayer?.Invoke(_goldReward);
         }
     }
 }

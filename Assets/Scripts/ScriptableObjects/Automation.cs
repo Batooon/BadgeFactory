@@ -12,6 +12,8 @@ public class Automation
     [SerializeField] private long _currentDamage;
     [SerializeField] private bool _isUnlocked;
     [SerializeField] private float _powerUpPercentage;
+    [SerializeField] private UpgradeComponentData[] _upgradeComponents;
+    //[SerializeField] private bool[] _isPowerUpUnlocked;
 
     public event Action<bool> CanUpgradeChanged;
     public event Action<int> LevelChanged;
@@ -19,6 +21,7 @@ public class Automation
     public event Action<long> DamageChanged;
     public event Action<bool> UnlockChanged;
     public event Action<float> PowerUpPercentageChanged;
+    public event Action<bool, int> IsPowerUpUnlockedChanged;
 
     public bool CanUpgrade
     {
@@ -73,5 +76,28 @@ public class Automation
             _powerUpPercentage = value;
             PowerUpPercentageChanged?.Invoke(addedPercentage);
         }
+    }
+
+    //public bool[] IsPowerUpUnlocked => _isPowerUpUnlocked;
+
+    public UpgradeComponentData[] UpgradeComponents => _upgradeComponents;
+
+    /*public bool this[int index]
+    {
+        set
+        {
+            _isPowerUpUnlocked[index] = value;
+            IsPowerUpUnlockedChanged?.Invoke(value, index);
+        }
+    }*/
+
+    public void Reset(Automation defaultAutomation)
+    {
+        CanUpgrade = false;
+        Level = 0;
+        CurrentCost = _startingCost;
+        CurrentDamage = _startingDamage;
+        PowerUpPercentage = 0;
+        IsUnlocked = defaultAutomation.IsUnlocked;
     }
 }

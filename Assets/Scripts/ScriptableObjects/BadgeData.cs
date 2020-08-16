@@ -14,4 +14,11 @@ public class BadgeData
     public float CurrentHp { get => _currentHp; set { _currentHp = value; HpChanged?.Invoke(_currentHp); } }
     public long MaxHp { get => _maxHp; set { _maxHp = value; MaxHpChanged?.Invoke(_maxHp); } }
     public long CoinsReward { get => _coinsReward; set => _coinsReward = value; }
+
+    public void Reset()
+    {
+        CurrentHp = 0;
+        MaxHp = 10;
+        CoinsReward = 1;
+    }
 }

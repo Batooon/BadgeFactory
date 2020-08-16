@@ -35,6 +35,15 @@ public class PlayerData
         LastTimeInGame = DateTime.Now;
         FileOperations.Serialize(this, fileName);
     }
+
+    public void Reset()
+    {
+        BossCountdownTime = 30;
+        Gold = 0;
+        Level = 1;
+        LevelProgress = 0;
+        MaxLevelProgress = 10;
+    }
 }
 
 [Serializable]

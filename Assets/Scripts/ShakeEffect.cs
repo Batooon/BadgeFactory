@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShakeEffect : MonoBehaviour
 {
     [SerializeField] private float _duration;
     [SerializeField] private float _magnitude;
+    [SerializeField] private Vector3 _originalPosition = new Vector3();
 
     private Transform _transform;
 
@@ -21,7 +21,7 @@ public class ShakeEffect : MonoBehaviour
 
     private IEnumerator Shake()
     {
-        Vector3 originalPosition = _transform.localPosition;
+        _transform.localPosition = _originalPosition;
 
         float elapsedTime = 0f;
 
@@ -30,13 +30,13 @@ public class ShakeEffect : MonoBehaviour
             float x = Random.Range(-1f, 1f) * _magnitude;
             float y = Random.Range(-1f, 1f) * _magnitude;
 
-            _transform.localPosition = new Vector3(x, y, originalPosition.z);
+            _transform.localPosition = new Vector3(x, y, _originalPosition.z);
 
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
 
-        _transform.localPosition = originalPosition;
+        _transform.localPosition = _originalPosition;
     }
 }

@@ -32,8 +32,10 @@ public class PlayGamesAuthenticator : MonoBehaviour
 
     private void OnTogglePressed(bool isAuthenticated)
     {
+        UpdateState(isAuthenticated);
+
         if (isAuthenticated)
-            PlayGames.Initialize(isAuthenticated);
+            PlayGames.Authenticate(UpdateState);
         else
             PlayGames.LogOut();
     }

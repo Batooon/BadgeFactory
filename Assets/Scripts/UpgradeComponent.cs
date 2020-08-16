@@ -1,46 +1,34 @@
-﻿using TMPro;
+﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Toggle)), RequireComponent(typeof(IUpgrade))]
+[RequireComponent(typeof(Toggle)), RequireComponent(typeof(IUpgrade)), RequireComponent(typeof(UpgradeComponentPresentation))]
 public class UpgradeComponent : MonoBehaviour
 {
     [SerializeField] private int _levelToUnlock;
     [SerializeField] private long _upgradeCost;
     [SerializeField] private float _percentage;
-    [SerializeField] private TextMeshProUGUI _percentageText;
-    [SerializeField] private string _percentageTemplate;
-    [SerializeField] private TextMeshProUGUI _costText;
-    [SerializeField] private string _costTemplate;
-    [SerializeField] private UnityEvent _powerUpUnlocked;
 
+    private UpgradeComponentPresentation _upgradeComponentPresentation;
+    private UpgradeComponentData _upgradeComponentData;
     private IUpgrade _upgrade;
     private int _automationIndex;
     private AutomationsData _automationsData;
-    private Automation _automation;
-    private bool _upgradeBuyed;
+    private Automation _automationData;
     private PlayerData _playerData;
-    private Toggle _buyUpgradeToggle;
-    private bool _isPowerUpUnlocked;
 
-    public void Init(PlayerData playerData, AutomationsData automationsData, Automation automation, int automationIndex)
+    public void Init(PlayerData playerData, AutomationsData automationsData, Automation automation, UpgradeComponentData upgradeComponentData, int automationIndex)
     {
+        _upgradeComponentData = upgradeComponentData;
         _playerData = playerData;
         _automationsData = automationsData;
         _automationIndex = automationIndex;
-        _automation = automation;
-        _buyUpgradeToggle = GetComponent<Toggle>();
+        _automationData = automation;
+        _upgradeComponentPresentation = GetComponent<UpgradeComponentPresentation>();
+        _upgradeComponentPresentation.Init(_playerData, _upgradeComponentData, _automationData);
         _upgrade = GetComponent<IUpgrade>();
-        _upgradeBuyed = _buyUpgradeToggle.interactable;
-
-        _automation.LevelChanged += OnPlayerLevelChanged;
-        _playerData.GoldChanged += OnGoldAmountChanged;
-        _percentageText.text = string.Format(_percentageTemplate, _percentage);
-        _costText.text = string.Format(_costTemplate, _upgradeCost.ConvertValue());
-
-        OnPlayerLevelChanged(_automation.Level);
-        OnGoldAmountChanged(_playerData.Gold);
+        _automationData.LevelChanged += OnLevelChanged;
+        OnLevelChanged(_automationData.Level);
     }
 
     private void OnEnable()
@@ -48,50 +36,53 @@ public class UpgradeComponent : MonoBehaviour
         if (_playerData == null)
             return;
 
-        _buyUpgradeToggle.interactable = _automation.Level >= _levelToUnlock && _upgradeCost <= _playerData.Gold;
-        _playerData.LevelChanged += OnPlayerLevelChanged;
-        _playerData.GoldChanged += OnGoldAmountChanged;
-        OnPlayerLevelChanged(_automation.Level);
-        OnGoldAmountChanged(_playerData.Gold);
+        _automationData.LevelChanged += OnLevelChanged;
+        OnLevelChanged(_automationData.Level);
     }
 
     private void OnDisable()
     {
-        _playerData.LevelChanged -= OnPlayerLevelChanged;
-        _playerData.GoldChanged -= OnGoldAmountChanged;
+        _automationData.LevelChanged -= OnLevelChanged;
     }
 
     public void OnBuyComponentButtonPressed(bool buyed)
     {
-        if (_automation.Level < _levelToUnlock)
-            return;
-
-        _playerData.Gold -= _upgradeCost;
-        _upgrade.Upgrade(_automationsData, _percentage, _automationIndex);
-        _buyUpgradeToggle.interactable = false;
-        _upgradeBuyed = true;
+        _playerData.Gold -= _upgradeComponentData.UpgradeCost;
+        _upgrade.Upgrade(_automationsData, _upgradeComponentData.Percentage, _automationIndex);
+        _upgradeComponentData.IsUpgradeComponentPurchased = true;
     }
 
-    public void OnPlayerLevelChanged(int newLevel)
+    public void OnLevelChanged(int newLevel)
     {
-        if (_upgradeBuyed)
+        if (_upgradeComponentData.IsUpgradeComponentPurchased)
             return;
 
-        if (_automation.Level >= _levelToUnlock)
+        _upgradeComponentData.IsComponentUnlocked = _automationData.Level >= _upgradeComponentData.LevelToUnlock;
+    }
+}
+
+[Serializable]
+public class UpgradeComponentData
+{
+    [SerializeField] private int _levelToUnlock;
+    [SerializeField] private long _upgradeCost;
+    [SerializeField] private float _percentage;
+    [SerializeField] private bool _isComponentUnlocked;
+    [SerializeField] private bool _isupgradeComponentPurchased;
+
+    public event Action<bool> ComponentVisibilityChanged;
+    public event Action<bool> UpgradeComponentStatechanged;
+
+    public int LevelToUnlock { get => _levelToUnlock; set => _levelToUnlock = value; }
+    public long UpgradeCost { get => _upgradeCost; set => _upgradeCost = value; }
+    public float Percentage { get => _percentage; set => _percentage = value; }
+    public bool IsComponentUnlocked { get => _isComponentUnlocked; set
         {
-            _isPowerUpUnlocked = true;
-            _powerUpUnlocked?.Invoke();
+            _isComponentUnlocked = value;
+            ComponentVisibilityChanged?.Invoke(value);
         }
-
-        _buyUpgradeToggle.interactable = _isPowerUpUnlocked && _upgradeCost <= _playerData.Gold;
     }
-
-    private void OnGoldAmountChanged(long newGoldAmount)
-    {
-        if (_upgradeBuyed)
-            return;
-        _buyUpgradeToggle.interactable = _upgradeCost <= newGoldAmount && _isPowerUpUnlocked;
-    }
+    public bool IsUpgradeComponentPurchased { get => _isupgradeComponentPurchased; set { _isupgradeComponentPurchased = value; UpgradeComponentStatechanged?.Invoke(value); } }
 }
 
 public interface IUpgrade

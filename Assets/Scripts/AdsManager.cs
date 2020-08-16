@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
+using GoogleMobileAds.Api;
+using System.Collections.Generic;
+using GoogleMobileAds.Placement;
 
 //Developer: Antoshka
 
@@ -10,6 +13,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     public static AdsManager Instance;
 
     [SerializeField] private BannerPosition _bottomBannerPosition;
+    [SerializeField] private BannerAdGameObject _banner;
 
 #if UNITY_EDITOR
     public bool _testMode = true;
@@ -42,11 +46,16 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
         Advertisement.AddListener(this);
         Advertisement.Initialize(_storeId, _testMode);
+        MobileAds.Initialize((initStatus) =>
+        {
+            Debug.Log("Google ads initialization completed");
+        });
     }
 
     private void Start()
     {
         StartCoroutine(ActivateBanners());
+        _banner.LoadAd();
     }
 
     public void ShowRewardedAd(UnityEvent adFinished)
@@ -62,11 +71,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (Advertisement.IsReady(_bottomBannerPlacement)) 
             Advertisement.Banner.Show(_bottomBannerPlacement);
+        _banner.Show();
     }
 
     public void HideBanner()
     {
         Advertisement.Banner.Hide();
+    }
+
+    public void HideBottomBanner()
+    {
+        _banner.Hide();
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)

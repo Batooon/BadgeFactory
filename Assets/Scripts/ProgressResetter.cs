@@ -1,23 +1,17 @@
 ﻿public class ProgressResetter
 {
-    private PlayerData _playerData;
-    private BadgeData _badgeData;
-    private AutomationsData _automationsData;
+    private DefaultAutomationsData _defaultAutomationsData;
 
-    public ProgressResetter(PlayerData playerData,
-                            BadgeData badgeData,
-                            AutomationsData automationsData)
+    public ProgressResetter(DefaultAutomationsData defaultAutomations)
     {
-        _playerData = playerData;
-        _badgeData = badgeData;
-        _automationsData = automationsData;
+        _defaultAutomationsData = defaultAutomations;
     }
 
-    public void ResetProgress()
+    public void ResetProgress(ref PlayerData playerData, ref BadgeData badgeData, ref AutomationsData automationsData)
     {
-        _playerData = new PlayerData();
-        _badgeData = new BadgeData();
-        _automationsData = new AutomationsData();
+        playerData.Reset();
+        badgeData.Reset();
+        automationsData.Reset(_defaultAutomationsData);
 
         /*
         _playerData.BossCountdownTime = 30;

@@ -11,7 +11,7 @@ namespace DroppableItems
 
         protected BadgeData _badgeData;
         protected PlayerData _playerData;
-        public void Init(BadgeData badgeData, PlayerData playerData)
+        public virtual void Init(BadgeData badgeData, PlayerData playerData)
         {
             _badgeData = badgeData;
             _playerData = playerData;

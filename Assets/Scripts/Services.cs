@@ -10,7 +10,7 @@ public class Services : MonoBehaviour
     [SerializeField] private string _automationsDataFileName;
     [SerializeField] private string _badgeDataFileName;
     [SerializeField] private string _settingsDataFileName;
-    [SerializeField] private DefaultAutomationsData _defaultAutoamtionsData;
+    [SerializeField] private DefaultAutomationsData _defaultAutomationsData;
     [SerializeField] private Vibration _vibration;
     [SerializeField] private Settings _settings;
     [SerializeField] private Badge _badge;
@@ -52,8 +52,8 @@ public class Services : MonoBehaviour
 
             _automationsData.Automations.Clear();
 
-            for (int i = 0; i < _defaultAutoamtionsData.Automations.Count; i++)
-                _automationsData.Automations.Add(_defaultAutoamtionsData.Automations[i]);
+            for (int i = 0; i < _defaultAutomationsData.Automations.Count; i++)
+                _automationsData.Automations.Add(_defaultAutomationsData.Automations[i]);
 
             SaveData();
         }
@@ -71,12 +71,12 @@ public class Services : MonoBehaviour
         _gameResetter.Init(
             _playerData,
             _automationsData,
-            _badgeData);
+            _badgeData,
+            _defaultAutomationsData);
         _playerStatsPresentation.Init(_playerData);
         _badge.Init(_playerData, _automationsData, _badgeData);
         _automations.Init(_playerData, _automationsData);
         _playerData.IsReturningPlayer = true;
-        _playGamesAuthenticator.Init();
         PlayGames.Initialize(_playGamesDebugMode, new CloudSavesUI(3, true, true));
         PlayGames.Authenticate((bool value) =>
         {
@@ -90,6 +90,7 @@ public class Services : MonoBehaviour
                 });
             }
         });
+        _playGamesAuthenticator.Init();
     }
 
     private void OnApplicationQuit()

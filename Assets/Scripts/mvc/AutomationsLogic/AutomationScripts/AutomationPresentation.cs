@@ -32,9 +32,18 @@ public class AutomationPresentation : MonoBehaviour
         _automation.CanUpgradeChanged += OnUpgradeAvailabilityChanged;
         _automation.CostChanged += OnCostChanged;
         _automation.DamageChanged += OnDamageChanged;
-        //_automation.LevelChanged += OnLevelChanged;
+        _automation.LevelChanged += OnLevelChanged;
         _automation.UnlockChanged += OnUnlockedChanged;
 
+        OnUnlockedChanged(_automation.IsUnlocked);
+        OnCostChanged(_automation.CurrentCost);
+        OnDamageChanged(_automation.CurrentDamage);
+        OnLevelChanged(_automation.Level);
+        OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
+    }
+
+    private void Start()
+    {
         OnUnlockedChanged(_automation.IsUnlocked);
         OnCostChanged(_automation.CurrentCost);
         OnDamageChanged(_automation.CurrentDamage);
@@ -108,13 +117,12 @@ public class AutomationPresentation : MonoBehaviour
 
     public void SetUpAutomation(AutomationViewModel automationParams)
     {
-        FetchUI(automationParams);
+        //FetchUI(automationParams);
     }
 
     public void OnAutomationUpgraded(AutomationViewModel automationParams)
     {
-        //сделать ещё какой-то эффект улучшения, что-ли
-        FetchUI(automationParams);
+        //FetchUI(automationParams);
     }
 
     public void OnAutomationNotUpgraded()
@@ -123,23 +131,23 @@ public class AutomationPresentation : MonoBehaviour
         //предложить докупить валюту за кристалы
         //Посмотреть какое-то количество рекламы или задонатить хехехехе ✪ ω ✪
     }
-
+    
     public void FetchUpgradeButton(bool isInteractable)
     {
-        _upgradeButton.interactable = isInteractable;
-        _upgradeCostText.color = isInteractable ? _defaultMoneyColorText : _notEnoughMoneyColorText;
+        //_upgradeButton.interactable = isInteractable;
+        //_upgradeCostText.color = isInteractable ? _defaultMoneyColorText : _notEnoughMoneyColorText;
     }
-
+    
     public void FetchCost(long cost)
     {
-        _upgradeCostText.text = cost.ConvertValue();
+        //_upgradeCostText.text = cost.ConvertValue();
     }
-
+    /*
     private void FetchUI(AutomationViewModel automationParams)
     {
         _damageText.text = automationParams.AutomationDamage;
         _upgradeCostText.text = automationParams.AutomationCost;
 
         FetchUpgradeButton(automationParams.IsEnoughMoney);
-    }
+    }*/
 }

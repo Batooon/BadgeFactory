@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 namespace AutomationImplementation
 {
-    [RequireComponent(typeof(AutomationPresentation))]
+    [RequireComponent(typeof(AutomationPresentation)), RequireComponent(typeof(IAutomation))]
     public class AutomationLogic : SerializedMonoBehaviour
     {
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private int _automationId;
         [SerializeField] private List<UpgradeComponent> _upgradeComponents;
-        [SerializeField, RequireInterface(typeof(IAutomation))] private Object _automation;
         [SerializeField] private UnityEvent _automationUnlocked;
 
         private AutomationsData _automationsData;
@@ -22,13 +21,13 @@ namespace AutomationImplementation
         private AutomationBusinessRules _automationBusinessRules;
         private AutomationPresentator _automationPresentator;
         private AutomationPresentation _automationPresentation;
+        private IAutomation _automation;
 
         public int AutomationId => _automationId;
 
-        public IAutomation Automation => _automation as IAutomation;
-
         public void Init(PlayerData playerData, AutomationsData automationsData, Automation automationData)
         {
+            _automation = GetComponent<IAutomation>();
             _playerData = playerData;
             _automationsData = automationsData;
             _automationData = automationData;
@@ -43,15 +42,14 @@ namespace AutomationImplementation
                 _automationData,
                 _automationsData);
 
-            foreach (var component in _upgradeComponents)
-                component.Init(_playerData, _automationsData, _automationData, _automationId);
+            for (int i = 0; i < _upgradeComponents.Count; i++)
+                _upgradeComponents[i].Init(_playerData, _automationsData, _automationData, _automationData.UpgradeComponents[i], _automationId);
 
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
 
             _playerData.GoldChanged += OnGoldAmountUpdated;
             _automationData.CostChanged += FetchCost;
             _automationsData.LevelsToUpgradeChanged += RecalculateCost;
-            //_automationData.PowerUpPercentageChanged += OnAutomationPowerChanged;
 
             OnGoldAmountUpdated(_playerData.Gold);
             FetchCost(_automationData.CurrentCost);
@@ -94,7 +92,7 @@ namespace AutomationImplementation
 
         public void OnUpgradeButtonPressed()
         {
-            _automationBusinessRules.TryUpgradeAutomation(_automationId, Automation, _automationUnlocked);
+            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation, _automationUnlocked);
         }
 
         public void OnGoldAmountUpdated(long goldAmount)
@@ -117,7 +115,7 @@ namespace AutomationImplementation
 
         private void RecalculateCost(int levelsToUpgrade)
         {
-            Automation.RecalculateCost(levelsToUpgrade, _automationData);
+            _automation.RecalculateCost(levelsToUpgrade, _automationData);
             if (_automationBusinessRules == null)
                 return;
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);

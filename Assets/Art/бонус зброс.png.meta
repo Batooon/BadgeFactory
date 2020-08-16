@@ -1,7 +1,49 @@
 fileFormatVersion: 2
 guid: aed6de30211a5d14d87d7a0ea2ca0463
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 2877478781209198030
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_0"
+  - first:
+      213: 1208279307916136701
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_1"
+  - first:
+      213: 325478989708101317
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_2"
+  - first:
+      213: -6404883168604978333
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_3"
+  - first:
+      213: 1498502914372193579
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_4"
+  - first:
+      213: -5579912646070825122
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_5"
+  - first:
+      213: 6777544516518709522
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_6"
+  - first:
+      213: 1547188518096384513
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_7"
+  - first:
+      213: -234295577260703391
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_8"
+  - first:
+      213: 3613691085488780132
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_9"
+  - first:
+      213: 6386708562493244355
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_10"
+  - first:
+      213: 7691679751062457622
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_11"
+  - first:
+      213: 5525766787725209067
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_12"
+  - first:
+      213: 7284376324499669792
+    second: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_13"
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -23,6 +65,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -40,7 +83,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -57,6 +100,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -71,9 +115,63 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_3"
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 0
+        width: 1227
+        height: 1226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3630c6351b84d17a0800000000000000
+      internalID: -6404883168604978333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u0431\u043E\u043D\u0443\u0441 \u0437\u0431\u0440\u043E\u0441_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1224
+        height: 1226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecdb2bab4bbdee720800000000000000
+      internalID: 2877478781209198030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
