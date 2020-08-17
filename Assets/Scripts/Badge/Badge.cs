@@ -16,6 +16,7 @@ namespace BadgeImplementation
         [SerializeField] private SpriteAtlas _bossBadges;
         [SerializeField] private List<DroppingMothership> _droppingMotherships;
         [SerializeField] private BossCountdown _bossCountdown;
+        [SerializeField] private ObjectPooler _coinPooler;
         [SerializeField] private UnityEvent _clicked;
 
         private Sprite[] badges;
@@ -48,7 +49,7 @@ namespace BadgeImplementation
 
             foreach (var mothership in _droppingMotherships)
             {
-                mothership.Init(badgeData, playerData);
+                mothership.Init(badgeData, playerData, _coinPooler);
             }
 
             _badgeBusinessInput.CreateNewBadge();

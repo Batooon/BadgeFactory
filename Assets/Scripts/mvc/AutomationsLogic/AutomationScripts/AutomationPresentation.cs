@@ -134,8 +134,8 @@ public class AutomationPresentation : MonoBehaviour
     
     public void FetchUpgradeButton(bool isInteractable)
     {
-        //_upgradeButton.interactable = isInteractable;
-        //_upgradeCostText.color = isInteractable ? _defaultMoneyColorText : _notEnoughMoneyColorText;
+        _upgradeButton.interactable = isInteractable;
+        _upgradeCostText.color = isInteractable ? _defaultMoneyColorText : _notEnoughMoneyColorText;
     }
     
     public void FetchCost(long cost)

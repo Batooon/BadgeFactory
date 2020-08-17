@@ -20,7 +20,15 @@ namespace DroppableItems
 
                 for (int i = 0; i < coinsToSpawn; i++)
                 {
-                    GameObject spawnedCoin = Instantiate(_itemToSpawn, position, _itemToSpawn.transform.rotation) as GameObject;
+                    GameObject spawnedCoin = _objectPooler.GetPooledObjects();
+                    if (spawnedCoin != null)
+                    {
+                        spawnedCoin.transform.position = position;
+                        spawnedCoin.transform.rotation = _itemToSpawn.transform.rotation;
+                        spawnedCoin.SetActive(true);
+                    }
+
+                    //GameObject spawnedCoin = Instantiate(_itemToSpawn, position, _itemToSpawn.transform.rotation) as GameObject;
                     ICollectable collectableComponent = spawnedCoin.GetComponent<ICollectable>();
                     SetCoinReward(in oneCoinCost, collectableComponent);
                 }

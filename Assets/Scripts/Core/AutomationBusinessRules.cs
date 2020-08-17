@@ -17,7 +17,7 @@ public interface IAutomationBusinessOutput
 
 public interface IAutomationBusinessInput
 {
-    void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked);
+    void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked, UnityEvent automationUpgraded);
     void CheckIfUpgradeAvailable(int automationId, long goldValue);
 }
 
@@ -52,7 +52,7 @@ public class AutomationBusinessRules : IAutomationBusinessInput
         _automationOutput.FetchUpgradeButton(_automation.CanUpgrade);
     }
 
-    public void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked)
+    public void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked, UnityEvent automationUpgraded)
     {
         if (_playerData.Gold >= _automation.CurrentCost)
         {
@@ -62,6 +62,7 @@ public class AutomationBusinessRules : IAutomationBusinessInput
             automation.Upgrade(_automation,_automationsData);
             if (_automation.Level % 2000 == 0)
                 _playerData.BadgePoints += 1;
+            automationUpgraded?.Invoke();
             _automationOutput.AutomationUpgraded(_automation, _playerData.Gold >= _automation.CurrentCost);
         }
         else

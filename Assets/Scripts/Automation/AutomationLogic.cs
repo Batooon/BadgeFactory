@@ -13,6 +13,7 @@ namespace AutomationImplementation
         [SerializeField] private int _automationId;
         [SerializeField] private List<UpgradeComponent> _upgradeComponents;
         [SerializeField] private UnityEvent _automationUnlocked;
+        [SerializeField] private UnityEvent _automationUpgraded;
 
         private AutomationsData _automationsData;
         private PlayerData _playerData;
@@ -92,7 +93,7 @@ namespace AutomationImplementation
 
         public void OnUpgradeButtonPressed()
         {
-            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation, _automationUnlocked);
+            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation, _automationUnlocked, _automationUpgraded);
         }
 
         public void OnGoldAmountUpdated(long goldAmount)

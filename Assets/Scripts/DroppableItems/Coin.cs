@@ -29,7 +29,7 @@ namespace DroppableItems
             GameObject effect = Instantiate(_collectEffect.gameObject, _transform.position, _transform.rotation);
             Destroy(effect, _collectEffect.main.duration);
             Collect();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         private void Collect()

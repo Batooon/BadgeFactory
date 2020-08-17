@@ -10,9 +10,9 @@ namespace DroppableItems
         [SerializeField] private BoxReward _boxReward;
         [SerializeField] private uint _goldRewardMultiplier;
 
-        public override void Init(BadgeData badgeData, PlayerData playerData)
+        public override void Init(BadgeData badgeData, PlayerData playerData, ObjectPooler objectPooler)
         {
-            base.Init(badgeData, playerData);
+            base.Init(badgeData, playerData, objectPooler);
             _boxReward.Init(playerData);
         }
 
