@@ -20,6 +20,7 @@ public class Services : MonoBehaviour
     [SerializeField] private OfflineProgress _offlineProgress;
     [SerializeField] private AdsManager _adsManager;
     [SerializeField] private FarmLevelButton _farmLevelButton;
+    [SerializeField] private AudioService _audioService;
     [SerializeField] private PlayGamesAuthenticator _playGamesAuthenticator;
     [SerializeField] private bool _playGamesDebugMode;
 #if UNITY_EDITOR
@@ -63,6 +64,7 @@ public class Services : MonoBehaviour
 #if UNITY_EDITOR
         _godMode.Init(_playerData);
 #endif
+        _audioService.Init();
         _settings.Init(_settingsData);
         _vibration.Init(_settingsData);
         _farmLevelButton.Init(_playerData);

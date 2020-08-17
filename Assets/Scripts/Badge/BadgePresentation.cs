@@ -9,6 +9,7 @@ namespace BadgeImplementation
     public class BadgePresentation : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _badgeSprite;
+        [SerializeField] private SpriteRenderer _badgeStand;
         [SerializeField] private UnityEvent _badgeCreated;
         [SerializeField] private List<SpriteRenderer> _badgeSpriteComponents;
 
@@ -22,8 +23,8 @@ namespace BadgeImplementation
 
             _badgeData = badgeData;
             _badgeBusinessRules = businessRules;
-            _badgeData.HpChanged += UpdateBadgeProgress;
             _badgeBusinessRules.BadgeCreated += OnBadgeCreated;
+            _badgeData.HpChanged += UpdateBadgeProgress;
             _badgeSpriteComponents[_badgeSpriteComponents.IndexOf(_badgeSprite)] = _badgeSprite;
         }
 
@@ -55,11 +56,15 @@ namespace BadgeImplementation
             _badgeSpriteComponents[i].color = tempColor;
         }
 
-        public void ShowNewBadge(Sprite sprite)
+        public void ShowNewBadge(Sprite sprite, Sprite badgeStand)
         {
             int badgeSrickerIndex = _badgeSpriteComponents.IndexOf(_badgeSprite);
             _badgeSprite.sprite = sprite;
             _badgeSpriteComponents[badgeSrickerIndex] = _badgeSprite;
+
+            int badgeStandIndex = _badgeSpriteComponents.IndexOf(_badgeStand);
+            _badgeStand.sprite = badgeStand;
+            _badgeSpriteComponents[badgeStandIndex] = _badgeStand;
 
             for (int i = 0; i < _badgeSpriteComponents.Count; i++)
             {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace DroppableItems
@@ -19,13 +20,26 @@ namespace DroppableItems
             _boxOpenEvent = boxOpenEvent;
             _itemTweener = GetComponent<IItemTweener>();
             _itemTweener.StartMotion();
-            Destroy(gameObject, _lifetime);
+            StartCoroutine(DestroyAfterLifetime());
+            //Destroy(gameObject, _lifetime);
         }
 
         private void OnMouseEnter()
         {
             _boxOpenEvent?.Invoke();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
+        }
+
+        private IEnumerator DestroyAfterLifetime()
+        {
+            float lifeTime = _lifetime;
+            while (lifeTime > 0)
+            {
+                lifeTime -= 1f;
+                yield return new WaitForSeconds(1f);
+            }
+            gameObject.SetActive(false);
         }
     }
 }

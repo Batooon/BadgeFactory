@@ -15,6 +15,8 @@ namespace BadgeImplementation
         private List<GameObject> _itemsToDrop;
         private Sprite[] _badges;
         private Sprite[] _bossBadges;
+        private Sprite[] _badgeStands;
+        private Sprite[] _bossStands;
 
         private IBadgeSpawner _badgeSpawner;
 
@@ -24,12 +26,16 @@ namespace BadgeImplementation
         public BadgePresentator(BadgePresentation badgePresentation,
                                 List<DroppingMothership> droppable,
                                 Sprite[] badges,
-                                Sprite[] bosses)
+                                Sprite[] bosses,
+                                Sprite[] badgeStands,
+                                Sprite[] bossStands)
         {
             _badgePresentation = badgePresentation;
             _droppable = droppable;
             _badges = badges;
             _bossBadges = bosses;
+            _badgeStands = badgeStands;
+            _bossStands = bossStands;
             _badgeSpawner = new UsualBadgeSpawner();
         }
 
@@ -44,12 +50,12 @@ namespace BadgeImplementation
 
         public void SpawnBoss()
         {
-            _badgePresentation.ShowNewBadge(_badgeSpawner.Spawn(_bossBadges));
+            _badgePresentation.ShowNewBadge(_badgeSpawner.Spawn(_bossBadges), _badgeSpawner.Spawn(_bossStands));
         }
 
         public void SpawnBadge()
         {
-            _badgePresentation.ShowNewBadge(_badgeSpawner.Spawn(_badges));
+            _badgePresentation.ShowNewBadge(_badgeSpawner.Spawn(_badges), _badgeSpawner.Spawn(_badgeStands));
         }
 
         public void BadgeGotProgressCallback(BadgeData badgeData)

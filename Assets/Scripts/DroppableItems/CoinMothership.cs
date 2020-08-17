@@ -37,7 +37,7 @@ namespace DroppableItems
 
         private void SetCoinReward(in long coinReward, ICollectable collectable)
         {
-            collectable.Init(in coinReward, _playerData);
+            collectable.Init(in coinReward, _playerData, _audioService);
         }
     }
 }

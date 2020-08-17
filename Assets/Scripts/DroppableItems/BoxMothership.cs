@@ -10,9 +10,9 @@ namespace DroppableItems
         [SerializeField] private BoxReward _boxReward;
         [SerializeField] private uint _goldRewardMultiplier;
 
-        public override void Init(BadgeData badgeData, PlayerData playerData, ObjectPooler objectPooler)
+        public override void Init(BadgeData badgeData, PlayerData playerData)
         {
-            base.Init(badgeData, playerData, objectPooler);
+            base.Init(badgeData, playerData);
             _boxReward.Init(playerData);
         }
 
@@ -20,7 +20,14 @@ namespace DroppableItems
         {
             if (Random.value <= _chanceToSpawn) 
             {
-                GameObject boxObject = Instantiate(_itemToSpawn, transform.position, _itemToSpawn.transform.rotation);
+                //GameObject boxObject = Instantiate(_itemToSpawn, transform.position, _itemToSpawn.transform.rotation);
+                GameObject boxObject = _objectPooler.GetPooledObjects();
+                if (boxObject != null)
+                {
+                    boxObject.transform.position = transform.position;
+                    boxObject.transform.rotation = _itemToSpawn.transform.rotation;
+                    boxObject.SetActive(true);
+                }
                 Box box = boxObject.GetComponent<Box>();
                 _promtPanel.Init(_badgeData.CoinsReward * _goldRewardMultiplier);
                 box.Init(_boxOpenEvent);

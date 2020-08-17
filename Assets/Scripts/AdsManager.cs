@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
 using GoogleMobileAds.Api;
-using System.Collections.Generic;
 using GoogleMobileAds.Placement;
 
 //Developer: Antoshka
@@ -71,6 +70,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (Advertisement.IsReady(_bottomBannerPlacement)) 
             Advertisement.Banner.Show(_bottomBannerPlacement);
+        //_banner.LoadAd();
         _banner.Show();
     }
 

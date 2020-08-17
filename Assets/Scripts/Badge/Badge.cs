@@ -14,24 +14,32 @@ namespace BadgeImplementation
         [SerializeField] private BadgeProgressPresentation _badgeProgressPresentation;
         [SerializeField] private SpriteAtlas _badges;
         [SerializeField] private SpriteAtlas _bossBadges;
+        [SerializeField] private SpriteAtlas _badgeStands;
+        [SerializeField] private SpriteAtlas _bossStands;
         [SerializeField] private List<DroppingMothership> _droppingMotherships;
         [SerializeField] private BossCountdown _bossCountdown;
-        [SerializeField] private ObjectPooler _coinPooler;
         [SerializeField] private UnityEvent _clicked;
 
-        private Sprite[] badges;
-        private Sprite[] bosses;
+        private Sprite[] _badgeSprites;
+        private Sprite[] _bossSprites;
+        private Sprite[] _bossStandSprites;
+        private Sprite[] _badgeStandSprites;
+
         private BadgeBusinessRules _badgeBusinessInput;
         private IBadgeBusinessOutput _badgeOutput;
         private BadgePresentation _badgePresentation;
 
         public void Init(PlayerData playerData, AutomationsData automationsData, BadgeData badgeData)
         {
-            badges = new Sprite[_badges.spriteCount];
-            bosses = new Sprite[_bossBadges.spriteCount];
+            _badgeSprites = new Sprite[_badges.spriteCount];
+            _bossSprites = new Sprite[_bossBadges.spriteCount];
+            _bossStandSprites = new Sprite[_bossStands.spriteCount];
+            _badgeStandSprites = new Sprite[_badgeStands.spriteCount];
 
-            _badges.GetSprites(badges);
-            _bossBadges.GetSprites(bosses);
+            _badges.GetSprites(_badgeSprites);
+            _bossBadges.GetSprites(_bossSprites);
+            _badgeStands.GetSprites(_badgeStandSprites);
+            _bossStands.GetSprites(_bossStandSprites);
 
             _bossCountdown.Init();
 
@@ -43,14 +51,13 @@ namespace BadgeImplementation
             _badgePresentation = GetComponent<BadgePresentation>();
             _badgePresentation.Init(badgeData, _badgeBusinessInput);
 
-            _badgeBusinessInput.BadgeCreated += OnBadgeCreated;
-            _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
-            _badgeBusinessInput.CreateBossEvent += CreateBoss;
-
             foreach (var mothership in _droppingMotherships)
             {
-                mothership.Init(badgeData, playerData, _coinPooler);
+                mothership.Init(badgeData, playerData);
             }
+
+            _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
+            _badgeBusinessInput.CreateBossEvent += CreateBoss;
 
             _badgeBusinessInput.CreateNewBadge();
             _badgeProgressPresentation.Init(badgeData);
@@ -121,12 +128,12 @@ namespace BadgeImplementation
 
         private void CreateBoss()
         {
-            _badgePresentation.ShowNewBadge(bosses[Random.Range(0, bosses.Length)]);
+            _badgePresentation.ShowNewBadge(_bossSprites[Random.Range(0, _bossSprites.Length)], _bossStandSprites[Random.Range(0, _bossStandSprites.Length)]);
         }
 
         private void CreateBadge()
         {
-            _badgePresentation.ShowNewBadge(badges[Random.Range(0, badges.Length)]);
+            _badgePresentation.ShowNewBadge(_badgeSprites[Random.Range(0, _badgeSprites.Length)], _badgeStandSprites[Random.Range(0, _badgeStandSprites.Length)]);
         }
     }
 }
