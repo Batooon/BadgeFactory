@@ -31,14 +31,23 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 8304047250313301137, guid: 37701bb8fcaa06046baab6195ffaa987, type: 3}
-    totalSpriteSurfaceArea: 98282
+    - {fileID: 2800000, guid: aec571cb2a3d15e43acc1c6d6bc30d9c, type: 3}
+    totalSpriteSurfaceArea: 993666
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 8304047250313301137, guid: 37701bb8fcaa06046baab6195ffaa987, type: 3}
+  - {fileID: -6514693229939101395, guid: aec571cb2a3d15e43acc1c6d6bc30d9c, type: 3}
+  - {fileID: -986245164957367556, guid: aec571cb2a3d15e43acc1c6d6bc30d9c, type: 3}
+  - {fileID: -8376544319066210951, guid: aec571cb2a3d15e43acc1c6d6bc30d9c, type: 3}
+  - {fileID: -9037991661584423260, guid: aec571cb2a3d15e43acc1c6d6bc30d9c, type: 3}
   m_PackedSpriteNamesToIndex:
   - "\u043F\u0430\u043D\u0435\u043B\u044C 2.1_8"
+  - "\u043E\u0441\u043D\u043E\u0432\u0430_3"
+  - "\u043E\u0441\u043D\u043E\u0432\u0430_2"
+  - "\u043E\u0441\u043D\u043E\u0432\u0430_1"
+  - "\u043E\u0441\u043D\u043E\u0432\u0430_0"
   m_Tag: BadgeStands
   m_IsVariant: 0
