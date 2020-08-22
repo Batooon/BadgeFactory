@@ -23,8 +23,14 @@ public class GameResetter : MonoBehaviour
 
     public void ResetGame()
     {
+        _playerData.IsProgressResetting = true;
         StopAllCoroutines();
+        _progressResetter.ResetProgress(_playerData, _badgeData, _automationsData);
         ResetGameEvent?.Invoke();
-        _progressResetter.ResetProgress(ref _playerData, ref _badgeData, ref _automationsData);
+    }
+
+    public void ResettingCompleted()
+    {
+        _playerData.IsProgressResetting = false;
     }
 }

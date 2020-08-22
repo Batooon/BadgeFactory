@@ -1,5 +1,4 @@
 ﻿using AutomationImplementation;
-using System.Xml.Serialization;
 using UnityEngine;
 
 namespace AutomationsImplementation
@@ -43,20 +42,10 @@ namespace AutomationsImplementation
             _upgradeLevelsAmount.Init(_automationsData);
 
             _upgradeAvailableChecker.Init(_automationsData);
-
-            _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
-
-            _automationsInput.TryUnlockNewAutomation(_playerData.Gold);
         }
 
         private void OnEnable()
         {
-            if (_playerData == null)
-                return;
-
-            if (_automationsData == null)
-                return;
-
             _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
             _automationsData.AutomationsPowerPercentageChanged += OnAutomationsPercentageChanged;
             _automationsData.ClickPowerPercentageChanged += OnClickPowerPercentageChanged;
@@ -66,11 +55,6 @@ namespace AutomationsImplementation
 
         private void OnDisable()
         {
-            if (_playerData == null)
-                return;
-            if (_automationsData == null)
-                return;
-
             _playerData.GoldChanged -= _automationsInput.TryUnlockNewAutomation;
             _automationsData.AutomationsPowerPercentageChanged -= OnAutomationsPercentageChanged;
             _automationsData.ClickPowerPercentageChanged -= OnClickPowerPercentageChanged;

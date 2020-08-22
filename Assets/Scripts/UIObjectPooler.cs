@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour
+public class UIObjectPooler : MonoBehaviour
 {
     [SerializeField] private GameObject _objectToPool;
+    [SerializeField] private Canvas _attachedCanvas;
     [SerializeField] private int _amountToPool;
     private List<GameObject> _pooledObjects;
 
@@ -15,6 +15,9 @@ public class ObjectPooler : MonoBehaviour
         for (int i = 0; i < _amountToPool; i++)
         {
             GameObject pooledObjectInstance = Instantiate(_objectToPool);
+            pooledObjectInstance.transform.SetParent(_attachedCanvas.transform);
+            pooledObjectInstance.transform.localPosition = Vector2.zero;
+            pooledObjectInstance.transform.localScale = Vector3.one;
             pooledObjectInstance.SetActive(false);
             _pooledObjects.Add(pooledObjectInstance);
         }

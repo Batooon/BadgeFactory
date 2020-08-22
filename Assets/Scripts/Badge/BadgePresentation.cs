@@ -18,26 +18,23 @@ namespace BadgeImplementation
 
         public void Init(BadgeData badgeData, BadgeBusinessRules businessRules)
         {
-            if (_badgeSpriteComponents.Contains(_badgeSprite) == false)
-                Debug.LogError("BadgeSticker is not assigned!");
-
             _badgeData = badgeData;
             _badgeBusinessRules = businessRules;
-            _badgeBusinessRules.BadgeCreated += OnBadgeCreated;
-            _badgeData.HpChanged += UpdateBadgeProgress;
+
+            if (_badgeSpriteComponents.Contains(_badgeSprite) == false)
+                Debug.LogError("BadgeSticker is not assigned!");
             _badgeSpriteComponents[_badgeSpriteComponents.IndexOf(_badgeSprite)] = _badgeSprite;
         }
 
         private void OnEnable()
         {
-            if (_badgeData == null)
-                return;
-
+            _badgeBusinessRules.BadgeCreated += OnBadgeCreated;
             _badgeData.HpChanged += UpdateBadgeProgress;
         }
 
         private void OnDisable()
         {
+            _badgeBusinessRules.BadgeCreated -= OnBadgeCreated;
             _badgeData.HpChanged -= UpdateBadgeProgress;
         }
 

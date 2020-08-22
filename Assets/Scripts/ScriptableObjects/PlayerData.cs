@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerData
 {
     [SerializeField, HideInInspector] public int BadgePoints;
+    [SerializeField, HideInInspector] public bool IsProgressResetting;
     [SerializeField] private int _level = 1;
     [SerializeField] private long _gold;
     [SerializeField] private int _levelProgress = 0;
@@ -36,13 +37,12 @@ public class PlayerData
         FileOperations.Serialize(this, fileName);
     }
 
-    public void Reset()
+    public void FireAllChangedEvents()
     {
-        BossCountdownTime = 30;
-        Gold = 0;
-        Level = 1;
-        LevelProgress = 0;
-        MaxLevelProgress = 10;
+        LevelChanged?.Invoke(_level);
+        GoldChanged?.Invoke(_gold);
+        LevelProgressChanged?.Invoke(_levelProgress);
+        NeedToIncreaseLevelChanged?.Invoke(_needToIncreaseLevel);
     }
 }
 

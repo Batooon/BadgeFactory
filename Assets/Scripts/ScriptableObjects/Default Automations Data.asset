@@ -57,13 +57,13 @@ MonoBehaviour:
       _percentage: 250
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0
-  - _canUpgrade: 0
+  - _canUpgrade: 1
     _startingDamage: 5
     _startingCost: 50
     _level: 0
     _currentCost: 50
     _currentDamage: 5
-    _isUnlocked: 0
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _levelToUnlock: 10
@@ -91,13 +91,13 @@ MonoBehaviour:
       _percentage: 0.5
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0
-  - _canUpgrade: 0
+  - _canUpgrade: 1
     _startingDamage: 22
     _startingCost: 250
     _level: 0
     _currentCost: 250
     _currentDamage: 22
-    _isUnlocked: 0
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _levelToUnlock: 10
@@ -136,7 +136,7 @@ MonoBehaviour:
     _level: 0
     _currentCost: 1000
     _currentDamage: 74
-    _isUnlocked: 0
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _levelToUnlock: 10
@@ -165,7 +165,7 @@ MonoBehaviour:
     _level: 0
     _currentCost: 4000
     _currentDamage: 245
-    _isUnlocked: 0
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _levelToUnlock: 10
@@ -199,7 +199,7 @@ MonoBehaviour:
     _level: 0
     _currentCost: 20000
     _currentDamage: 976
-    _isUnlocked: 0
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _levelToUnlock: 10
@@ -558,36 +558,46 @@ MonoBehaviour:
       _isupgradeComponentPurchased: 0
   _automation:
     _canUpgrade: 0
-    _startingDamage: 5
-    _startingCost: 50
+    _startingDamage: 1
+    _startingCost: 5
     _level: 0
-    _currentCost: 50
-    _currentDamage: 5
-    _isUnlocked: 0
+    _currentCost: 5
+    _currentDamage: 1
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _levelToUnlock: 10
-      _upgradeCost: 500
+      _upgradeCost: 100
       _percentage: 100
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0
     - _levelToUnlock: 25
-      _upgradeCost: 1250
+      _upgradeCost: 250
       _percentage: 100
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0
     - _levelToUnlock: 50
-      _upgradeCost: 5000
+      _upgradeCost: 1000
       _percentage: 100
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0
     - _levelToUnlock: 75
-      _upgradeCost: 40000
-      _percentage: 150
+      _upgradeCost: 8000
+      _percentage: 100
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0
     - _levelToUnlock: 100
+      _upgradeCost: 80000
+      _percentage: 150
+      _isComponentUnlocked: 0
+      _isupgradeComponentPurchased: 0
+    - _levelToUnlock: 125
       _upgradeCost: 400000
-      _percentage: 0.5
+      _percentage: 200
+      _isComponentUnlocked: 0
+      _isupgradeComponentPurchased: 0
+    - _levelToUnlock: 150
+      _upgradeCost: 4000000
+      _percentage: 250
       _isComponentUnlocked: 0
       _isupgradeComponentPurchased: 0

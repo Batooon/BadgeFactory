@@ -12,6 +12,7 @@ namespace DroppableItems
 
         public override void Init(BadgeData badgeData, PlayerData playerData)
         {
+            Debug.Log("Initializing Box Mothership");
             base.Init(badgeData, playerData);
             _boxReward.Init(playerData);
         }
@@ -20,6 +21,7 @@ namespace DroppableItems
         {
             if (Random.value <= _chanceToSpawn) 
             {
+                Debug.Log("Box Spawned");
                 //GameObject boxObject = Instantiate(_itemToSpawn, transform.position, _itemToSpawn.transform.rotation);
                 GameObject boxObject = _objectPooler.GetPooledObjects();
                 if (boxObject != null)

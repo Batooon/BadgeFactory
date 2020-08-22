@@ -41,6 +41,7 @@ namespace BadgeImplementation
 
         public void OnBadgeCreated(BadgeData badgeData)
         {
+            Debug.Log("Badge Created?????");
             _badgePresentation.OnBadgeCreated();
             foreach (var mothership in _droppable)
             {

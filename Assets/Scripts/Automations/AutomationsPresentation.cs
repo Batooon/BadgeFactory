@@ -22,19 +22,10 @@ namespace AutomationsImplementation
             }
 
             _automationsData = automationsData;
-
-            _automationsData.AutomationsPowerChanged += OnAutomationsPowerChanged;
-            _automationsData.ClickPowerChanged += OnClickPowerChanged;
-
-            OnAutomationsPowerChanged(_automationsData.AutomationsPower);
-            OnClickPowerChanged(_automationsData.ClickPower);
         }
 
         private void OnEnable()
         {
-            if (_automationsData == null)
-                return;
-
             _automationsData.AutomationsPowerChanged += OnAutomationsPowerChanged;
             _automationsData.ClickPowerChanged += OnClickPowerChanged;
 

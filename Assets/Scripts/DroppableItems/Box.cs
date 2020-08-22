@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace DroppableItems
 {
-    public class Box : MonoBehaviour
+    public class Box : MonoBehaviour, ICollectable
     {
         [SerializeField] private float _lifetime;
 
@@ -21,14 +21,12 @@ namespace DroppableItems
             _itemTweener = GetComponent<IItemTweener>();
             _itemTweener.StartMotion();
             StartCoroutine(DestroyAfterLifetime());
-            //Destroy(gameObject, _lifetime);
         }
 
         private void OnMouseEnter()
         {
             _boxOpenEvent?.Invoke();
             gameObject.SetActive(false);
-            //Destroy(gameObject);
         }
 
         private IEnumerator DestroyAfterLifetime()
@@ -40,6 +38,14 @@ namespace DroppableItems
                 yield return new WaitForSeconds(1f);
             }
             gameObject.SetActive(false);
+        }
+
+        public void Init(in long reward, PlayerData playerData, AudioService audioService)
+        {
+        }
+
+        public void OnMovingEnded()
+        {
         }
     }
 }

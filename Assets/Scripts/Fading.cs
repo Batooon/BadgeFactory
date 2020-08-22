@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class Fading : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private float _fadeDuration;
     [SerializeField] private float _fadeOutDelay;
+    [SerializeField] private UnityEvent _fadingCompleted;
 
     public void FadeOut()
     {
-        _canvasGroup.LeanAlpha(0, _fadeDuration).setDelay(_fadeOutDelay);
+        _canvasGroup.LeanAlpha(0, _fadeDuration).setDelay(_fadeOutDelay).setOnComplete(_fadingCompleted.Invoke);
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
     }
@@ -28,5 +28,4 @@ public class Fading : MonoBehaviour
         _canvasGroup.blocksRaycasts = true;
         _canvasGroup.LeanAlpha(1, _fadeDuration).setOnComplete(FadeOut);
     }
-
 }

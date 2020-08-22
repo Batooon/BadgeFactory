@@ -41,6 +41,11 @@ public class ClickAutomation : MonoBehaviour, IAutomation
 
         for (int i = 0; i < automationsData.LevelsToUpgrade; i++)
         {
+            if (automationData.Level == 20)
+            {
+                automationsData.CriticalPowerIncreasePercentage += .1f;
+                automationsData.ClickPowerCriticalHitChance += .1f;
+            }
             automationData.Level += 1;
             newDamage += Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
             newDamage += newDamage * Mathf.RoundToInt(automationData.PowerUpPercentage / 100);

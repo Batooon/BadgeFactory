@@ -18,6 +18,7 @@ namespace BadgeImplementation
         [SerializeField] private SpriteAtlas _bossStands;
         [SerializeField] private List<DroppingMothership> _droppingMotherships;
         [SerializeField] private BossCountdown _bossCountdown;
+        [SerializeField] private HitDamageSpawner _hitDamageSpawner;
         [SerializeField] private UnityEvent _clicked;
 
         private Sprite[] _badgeSprites;
@@ -56,11 +57,15 @@ namespace BadgeImplementation
                 mothership.Init(badgeData, playerData);
             }
 
+
             _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
             _badgeBusinessInput.CreateBossEvent += CreateBoss;
+            _badgeBusinessInput.BadgeCreated += OnBadgeCreated;
+            _bossCountdown.BossNotDefeated += OnBossNotDefeated;
 
-            _badgeBusinessInput.CreateNewBadge();
             _badgeProgressPresentation.Init(badgeData);
+            _hitDamageSpawner.Init(automationsData);
+            _badgeBusinessInput.CreateNewBadge();
         }
 
         private void TakeProgress()
@@ -72,17 +77,6 @@ namespace BadgeImplementation
         {
             HandlePlayerInput();
             TakeProgress();
-        }
-
-        private void OnEnable()
-        {
-            _bossCountdown.BossNotDefeated += OnBossNotDefeated;
-            if (_badgeBusinessInput == null)
-                return;
-
-            _badgeBusinessInput.BadgeCreated += OnBadgeCreated;
-            _badgeBusinessInput.CreateBadgeEvent += CreateBadge;
-            _badgeBusinessInput.CreateBossEvent += CreateBoss;
         }
 
         private void OnDisable()
@@ -113,6 +107,7 @@ namespace BadgeImplementation
 
                         _badgeBusinessInput.ClickProgress();
                         _clicked?.Invoke();
+                        _hitDamageSpawner.SpawnText(_badgeBusinessInput.CurrentClickHitValue);
                     }
                 }
             }

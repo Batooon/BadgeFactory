@@ -61,7 +61,7 @@ public class Settings : MonoBehaviour
 {
     [SerializeField] private SettingsPresentation _settingsPresentation;
     [SerializeField] private AudioMixer _mixer;
-    [SerializeField] private TMP_Dropdown _languageDropdown;
+    //[SerializeField] private TMP_Dropdown _languageDropdown;
 
     [SerializeField] private string _musicVolumeParam;
     [SerializeField] private string _soundVolumeParam;
@@ -83,6 +83,7 @@ public class Settings : MonoBehaviour
 
     public void Init(SettingsData settingsData)
     {
+        _currentLanguage = LocalizationService.Instance.Localization;
         _settingsData = settingsData;
         _musicSwitcher = new VolumeSetter(_mixer, _musicVolumeParam);
         _soundsSwitcher = new VolumeSetter(_mixer, _soundVolumeParam);
@@ -95,7 +96,7 @@ public class Settings : MonoBehaviour
                 _toggleLanguages[i].isOn = languageChanger.LanguageIndex == currentLanguageIndex;
         }
 
-        _languageDropdown.RefreshShownValue();
+        //_languageDropdown.RefreshShownValue();
         _settingsPresentation.Init(_settingsData);
         ChangeLanguage(currentLanguageIndex);
 

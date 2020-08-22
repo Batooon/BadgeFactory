@@ -18,6 +18,7 @@ namespace DroppableItems
 
         public void Init(in long reward, PlayerData playerData, AudioService audioService)
         {
+            Debug.Log($"{this} Initialized");
             _audioService = audioService;
             _costReward = reward;
             _playerData = playerData;
@@ -28,6 +29,11 @@ namespace DroppableItems
 
         public void OnMovingEnded()
         {
+            if (_playerData.IsProgressResetting)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
             PlaySound();
             _collect?.Invoke();
             GameObject effect = Instantiate(_collectEffect.gameObject, _transform.position, _transform.rotation);
@@ -44,6 +50,7 @@ namespace DroppableItems
         private void Collect()
         {
             _playerData.Gold += _costReward;
+            Debug.Log($"{this} Collected");
         }
     }
 

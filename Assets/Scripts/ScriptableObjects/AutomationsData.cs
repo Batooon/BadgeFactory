@@ -12,6 +12,8 @@ public class AutomationsData
     [SerializeField] private int _levelsToUpgrade = 1;
     [SerializeField] private float _clickPowerPercentageIncrease;
     [SerializeField] private float _automationsPowerPercentageIncrease;
+    [SerializeField] private float _clickPowerCriticalHitChance;
+    [SerializeField] private float _criticalPowerIncreasePercentage;
 
     public event Action<long> ClickPowerChanged;
     public event Action<long> AutomationsPowerChanged;
@@ -46,6 +48,8 @@ public class AutomationsData
             AutomationsPowerPercentageChanged?.Invoke(value);
         }
     }
+    public float ClickPowerCriticalHitChance { get => _clickPowerCriticalHitChance; set => _clickPowerCriticalHitChance = value; }
+    public float CriticalPowerIncreasePercentage { get => _criticalPowerIncreasePercentage; set => _criticalPowerIncreasePercentage = value; }
 
     public int GetLastUnlockedAutomationId()
     {
@@ -65,7 +69,19 @@ public class AutomationsData
         ClickPowerPercentageIncrease = 0;
         AutomationsPowerPercentageIncrease = 0;
         CanUpgradeSomething = false;
+        CriticalPowerIncreasePercentage = 0;
+        ClickPowerCriticalHitChance = 0;
         for (int i = 0; i < _automations.Count; i++)
             _automations[i].Reset(defaultAutomations.Automations[i]);
+    }
+
+    public void FireAllChangedEvents()
+    {
+        ClickPowerChanged?.Invoke(_clickPower);
+        AutomationsPowerChanged?.Invoke(_automationsPower);
+        CanUpgradeSomethingChanged?.Invoke(_canUpgradeSomething);
+        LevelsToUpgradeChanged?.Invoke(_levelsToUpgrade);
+        ClickPowerPercentageChanged?.Invoke(_clickPowerPercentageIncrease);
+        AutomationsPowerPercentageChanged?.Invoke(_automationsPowerPercentageIncrease);
     }
 }

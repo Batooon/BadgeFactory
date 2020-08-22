@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace AutomationImplementation
 {
     [RequireComponent(typeof(AutomationPresentation)), RequireComponent(typeof(IAutomation))]
     public class AutomationLogic : SerializedMonoBehaviour
     {
-        [SerializeField] private Button _upgradeButton;
         [SerializeField] private int _automationId;
         [SerializeField] private List<UpgradeComponent> _upgradeComponents;
         [SerializeField] private UnityEvent _automationUnlocked;
@@ -34,7 +32,6 @@ namespace AutomationImplementation
             _automationData = automationData;
 
             _automationPresentation = GetComponent<AutomationPresentation>();
-            _automationPresentation.Init(_automationData);
             _automationPresentator = new AutomationPresentator(_automationPresentation, _automationData);
 
             _automationBusinessRules = new AutomationBusinessRules(
@@ -43,29 +40,14 @@ namespace AutomationImplementation
                 _automationData,
                 _automationsData);
 
+            _automationPresentation.Init(_automationData);
+
             for (int i = 0; i < _upgradeComponents.Count; i++)
                 _upgradeComponents[i].Init(_playerData, _automationsData, _automationData, _automationData.UpgradeComponents[i], _automationId);
-
-            _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
-
-            _playerData.GoldChanged += OnGoldAmountUpdated;
-            _automationData.CostChanged += FetchCost;
-            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
-
-            OnGoldAmountUpdated(_playerData.Gold);
-            FetchCost(_automationData.CurrentCost);
-            RecalculateCost(_automationsData.LevelsToUpgrade);
         }
 
         private void OnEnable()
         {
-            if (_playerData == null)
-                return;
-            if (_automationsData == null)
-                return;
-            if (_automationData == null)
-                return;
-
             _playerData.GoldChanged += OnGoldAmountUpdated;
             _automationData.CostChanged += FetchCost;
             _automationsData.LevelsToUpgradeChanged += RecalculateCost;
@@ -86,7 +68,6 @@ namespace AutomationImplementation
 
         private void Start()
         {
-            _upgradeButton.onClick.AddListener(OnUpgradeButtonPressed);
             if (_automationData.IsUnlocked == false)
                 gameObject.SetActive(false);
         }
@@ -98,9 +79,6 @@ namespace AutomationImplementation
 
         public void OnGoldAmountUpdated(long goldAmount)
         {
-            if (_automationBusinessRules == null)
-                return;
-
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, goldAmount);
         }
 
@@ -117,14 +95,11 @@ namespace AutomationImplementation
         private void RecalculateCost(int levelsToUpgrade)
         {
             _automation.RecalculateCost(levelsToUpgrade, _automationData);
-            if (_automationBusinessRules == null)
-                return;
             _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
         }
 
         public void SetAutomationType(IAutomation automation)
         {
-            //Automation = automation;
         }
     }
 }

@@ -27,10 +27,10 @@ public class Services : MonoBehaviour
     [SerializeField] private GodMode _godMode;
 #endif
 
-    private PlayerData _playerData;
-    private AutomationsData _automationsData;
-    private BadgeData _badgeData;
-    private SettingsData _settingsData;
+    [SerializeField]private PlayerData _playerData;
+    [SerializeField]private AutomationsData _automationsData;
+    [SerializeField]private BadgeData _badgeData;
+    [SerializeField]private SettingsData _settingsData;
 
     private void Awake()
     {
@@ -46,7 +46,7 @@ public class Services : MonoBehaviour
 
         if (FileOperations.IsFileExist(_settingsDataFileName) == false)
         {
-            _playerData = new PlayerData();
+            /*_playerData = new PlayerData();
             _badgeData = new BadgeData();
             _automationsData = new AutomationsData();
             _settingsData = new SettingsData();
@@ -54,7 +54,7 @@ public class Services : MonoBehaviour
             _automationsData.Automations.Clear();
 
             for (int i = 0; i < _defaultAutomationsData.Automations.Count; i++)
-                _automationsData.Automations.Add(_defaultAutomationsData.Automations[i]);
+                _automationsData.Automations.Add(_defaultAutomationsData.Automations[i]);*/
 
             SaveData();
         }
@@ -79,6 +79,10 @@ public class Services : MonoBehaviour
         _badge.Init(_playerData, _automationsData, _badgeData);
         _automations.Init(_playerData, _automationsData);
         _playerData.IsReturningPlayer = true;
+    }
+
+    private void Start()
+    {
         PlayGames.Initialize(_playGamesDebugMode, new CloudSavesUI(3, true, true));
         PlayGames.Authenticate((bool value) =>
         {
@@ -151,7 +155,7 @@ public class Services : MonoBehaviour
         }, () => SaveCloudData());
     }
 }
-
+[System.Serializable]
 public struct CloudSaveData
 {
     public PlayerData Data;

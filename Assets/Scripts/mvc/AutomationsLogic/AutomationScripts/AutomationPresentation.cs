@@ -28,41 +28,17 @@ public class AutomationPresentation : MonoBehaviour
     public void Init(Automation automation)
     {
         _automation = automation;
-
-        _automation.CanUpgradeChanged += OnUpgradeAvailabilityChanged;
-        _automation.CostChanged += OnCostChanged;
-        _automation.DamageChanged += OnDamageChanged;
-        _automation.LevelChanged += OnLevelChanged;
-        _automation.UnlockChanged += OnUnlockedChanged;
-
         OnUnlockedChanged(_automation.IsUnlocked);
-        OnCostChanged(_automation.CurrentCost);
-        OnDamageChanged(_automation.CurrentDamage);
-        OnLevelChanged(_automation.Level);
-        OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
-    }
-
-    private void Start()
-    {
-        OnUnlockedChanged(_automation.IsUnlocked);
-        OnCostChanged(_automation.CurrentCost);
-        OnDamageChanged(_automation.CurrentDamage);
-        OnLevelChanged(_automation.Level);
-        OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
     }
 
     private void OnEnable()
     {
-        if (_automation == null)
-            return;
-
         _automation.CanUpgradeChanged += OnUpgradeAvailabilityChanged;
         _automation.CostChanged += OnCostChanged;
         _automation.DamageChanged += OnDamageChanged;
         _automation.LevelChanged += OnLevelChanged;
         _automation.UnlockChanged += OnUnlockedChanged;
 
-        OnUnlockedChanged(_automation.IsUnlocked);
         OnCostChanged(_automation.CurrentCost);
         OnDamageChanged(_automation.CurrentDamage);
         OnLevelChanged(_automation.Level);
@@ -71,9 +47,6 @@ public class AutomationPresentation : MonoBehaviour
 
     private void OnDisable()
     {
-        if (_automation == null)
-            return;
-
         _automation.CanUpgradeChanged -= OnUpgradeAvailabilityChanged;
         _automation.CostChanged -= OnCostChanged;
         _automation.DamageChanged -= OnDamageChanged;

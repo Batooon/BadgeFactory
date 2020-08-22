@@ -6,11 +6,11 @@ using UnityEngine.UI;
 //Developer: Antoshka
 
 public class EnemyManager : MonoBehaviour
-{
+{/*
     [SerializeField]
     //private PlayerData PlayerData;
 
-    public List<CoinLogic> spawnedCoins = new List<CoinLogic>();
+    //public List<CoinLogic> spawnedCoins = new List<CoinLogic>();
 
     public FloatReference CurrentHp;
     public IntReference MaxHp;
@@ -140,5 +140,5 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         DealDamage(_damagePerSecond * Time.deltaTime);
-    }
+    }*/
 }

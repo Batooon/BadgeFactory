@@ -30,24 +30,23 @@ SpriteAtlas:
       enableTightPacking: 1
     variantMultiplier: 1
     packables:
-    - {fileID: 8304047250313301137, guid: 37701bb8fcaa06046baab6195ffaa987, type: 3}
-    - {fileID: 2800000, guid: 61a98785add38a049a71a6a46bfce1b7, type: 3}
-    totalSpriteSurfaceArea: 3750202
+    - {fileID: 2800000, guid: 58f817dcfcd486947bca9e081b500a93, type: 3}
+    totalSpriteSurfaceArea: 2025660
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 4064664909389857521, guid: 61a98785add38a049a71a6a46bfce1b7, type: 3}
-  - {fileID: -8611300867958131206, guid: 61a98785add38a049a71a6a46bfce1b7, type: 3}
-  - {fileID: -687472027523673045, guid: 61a98785add38a049a71a6a46bfce1b7, type: 3}
-  - {fileID: -4770442395905702097, guid: 61a98785add38a049a71a6a46bfce1b7, type: 3}
-  - {fileID: 8304047250313301137, guid: 37701bb8fcaa06046baab6195ffaa987, type: 3}
+  - {fileID: 4198508149576762415, guid: 58f817dcfcd486947bca9e081b500a93, type: 3}
+  - {fileID: 5432513480477659088, guid: 58f817dcfcd486947bca9e081b500a93, type: 3}
+  - {fileID: -2632800453321548251, guid: 58f817dcfcd486947bca9e081b500a93, type: 3}
+  - {fileID: 3336763511505673040, guid: 58f817dcfcd486947bca9e081b500a93, type: 3}
+  - {fileID: 7217314481892653136, guid: 58f817dcfcd486947bca9e081b500a93, type: 3}
   m_PackedSpriteNamesToIndex:
-  - "\u0444\u043E\u0440\u043C\u0430 2_2"
-  - "\u0444\u043E\u0440\u043C\u0430 2_3"
-  - "\u0444\u043E\u0440\u043C\u0430 2_0"
-  - "\u0444\u043E\u0440\u043C\u0430 2_1"
-  - "\u043F\u0430\u043D\u0435\u043B\u044C 2.1_8"
+  - "za\u0457bav_2"
+  - "za\u0457bav_3"
+  - "za\u0457bav_0"
+  - "za\u0457bav_1"
+  - "za\u0457bav_4"
   m_Tag: BadgeStands
   m_IsVariant: 0

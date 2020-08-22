@@ -15,6 +15,9 @@ namespace BadgeImplementation.BusinessRules
         private AutomationsData _automationsData;
         private IBadgeBusinessOutput _badgeOutput;
         private IBossCountdown _bossCountdown;
+        private long _currentClickHitValue;
+
+        public long CurrentClickHitValue => _currentClickHitValue;
 
         //TODO: Fluent builder?
         public BadgeBusinessRules(PlayerData playerData,
@@ -65,7 +68,16 @@ namespace BadgeImplementation.BusinessRules
 
         public void ClickProgress()
         {
-            _badgeData.CurrentHp += _automationsData.ClickPower;
+            if (UnityEngine.Random.value <= _automationsData.ClickPowerCriticalHitChance)
+            {
+                _badgeData.CurrentHp += _automationsData.ClickPower + _automationsData.ClickPower * _automationsData.CriticalPowerIncreasePercentage;
+                _currentClickHitValue = _automationsData.ClickPower + Mathf.RoundToInt(_automationsData.ClickPower * _automationsData.CriticalPowerIncreasePercentage);
+            }
+            else
+            {
+                _badgeData.CurrentHp += _automationsData.ClickPower;
+                _currentClickHitValue = _automationsData.ClickPower;
+            }
 
             AddBadgeProgress();
         }

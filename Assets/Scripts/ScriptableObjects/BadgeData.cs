@@ -15,10 +15,9 @@ public class BadgeData
     public long MaxHp { get => _maxHp; set { _maxHp = value; MaxHpChanged?.Invoke(_maxHp); } }
     public long CoinsReward { get => _coinsReward; set => _coinsReward = value; }
 
-    public void Reset()
+    public void FireAllChangedEvents()
     {
-        CurrentHp = 0;
-        MaxHp = 10;
-        CoinsReward = 1;
+        HpChanged?.Invoke(_currentHp);
+        MaxHpChanged?.Invoke(_maxHp);
     }
 }
