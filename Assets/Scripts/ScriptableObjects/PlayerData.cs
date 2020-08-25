@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BadgeImplementation.BusinessRules;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -6,13 +7,13 @@ public class PlayerData
 {
     [SerializeField, HideInInspector] public int BadgePoints;
     [SerializeField, HideInInspector] public bool IsProgressResetting;
-    [SerializeField] private int _level = 1;
+    [SerializeField] private int _level;
     [SerializeField] private long _gold;
-    [SerializeField] private int _levelProgress = 0;
-    [SerializeField] private int _maxLevelProgress = 10;
+    [SerializeField] private int _levelProgress;
+    [SerializeField] private int _maxLevelProgress;
     [SerializeField] private bool _isReturningPlayer;
-    [SerializeField] private int _bossCountdownTime = 30;
-    [SerializeField] private bool _needToIncreaseLevel = true;
+    [SerializeField] private int _bossCountdownTime;
+    [SerializeField] private bool _needToIncreaseLevel;
     [SerializeField] private int _damageBonus;
     [SerializeField] private JsonDateTime _jsonDateTime = new JsonDateTime();
 
@@ -31,6 +32,21 @@ public class PlayerData
     public int DamageBonus { get => _damageBonus; set => _damageBonus = value; }
     public DateTime LastTimeInGame { get => _jsonDateTime; set => _jsonDateTime = value; }
 
+    private int _startingLevel;
+    private long _startingGold;
+    private int _startingBossCountdownTime;
+    private int _startingLevelProgress;
+    private int _startingMaxLevelProgress;
+
+    public void Init()
+    {
+        _startingLevel = _level;
+        _startingGold = _gold;
+        _startingBossCountdownTime = _bossCountdownTime;
+        _startingLevelProgress = _levelProgress;
+        _startingMaxLevelProgress = _maxLevelProgress;
+    }
+
     public void SaveData(string fileName)
     {
         LastTimeInGame = DateTime.Now;
@@ -43,6 +59,15 @@ public class PlayerData
         GoldChanged?.Invoke(_gold);
         LevelProgressChanged?.Invoke(_levelProgress);
         NeedToIncreaseLevelChanged?.Invoke(_needToIncreaseLevel);
+    }
+
+    public void ResetData()
+    {
+        Level = _startingLevel;
+        Gold = _startingGold;
+        BossCountdownTime = _startingBossCountdownTime;
+        LevelProgress = _startingLevelProgress;
+        MaxLevelProgress = _startingMaxLevelProgress;
     }
 }
 
@@ -58,8 +83,10 @@ public struct JsonDateTime
 
     public static implicit operator JsonDateTime(DateTime dateTime)
     {
-        JsonDateTime jsonTime = new JsonDateTime();
-        jsonTime.value = dateTime.ToFileTimeUtc();
+        JsonDateTime jsonTime = new JsonDateTime
+        {
+            value = dateTime.ToFileTimeUtc()
+        };
         return jsonTime;
     }
 }

@@ -83,6 +83,21 @@ public class UpgradeComponentData
         }
     }
     public bool IsUpgradeComponentPurchased { get => _isupgradeComponentPurchased; set { _isupgradeComponentPurchased = value; UpgradeComponentStatechanged?.Invoke(value); } }
+
+    private bool _startingIsComponentUnlocked;
+    private bool _startingIsUpgradeComponentPurchased;
+
+    public void Init()
+    {
+        _startingIsComponentUnlocked = _isComponentUnlocked;
+        _startingIsUpgradeComponentPurchased = _isupgradeComponentPurchased;
+    }
+
+    public void ResetData()
+    {
+        IsComponentUnlocked = _startingIsComponentUnlocked;
+        IsUpgradeComponentPurchased = _startingIsUpgradeComponentPurchased;
+    }
 }
 
 public interface IUpgrade

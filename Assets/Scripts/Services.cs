@@ -46,16 +46,9 @@ public class Services : MonoBehaviour
 
         if (FileOperations.IsFileExist(_settingsDataFileName) == false)
         {
-            /*_playerData = new PlayerData();
-            _badgeData = new BadgeData();
-            _automationsData = new AutomationsData();
-            _settingsData = new SettingsData();
-
-            _automationsData.Automations.Clear();
-
-            for (int i = 0; i < _defaultAutomationsData.Automations.Count; i++)
-                _automationsData.Automations.Add(_defaultAutomationsData.Automations[i]);*/
-
+            _playerData.Init();
+            _badgeData.Init();
+            _automationsData.Init();
             SaveData();
         }
         else

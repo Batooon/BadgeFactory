@@ -9,11 +9,8 @@
 
     public void ResetProgress(PlayerData playerData, BadgeData badgeData, AutomationsData automationsData)
     {
-        playerData = new PlayerData();
-        playerData.FireAllChangedEvents();
-        badgeData = new BadgeData();
-        badgeData.FireAllChangedEvents();
-        automationsData = new AutomationsData();
-        automationsData.FireAllChangedEvents();
+        playerData.ResetData();
+        badgeData.ResetData();
+        automationsData.ResetData();
     }
 }

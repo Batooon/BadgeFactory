@@ -82,6 +82,33 @@ public class Automation
 
     public UpgradeComponentData[] UpgradeComponents => _upgradeComponents;
 
+    private bool _startingCanUpgrade;
+    private int _startingLevel;
+    private bool _startingIsUnlocked;
+    private float _startingPowerUpPercentage;
+
+    public void Init()
+    {
+        _startingCanUpgrade = _canUpgrade;
+        _startingLevel = _level;
+        _startingIsUnlocked = _isUnlocked;
+        _startingPowerUpPercentage = _powerUpPercentage;
+        foreach (var item in UpgradeComponents)
+            item.Init();
+    }
+
+    public void ResetData()
+    {
+        CanUpgrade = _startingCanUpgrade;
+        Level = _startingLevel;
+        IsUnlocked = _startingIsUnlocked;
+        PowerUpPercentage = _startingPowerUpPercentage;
+        CurrentCost = _startingCost;
+        CurrentDamage = _startingDamage;
+        foreach (var item in UpgradeComponents)
+            item.ResetData();
+    }
+
     /*public bool this[int index]
     {
         set

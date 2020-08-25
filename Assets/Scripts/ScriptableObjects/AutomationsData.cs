@@ -6,10 +6,10 @@ using UnityEngine;
 public class AutomationsData
 {
     [SerializeField] private List<Automation> _automations = new List<Automation>();
-    [SerializeField] private long _clickPower = 1;
+    [SerializeField] private long _clickPower;
     [SerializeField] private long _automationsPower;
     [SerializeField] private bool _canUpgradeSomething;
-    [SerializeField] private int _levelsToUpgrade = 1;
+    [SerializeField] private int _levelsToUpgrade;
     [SerializeField] private float _clickPowerPercentageIncrease;
     [SerializeField] private float _automationsPowerPercentageIncrease;
     [SerializeField] private float _clickPowerCriticalHitChance;
@@ -50,6 +50,39 @@ public class AutomationsData
     }
     public float ClickPowerCriticalHitChance { get => _clickPowerCriticalHitChance; set => _clickPowerCriticalHitChance = value; }
     public float CriticalPowerIncreasePercentage { get => _criticalPowerIncreasePercentage; set => _criticalPowerIncreasePercentage = value; }
+
+    private long _startingClickPower;
+    private long _startingAutomationsPower;
+    private bool _startingCanUpgradeSomething;
+    private float _startingClickPowerPercentageIncrease;
+    private float _startingAutomationsPowerPercentageIncrease;
+    private float _startingClickPowerCriticalHitChance;
+    private float _startingCriticalPowerIncreasePercentage;
+
+    public void Init()
+    {
+        _startingClickPower = _clickPower;
+        _startingAutomationsPower = _automationsPower;
+        _startingCanUpgradeSomething = _canUpgradeSomething;
+        _startingClickPowerPercentageIncrease = _clickPowerPercentageIncrease;
+        _startingClickPowerCriticalHitChance = _clickPowerCriticalHitChance;
+        _startingCriticalPowerIncreasePercentage = _criticalPowerIncreasePercentage;
+        foreach (var item in Automations)
+            item.Init();
+    }
+
+    public void ResetData()
+    {
+        ClickPower = _startingClickPower;
+        AutomationsPower = _startingAutomationsPower;
+        CanUpgradeSomething = _startingCanUpgradeSomething;
+        ClickPowerPercentageIncrease = _startingClickPowerPercentageIncrease;
+        AutomationsPowerPercentageIncrease = _startingAutomationsPowerPercentageIncrease;
+        ClickPowerCriticalHitChance = _startingClickPowerCriticalHitChance;
+        CriticalPowerIncreasePercentage = _startingCriticalPowerIncreasePercentage;
+        foreach (var item in Automations)
+            item.ResetData();
+    }
 
     public int GetLastUnlockedAutomationId()
     {
