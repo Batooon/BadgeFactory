@@ -22397,7 +22397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1231075644
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36201,7 +36201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Find us on Instagram!
+  m_text: Follow us on this social platforms
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea19b21b673999144b73c7032df78362, type: 2}
   m_sharedMaterial: {fileID: 1595185962630709639, guid: ea19b21b673999144b73c7032df78362,
