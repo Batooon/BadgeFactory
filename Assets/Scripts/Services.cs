@@ -23,6 +23,7 @@ public class Services : MonoBehaviour
     [SerializeField] private AudioService _audioService;
     [SerializeField] private PlayGamesAuthenticator _playGamesAuthenticator;
     [SerializeField] private bool _playGamesDebugMode;
+    [SerializeField] private Tutorial _tutorial;
 #if UNITY_EDITOR
     [SerializeField] private GodMode _godMode;
 #endif
@@ -57,6 +58,7 @@ public class Services : MonoBehaviour
 #if UNITY_EDITOR
         _godMode.Init(_playerData);
 #endif
+        _tutorial.Init(_playerData);
         _audioService.Init();
         _settings.Init(_settingsData);
         _vibration.Init(_settingsData);
@@ -71,7 +73,6 @@ public class Services : MonoBehaviour
         _playerStatsPresentation.Init(_playerData);
         _badge.Init(_playerData, _automationsData, _badgeData);
         _automations.Init(_playerData, _automationsData);
-        _playerData.IsReturningPlayer = true;
     }
 
     private void Start()

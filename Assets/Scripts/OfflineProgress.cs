@@ -20,9 +20,6 @@ public class OfflineProgress : MonoBehaviour
 
         if (_playerData.IsReturningPlayer && _automationsData.AutomationsPower > 0)
             InitPanel();
-
-        if (_playerData.IsReturningPlayer == false)
-            _playerData.IsReturningPlayer = true;
     }
 
     public void CollectGold()
