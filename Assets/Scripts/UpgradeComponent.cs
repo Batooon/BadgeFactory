@@ -27,15 +27,10 @@ public class UpgradeComponent : MonoBehaviour
         _upgradeComponentPresentation = GetComponent<UpgradeComponentPresentation>();
         _upgradeComponentPresentation.Init(_playerData, _upgradeComponentData, _automationData);
         _upgrade = GetComponent<IUpgrade>();
-        _automationData.LevelChanged += OnLevelChanged;
-        OnLevelChanged(_automationData.Level);
     }
 
     private void OnEnable()
     {
-        if (_playerData == null)
-            return;
-
         _automationData.LevelChanged += OnLevelChanged;
         OnLevelChanged(_automationData.Level);
     }
@@ -47,6 +42,8 @@ public class UpgradeComponent : MonoBehaviour
 
     public void OnBuyComponentButtonPressed(bool buyed)
     {
+        if (_upgradeComponentData.IsUpgradeComponentPurchased)
+            return;
         _playerData.Gold -= _upgradeComponentData.UpgradeCost;
         _upgrade.Upgrade(_automationsData, _upgradeComponentData.Percentage, _automationIndex);
         _upgradeComponentData.IsUpgradeComponentPurchased = true;

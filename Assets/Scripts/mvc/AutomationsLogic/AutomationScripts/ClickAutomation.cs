@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ClickAutomation : MonoBehaviour, IAutomation
 {
@@ -34,13 +33,12 @@ public class ClickAutomation : MonoBehaviour, IAutomation
 
     public void Upgrade(Automation automationData, AutomationsData automationsData)
     {
-        long newDamage = 0;
-
         if (automationData.Level != 1)
             automationsData.ClickPower -= automationData.CurrentDamage;
 
         for (int i = 0; i < automationsData.LevelsToUpgrade; i++)
         {
+            long newDamage = 0;
             if (automationData.Level == 20)
             {
                 automationsData.CriticalPowerIncreasePercentage += .1f;
@@ -48,10 +46,14 @@ public class ClickAutomation : MonoBehaviour, IAutomation
             }
             automationData.Level += 1;
             newDamage += Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
-            newDamage += newDamage * Mathf.RoundToInt(automationData.PowerUpPercentage / 100);
-        }
 
-        automationData.CurrentDamage = newDamage;
+            foreach (var item in automationData.UpgradeComponents)
+            {
+                if (item.IsUpgradeComponentPurchased)
+                    newDamage += Mathf.RoundToInt(newDamage * item.Percentage / 100);
+            }
+            automationData.CurrentDamage = newDamage;
+        }
         automationsData.ClickPower += automationData.CurrentDamage;
         automationsData.ClickPower += Mathf.RoundToInt(automationsData.ClickPower * automationsData.ClickPowerPercentageIncrease);
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);

@@ -1,160 +1,164 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _tutorialSteps;
-    [SerializeField] private long _requiredGoldAmountToUnlockSecondStep;
-    [SerializeField] private UnityEvent _firstStep;
-    [SerializeField] private UnityEvent _secondStep;
-    [SerializeField] private UnityEvent _thirdStep;
+    [SerializeField] private UnityEvent _progressResetterUnlocked;
+    [SerializeField] private long _levelToUnlcokProgressReset;
 
     private PlayerData _playerData;
-    private int _currentTutorialStep;
 
     public void Init(PlayerData playerData)
     {
         _playerData = playerData;
     }
-
-    private void UpdateSteps()
-    {
-        for (int i = 0; i < _tutorialSteps.Count; i++)
-            _tutorialSteps[i].SetActive(_currentTutorialStep == i);
-    }
-
-    private void Update()
-    {
-        if (_playerData.IsReturningPlayer)
-            return;
-        if (_currentTutorialStep > _tutorialSteps.Count - 1)
-            return;
-
-        if (_currentTutorialStep == 0)
-        {
-            Touch[] touches = Input.touches;
-
-            if (touches.Length > 0)
-            {
-                for (int i = 0; i < touches.Length; i++)
-                {
-                    if (touches[i].phase == TouchPhase.Began)
-                    {
-                        if (EventSystem.current.IsPointerOverGameObject(touches[i].fingerId))
-                            return;
-                        ActionCompleted();
-                    }
-                }
-            }
-        }
-        else if (_currentTutorialStep == 1)
-        {
-            if (_playerData.Gold >= _requiredGoldAmountToUnlockSecondStep)
-            {
-                UpdateSteps();
-                _secondStep?.Invoke();
-            }
-        }
-        else if (_currentTutorialStep == 2)
-        {
-            if (_playerData.Level >= 75)
-            {
-                UpdateSteps();
-                _thirdStep?.Invoke();
-                _playerData.IsReturningPlayer = true;
-            }
-        }
-    }
-
-    public void ActionCompleted()
-    {
-        if (_currentTutorialStep > _tutorialSteps.Count - 1)
-            return;
-        _tutorialSteps[_currentTutorialStep].SetActive(false);
-        _currentTutorialStep += 1;
-    }
-
-
-    /*
-    [SerializeField] private TutorialStepData[] _tutorialStepsData;
-    [SerializeField] private TutorialStepPresentation _tutorialStepBlank;
-    [SerializeField] private List<GameObject> _tutorialSteps;
-    [SerializeField] private long _goldAmountRequiredToUnlockAutomations;
-    [SerializeField] private UnityEvent _secondTutorialStep;
-
-    private PlayerData _playerData;
-    private event Action<int> _tutorialStepChanged;
-    //private Dictionary<TutorialStepPresentation, TutorialStepData> _tutorialSteps;
-    private int _currentTutorialStep;
-    private int _tutorialStep
-    {
-        get => _currentTutorialStep;
-        set
-        {
-            _currentTutorialStep = value;
-            _tutorialStepChanged?.Invoke(value);
-        }
-    }
-
-    public void Init(PlayerData playerData)
-    {
-        _playerData = playerData;
-        /*foreach (var item in _tutorialStepsData)
-        {
-            TutorialStepPresentation tutorialStepPresentation = Instantiate(_tutorialStepBlank.gameObject).GetComponent<TutorialStepPresentation>();
-            _tutorialSteps.Add(tutorialStepPresentation, item);
-        }
-
-        foreach (var item in _tutorialSteps)
-            item.Key.Init(item.Value, _tutorialStepChanged);
-}
 
     private void OnEnable()
     {
-        _playerData.GoldChanged += OnGoldAmountChanged;
+        _playerData.LevelChanged += OnLevelChanged;
     }
 
     private void OnDisable()
     {
-        _playerData.GoldChanged -= OnGoldAmountChanged;
+        _playerData.LevelChanged -= OnLevelChanged;
     }
 
-    public void StartTutorial()
+    private void OnLevelChanged(int newLevel)
     {
-        _tutorialStep = 0;
-    }
-
-    private void Update()
-    {
-        if (_tutorialStep == 0)
+        if (newLevel == _levelToUnlcokProgressReset)
         {
-            Touch[] touches = Input.touches;
+            _progressResetterUnlocked?.Invoke();
+        }
+    }
+    /*
+    [SerializeField] public List<GameObject> TutorialSteps;
+    [SerializeField] public long RequiredGoldAmountToUnlockSecondStep;
+    [SerializeField] public UnityEvent FirstStep;
+    [SerializeField] public UnityEvent SecondStep;
+    [SerializeField] public UnityEvent ThirdStep;
+    [SerializeField, HideInInspector] public PlayerData PlayerData;
 
-            if (touches.Length > 0)
+    public void Init(PlayerData playerData)
+    {
+        PlayerData = playerData;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(_tutorialState.Start());
+    }
+
+    public void SecondStepCompleted()
+    {
+        foreach (var item in TutorialSteps)
+            item.SetActive(false);
+        SetState(new ThirdStep(this));
+    }
+
+    public void ThirdStepCompleted()
+    {
+        foreach (var item in TutorialSteps)
+            item.SetActive(false);
+        SetState(new TutorialEndedStep(this));
+    }*/
+}
+/*
+public abstract class TutorialState
+{
+    protected int _tutorialStepIndex;
+    protected Tutorial _tutorial;
+
+    public TutorialState(Tutorial tutorial)
+    {
+        _tutorial = tutorial;
+    }
+
+    public virtual IEnumerator Start()
+    {
+        yield break;
+    }
+}
+
+public class FirstStep : TutorialState
+{
+    public FirstStep(Tutorial tutorial) : base(tutorial)
+    {
+        _tutorialStepIndex = 0;
+    }
+
+    public override IEnumerator Start()
+    {
+        _tutorial.TutorialSteps[_tutorialStepIndex].SetActive(true);
+        Touch[] touches = Input.touches;
+
+        if (touches.Length > 0)
+        {
+            for (int i = 0; i < touches.Length; i++)
             {
-                for (int i = 0; i < touches.Length; i++)
+                if (touches[i].phase == TouchPhase.Began)
                 {
-                    if (touches[i].phase == TouchPhase.Began)
-                    {
-                        if (EventSystem.current.IsPointerOverGameObject(touches[i].fingerId))
-                            return;
-                        _tutorialStep += 1;
-                    }
+                    if (EventSystem.current.IsPointerOverGameObject(touches[i].fingerId))
+                        yield return null;
+                    _tutorial.TutorialSteps[_tutorialStepIndex].SetActive(false);
+                    _tutorial.SetState(new SecondStep(_tutorial));
                 }
             }
         }
-        else if (_tutorialStep == 2)
-        {
-            _secondTutorialStep?.Invoke();
-            _tutorialStep += 1;
-        }
+        yield return null;
+    }
+}
+
+public class SecondStep : TutorialState
+{
+    public SecondStep(Tutorial tutorial) : base(tutorial)
+    {
+        _tutorialStepIndex = 1;
     }
 
-    private void OnGoldAmountChanged(long newAmount)
+    public override IEnumerator Start()
     {
-        if (newAmount >= _goldAmountRequiredToUnlockAutomations)
-            _tutorialStep += 1;
-    }*/
+        if (_tutorial.PlayerData.Gold >= _tutorial.RequiredGoldAmountToUnlockSecondStep)
+        {
+            _tutorial.TutorialSteps[_tutorialStepIndex].SetActive(true);
+            _tutorial.SecondStep?.Invoke();
+        }
+
+        yield return null;
+    }
 }
+
+public class ThirdStep : TutorialState
+{
+    public ThirdStep(Tutorial tutorial) : base(tutorial)
+    {
+        _tutorialStepIndex = 2;
+    }
+
+    public override IEnumerator Start()
+    {
+        if (_tutorial.PlayerData.Level >= 75)
+        {
+            _tutorial.TutorialSteps[_tutorialStepIndex].SetActive(true);
+            _tutorial.ThirdStep?.Invoke();
+        }
+        yield return null;
+    }
+}
+
+public class TutorialEndedStep : TutorialState
+{
+    public TutorialEndedStep(Tutorial tutorial) : base(tutorial)
+    {
+    }
+}
+
+public abstract class StateMachine : MonoBehaviour
+{
+    protected TutorialState _tutorialState;
+
+    public void SetState(TutorialState tutorialState)
+    {
+        _tutorialState = tutorialState;
+        StartCoroutine(_tutorialState.Start());
+    }
+}*/

@@ -21,7 +21,8 @@ public static class FileOperations
 
     public static void DeleteFile(string fileName)
     {
-        File.Delete(GetFilePath(fileName));
+        if (IsFileExist(fileName))
+            File.Delete(GetFilePath(fileName));
     }
 
     public static byte[] GetBytes(object item)

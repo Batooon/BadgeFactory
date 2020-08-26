@@ -41,10 +41,14 @@ public class UsualAutomation : MonoBehaviour, IAutomation
             if (automationData.Level >= 1000 && automationData.Level % 1000 == 0 && automationData.Level < 4000)
                 newDamage *= 10;
 
-            newDamage += newDamage * Mathf.RoundToInt(automationData.PowerUpPercentage / 100);
+            foreach (var item in automationData.UpgradeComponents)
+            {
+                if (item.IsUpgradeComponentPurchased)
+                    newDamage += Mathf.RoundToInt(newDamage * item.Percentage / 100);
+            }
+            automationData.CurrentDamage = newDamage;
         }
 
-        automationData.CurrentDamage = newDamage;
         automationsData.AutomationsPower += automationData.CurrentDamage;
         automationsData.AutomationsPower += Mathf.RoundToInt(automationsData.AutomationsPower * automationsData.AutomationsPowerPercentageIncrease);
         RecalculateCost(automationsData.LevelsToUpgrade, automationData);

@@ -73,9 +73,9 @@ public class AutomationBusinessRules : IAutomationBusinessInput
 
     public void RecalculateAutomationPower(int automationId, float addPercentageAmount)
     {
-        int percentage = Mathf.RoundToInt(addPercentageAmount / 100);
+        float percentage = addPercentageAmount / 100;
         long damage = _automationsData.Automations[automationId].CurrentDamage;
-        _automationsData.Automations[automationId].CurrentDamage += damage * percentage;
+        _automationsData.Automations[automationId].CurrentDamage += Mathf.RoundToInt(damage * percentage);
     }
 }
 

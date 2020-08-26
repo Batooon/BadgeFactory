@@ -15,6 +15,11 @@ public class PlayerData
     [SerializeField] private int _bossCountdownTime;
     [SerializeField] private bool _needToIncreaseLevel;
     [SerializeField] private int _damageBonus;
+    [SerializeField, HideInInspector] private int _startingLevel;
+    [SerializeField, HideInInspector] private long _startingGold;
+    [SerializeField, HideInInspector] private int _startingBossCountdownTime;
+    [SerializeField, HideInInspector] private int _startingLevelProgress;
+    [SerializeField, HideInInspector] private int _startingMaxLevelProgress;
     [SerializeField] private JsonDateTime _jsonDateTime = new JsonDateTime();
 
     public event Action<int> LevelChanged;
@@ -32,11 +37,6 @@ public class PlayerData
     public int DamageBonus { get => _damageBonus; set => _damageBonus = value; }
     public DateTime LastTimeInGame { get => _jsonDateTime; set => _jsonDateTime = value; }
 
-    private int _startingLevel;
-    private long _startingGold;
-    private int _startingBossCountdownTime;
-    private int _startingLevelProgress;
-    private int _startingMaxLevelProgress;
 
     public void Init()
     {

@@ -36,12 +36,14 @@ public class Services : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID
+        if (_playerData.IsReturningPlayer == false)
+        {
+            DeleteData();
+        }
+
         if (_deleteExistingDataOnDevice)
         {
-            FileOperations.DeleteFile(_playerDataFileName);
-            FileOperations.DeleteFile(_badgeDataFileName);
-            FileOperations.DeleteFile(_automationsDataFileName);
-            FileOperations.DeleteFile(_settingsDataFileName);
+            DeleteData();
         }
 #endif
 
@@ -83,11 +85,15 @@ public class Services : MonoBehaviour
             Debug.Log(value);
             if (_playerData.IsReturningPlayer)
             {
+                /*
                 PlayGames.ReadSavedData(PlayGames.DefaultFileName, (status, data) =>
                 {
                     if (status == SavedGameRequestStatus.Success && data.Length > 0)
+                    {
                         LoadCloudData(data);
-                });
+                        Debug.Log("Cloud Data has been loaded");
+                    }
+                });*/
             }
         });
         _playGamesAuthenticator.Init();
@@ -95,6 +101,7 @@ public class Services : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        RememberPlayer();
         SaveData();
     }
 
@@ -102,6 +109,7 @@ public class Services : MonoBehaviour
     {
         if (pause)
         {
+            RememberPlayer();
             SaveData();
         }
     }
@@ -112,6 +120,20 @@ public class Services : MonoBehaviour
         FileOperations.Serialize(_badgeData, _badgeDataFileName);
         FileOperations.Serialize(_automationsData, _automationsDataFileName);
         FileOperations.Serialize(_settingsData, _settingsDataFileName);
+    }
+
+    private void DeleteData()
+    {
+        FileOperations.DeleteFile(_playerDataFileName);
+        FileOperations.DeleteFile(_badgeDataFileName);
+        FileOperations.DeleteFile(_automationsDataFileName);
+        FileOperations.DeleteFile(_settingsDataFileName);
+    }
+
+    private void RememberPlayer()
+    {
+        if (_playerData.IsReturningPlayer == false)
+            _playerData.IsReturningPlayer = true;
     }
 
     private void SaveCloudData()
