@@ -40,10 +40,9 @@ namespace AutomationImplementation
                 _automationData,
                 _automationsData);
 
-            _automationPresentation.Init(_automationData);
-
             for (int i = 0; i < _upgradeComponents.Count; i++)
                 _upgradeComponents[i].Init(_playerData, _automationsData, _automationData, _automationData.UpgradeComponents[i], _automationId);
+            _automationPresentation.Init(_automationData);
         }
 
         private void OnEnable()

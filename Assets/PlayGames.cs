@@ -56,12 +56,6 @@ public class PlayGames : MonoBehaviour
         PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_level_leaders);
     }
 
-    public static void Initialize(bool debugMode, CloudSavesUI cloudSavesUI)
-    {
-        _cloudUI = cloudSavesUI;
-        Initialize(debugMode);
-    }
-
     public static void Initialize(bool debugMode)
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();

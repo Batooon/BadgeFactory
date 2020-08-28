@@ -27,10 +27,12 @@ public class UpgradeComponent : MonoBehaviour
         _upgradeComponentPresentation = GetComponent<UpgradeComponentPresentation>();
         _upgradeComponentPresentation.Init(_playerData, _upgradeComponentData, _automationData);
         _upgrade = GetComponent<IUpgrade>();
+        Debug.Log("Init Called", gameObject);
     }
 
     private void OnEnable()
     {
+        Debug.Log("OnEnable called", gameObject);
         _automationData.LevelChanged += OnLevelChanged;
         OnLevelChanged(_automationData.Level);
     }

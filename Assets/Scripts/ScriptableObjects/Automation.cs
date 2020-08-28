@@ -109,15 +109,6 @@ public class Automation
             item.ResetData();
     }
 
-    /*public bool this[int index]
-    {
-        set
-        {
-            _isPowerUpUnlocked[index] = value;
-            IsPowerUpUnlockedChanged?.Invoke(value, index);
-        }
-    }*/
-
     public void Reset(Automation defaultAutomation)
     {
         CanUpgrade = false;

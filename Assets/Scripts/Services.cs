@@ -1,7 +1,6 @@
 ﻿using AutomationsImplementation;
 using BadgeImplementation;
 using UnityEngine;
-using GooglePlayGames.BasicApi.SavedGame;
 
 public class Services : MonoBehaviour
 {
@@ -11,7 +10,6 @@ public class Services : MonoBehaviour
     [SerializeField] private string _badgeDataFileName;
     [SerializeField] private string _settingsDataFileName;
     [SerializeField] private DefaultAutomationsData _defaultAutomationsData;
-    [SerializeField] private Vibration _vibration;
     [SerializeField] private Settings _settings;
     [SerializeField] private Badge _badge;
     [SerializeField] private Automations _automations;
@@ -36,15 +34,8 @@ public class Services : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID
-        if (_playerData.IsReturningPlayer == false)
-        {
-            DeleteData();
-        }
-
         if (_deleteExistingDataOnDevice)
-        {
             DeleteData();
-        }
 #endif
 
         if (FileOperations.IsFileExist(_settingsDataFileName) == false)
@@ -63,7 +54,7 @@ public class Services : MonoBehaviour
         _tutorial.Init(_playerData);
         _audioService.Init();
         _settings.Init(_settingsData);
-        _vibration.Init(_settingsData);
+        Vibration.Init(_settingsData);
         _farmLevelButton.Init(_playerData);
         _adsManager.Init();
         _offlineProgress.Init(_playerData, _badgeData, _automationsData);
@@ -75,26 +66,15 @@ public class Services : MonoBehaviour
         _playerStatsPresentation.Init(_playerData);
         _badge.Init(_playerData, _automationsData, _badgeData);
         _automations.Init(_playerData, _automationsData);
+        _playerData.IsReturningPlayer = true;
     }
 
     private void Start()
     {
-        PlayGames.Initialize(_playGamesDebugMode, new CloudSavesUI(3, true, true));
+        PlayGames.Initialize(_playGamesDebugMode);
         PlayGames.Authenticate((bool value) =>
         {
             Debug.Log(value);
-            if (_playerData.IsReturningPlayer)
-            {
-                /*
-                PlayGames.ReadSavedData(PlayGames.DefaultFileName, (status, data) =>
-                {
-                    if (status == SavedGameRequestStatus.Success && data.Length > 0)
-                    {
-                        LoadCloudData(data);
-                        Debug.Log("Cloud Data has been loaded");
-                    }
-                });*/
-            }
         });
         _playGamesAuthenticator.Init();
     }
@@ -136,39 +116,12 @@ public class Services : MonoBehaviour
             _playerData.IsReturningPlayer = true;
     }
 
-    private void SaveCloudData()
-    {
-        CloudSaveData cloudData = new CloudSaveData(_playerData, _automationsData, _badgeData);
-        byte[] data = FileOperations.GetBytes(cloudData);
-        PlayGames.WriteSavedGame(data);
-    }
-
-    private void LoadCloudData(byte[] data)
-    {
-        CloudSaveData cloudData;
-        cloudData = FileOperations.GetDataFromBytes<CloudSaveData>(data);
-        _playerData = cloudData.Data;
-        _badgeData = cloudData.Badge;
-        _automationsData = cloudData.AutomationData;
-    }
-
     private void GetData()
     {
         _playerData = FileOperations.Deserialize<PlayerData>(_playerDataFileName);
         _badgeData = FileOperations.Deserialize<BadgeData>(_badgeDataFileName);
         _automationsData = FileOperations.Deserialize<AutomationsData>(_automationsDataFileName);
         _settingsData = FileOperations.Deserialize<SettingsData>(_settingsDataFileName);
-    }
-
-    public void OpenSavesUIMenu()
-    {
-        PlayGames.ShowSavesUI((status, data) =>
-        {
-            if (status == SavedGameRequestStatus.Success && data.Length > 0)
-            {
-                LoadCloudData(data);
-            }
-        }, () => SaveCloudData());
     }
 }
 [System.Serializable]

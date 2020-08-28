@@ -28,11 +28,6 @@ namespace AutomationsImplementation
                 _automationsOutput,
                 playerData);
 
-            for (int i = 0; i < _automationsData.Automations.Count; i++)
-            {
-                _automationsData.Automations[i].CanUpgradeChanged += OnUpgradeAvailabilityChanged;
-            }
-
             foreach (Transform automation in transform)
             {
                 AutomationLogic automationLogic = automation.GetComponent<AutomationLogic>();
@@ -42,19 +37,27 @@ namespace AutomationsImplementation
             _upgradeLevelsAmount.Init(_automationsData);
 
             _upgradeAvailableChecker.Init(_automationsData);
+
+
         }
 
         private void OnEnable()
         {
+            for (int i = 0; i < _automationsData.Automations.Count; i++)
+                _automationsData.Automations[i].CanUpgradeChanged += OnUpgradeAvailabilityChanged;
             _playerData.GoldChanged += _automationsInput.TryUnlockNewAutomation;
             _automationsData.AutomationsPowerPercentageChanged += OnAutomationsPercentageChanged;
             _automationsData.ClickPowerPercentageChanged += OnClickPowerPercentageChanged;
 
             _automationsInput.TryUnlockNewAutomation(_playerData.Gold);
+            for (int i = 0; i < _automationsData.Automations.Count; i++)
+                OnUpgradeAvailabilityChanged(_automationsData.Automations[i].CanUpgrade);
         }
 
         private void OnDisable()
         {
+            for (int i = 0; i < _automationsData.Automations.Count; i++)
+                _automationsData.Automations[i].CanUpgradeChanged -= OnUpgradeAvailabilityChanged;
             _playerData.GoldChanged -= _automationsInput.TryUnlockNewAutomation;
             _automationsData.AutomationsPowerPercentageChanged -= OnAutomationsPercentageChanged;
             _automationsData.ClickPowerPercentageChanged -= OnClickPowerPercentageChanged;

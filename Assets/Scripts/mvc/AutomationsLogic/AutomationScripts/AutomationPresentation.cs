@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public struct AutomationViewModel
@@ -22,6 +23,8 @@ public class AutomationPresentation : MonoBehaviour
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private List<int> _starsLevels;
     [SerializeField] private List<Image> _starPlaceholders;
+    [SerializeField] private UnityEvent _automationUnlocked;
+    [SerializeField] private UnityEvent _automationLocked;
 
     private Automation _automation;
 
@@ -61,6 +64,10 @@ public class AutomationPresentation : MonoBehaviour
     
     private void OnLevelChanged(int newLevel)
     {
+        if (newLevel >= 1)
+            _automationUnlocked?.Invoke();
+        else
+            _automationLocked?.Invoke();
         _levelText.text = string.Format(_levelTextTemplate, newLevel);
         for (int i = _starsLevels.Count - 1; i >= 0; i--)
         {
@@ -90,12 +97,10 @@ public class AutomationPresentation : MonoBehaviour
 
     public void SetUpAutomation(AutomationViewModel automationParams)
     {
-        //FetchUI(automationParams);
     }
 
     public void OnAutomationUpgraded(AutomationViewModel automationParams)
     {
-        //FetchUI(automationParams);
     }
 
     public void OnAutomationNotUpgraded()
@@ -113,14 +118,5 @@ public class AutomationPresentation : MonoBehaviour
     
     public void FetchCost(long cost)
     {
-        //_upgradeCostText.text = cost.ConvertValue();
     }
-    /*
-    private void FetchUI(AutomationViewModel automationParams)
-    {
-        _damageText.text = automationParams.AutomationDamage;
-        _upgradeCostText.text = automationParams.AutomationCost;
-
-        FetchUpgradeButton(automationParams.IsEnoughMoney);
-    }*/
 }

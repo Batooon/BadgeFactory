@@ -11,6 +11,6 @@ public class GodMode : MonoBehaviour
 
     public void AddSomeGold()
     {
-        _playerData.Gold += 12478;
+        _playerData.Gold += 12478000000;
     }
 }

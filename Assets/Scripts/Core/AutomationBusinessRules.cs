@@ -56,8 +56,6 @@ public class AutomationBusinessRules : IAutomationBusinessInput
     {
         if (_playerData.Gold >= _automation.CurrentCost)
         {
-            if (_automation.Level == 0)
-                automationUnlocked?.Invoke();
             _playerData.Gold -= _automation.CurrentCost;
             automation.Upgrade(_automation,_automationsData);
             if (_automation.Level % 2000 == 0)
