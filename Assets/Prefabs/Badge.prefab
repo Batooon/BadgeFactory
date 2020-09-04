@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 339054605587432102}
-  - component: {fileID: 339054605587432025}
+  - component: {fileID: 5930962535269965938}
   - component: {fileID: 339054605587432024}
   m_Layer: 0
   m_Name: Badge
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &339054605587432025
+--- !u!114 &5930962535269965938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,34 +44,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 339054605587432027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f55a596a3ea6d745b568ae9b07adfec, type: 3}
+  m_Script: {fileID: 11500000, guid: ed0ecb223b730154a855c88cc565db9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _badgeProgressPresentation: {fileID: 0}
-  _badges: {fileID: 4343727234628468602, guid: 5f25e791295c8904a9d28012d10f6cd3, type: 2}
-  _bossBadges: {fileID: 4343727234628468602, guid: 6335209beb1e7ba48862505c33845f82,
-    type: 2}
+  _badges: {fileID: 0}
+  _bossBadges: {fileID: 0}
   _badgeStands: {fileID: 0}
   _bossStands: {fileID: 0}
-  _droppingMotherships:
-  - {fileID: 0}
-  - {fileID: 0}
+  _droppingMotherships: []
   _bossCountdown: {fileID: 0}
+  _hitDamageSpawner: {fileID: 0}
   _clicked:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 237162417529492416}
-        m_TargetAssemblyTypeName: ShakeEffect, Assembly-CSharp
-        m_MethodName: StartShaking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &339054605587432024
 MonoBehaviour:
   m_ObjectHideFlags: 0
