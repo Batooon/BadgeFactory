@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1766465624, guid: a1b1ab44b4414d64bd404c895fbd1eab, type: 3}
+  m_Name: GoogleMobileAdsPlacements
+  m_EditorClassIdentifier: 
+  allPlacements:
+  - placementName: AdMob Demo Banner Ad
+    adType: 0
+    androidAdUnitId: ca-app-pub-4107433753862402/4692591385
+    iOSAdUnitId: ca-app-pub-3940256099942544/2934735716
+    persistent: 0
+    autoLoadEnabled: 1

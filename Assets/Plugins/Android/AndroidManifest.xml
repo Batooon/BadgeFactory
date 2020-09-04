@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.RozumStudio.BadgeFactory" android:installLocation="internalOnly" android:versionCode="1" android:versionName="0.1">
+  <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:xlargeScreens="true" />
+  <uses-feature android:glEsVersion="0x00020000" />
+  <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+  <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
+  <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
+  <application android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:extractNativeLibs="true" android:icon="@mipmap/app_icon" android:label="@string/app_name">
+    <activity android:name="com.unity3d.player.UnityPlayerActivity" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:hardwareAccelerated="false" android:launchMode="singleTask" android:screenOrientation="portrait" android:theme="@style/UnityThemeSelector">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+      <meta-data android:name="android.notch_support" android:value="true" />
+    </activity>
+    <meta-data android:name="unity.splash-mode" android:value="0" />
+    <meta-data android:name="unity.splash-enable" android:value="True" />
+    <meta-data android:name="notch.config" android:value="portrait|landscape" />
+    <meta-data android:name="unity.build-id" android:value="e384fc53-0cfe-46ec-a77b-929cffcccb2f" />
+    <activity android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" android:excludeFromRecents="true" android:exported="false" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    <!--
+            Service handling Google Sign-In user revocation. For apps that do not integrate with
+            Google Sign-In, this service will never be started.
+        -->
+    <service android:name="com.google.android.gms.auth.api.signin.RevocationBoundService" android:exported="true" android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+    <activity android:name="com.google.android.gms.common.api.GoogleApiActivity" android:exported="false" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+    <activity android:name="com.unity3d.services.ads.adunit.AdUnitActivity" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:hardwareAccelerated="true" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <activity android:name="com.unity3d.services.ads.adunit.AdUnitTransparentActivity" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:hardwareAccelerated="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+    <activity android:name="com.unity3d.services.ads.adunit.AdUnitTransparentSoftwareActivity" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:hardwareAccelerated="false" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+    <activity android:name="com.unity3d.services.ads.adunit.AdUnitSoftwareActivity" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:hardwareAccelerated="false" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <!-- The space in these forces it to be interpreted as a string vs. int -->
+    <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\u003196974900233" />
+    <!-- Keep track of which plugin is being used -->
+    <activity android:name="com.google.games.bridge.NativeBridgeActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+  </application>
+</manifest>

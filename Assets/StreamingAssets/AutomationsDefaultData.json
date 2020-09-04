@@ -1,0 +1,11 @@
+{
+    "AutomationsData": [
+        {
+            "Name": "Click Power",
+            "StartingLevel": 1,
+            "StartingCost": 10,
+            "StartingDps": 5,
+            "AutomationType": 1
+        }
+    ]
+}

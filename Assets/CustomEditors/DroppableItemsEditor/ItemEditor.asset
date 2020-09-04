@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08a1b1c1fb600f44923458c3bade327, type: 3}
+  m_Name: ItemEditor
+  m_EditorClassIdentifier: 
+  ItemEditor:
+    DroppableItem:
+      id: 0
+    ChanceToSpawn: 100
+    Lifetime: 20
+    ItemSprite: {fileID: -918019831155300851, guid: 5653ad9bd17deab498e4f5f025f1dec8,
+      type: 3}
+  references:
+    version: 1
+    00000000:
+      type: {class: Coin, ns: DroppableItems, asm: Assembly-CSharp}

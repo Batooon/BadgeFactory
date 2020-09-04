@@ -1,0 +1,24 @@
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="com.google.android.gms:play-services-ads:19.3.0">
+      <repositories>
+        <repository>https://maven.google.com/</repository>
+      </repositories>
+    </androidPackage>
+    <!-- copybara:strip_begin -->
+    <androidPackage spec="com.google.code.gson:gson:2.8.5">
+      <repositories>
+        <repository>https://maven.google.com/</repository>
+      </repositories>
+    </androidPackage>
+    <!-- copybara:strip_end -->
+  </androidPackages>
+
+  <iosPods>
+    <iosPod name="Google-Mobile-Ads-SDK" version="~> 7.63">
+      <sources>
+        <source>https://github.com/CocoaPods/Specs</source>
+      </sources>
+    </iosPod>
+  </iosPods>
+</dependencies>
