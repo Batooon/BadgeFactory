@@ -1,4 +1,4 @@
-﻿using BadgeImplementation;
+﻿using Badge;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +6,7 @@ namespace DroppableItems
 {
     public abstract class MothershipDecorator : DroppingMothership
     {
-        [SerializeField]
-        protected List<DroppingMothership> _droppingMotherships;
+        [SerializeField] protected List<DroppingMothership> _droppingMotherships;
 
         public override void Spawn(Vector3 position)
         {

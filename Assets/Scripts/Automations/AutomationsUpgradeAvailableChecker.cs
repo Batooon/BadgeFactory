@@ -1,30 +1,37 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 
-public class AutomationsUpgradeAvailableChecker : MonoBehaviour
+namespace Automations
 {
-    [SerializeField] private Image _upgradeAvailabilityImage;
+    [Serializable]
+    public class AutomationsUpgradeAvailable : UnityEvent<bool> { }
 
-    private AutomationsData _automationsData;
-
-    public void Init(AutomationsData automationsData)
+    public class AutomationsUpgradeAvailableChecker : MonoBehaviour
     {
-        _automationsData = automationsData;
-    }
+        [SerializeField] private AutomationsUpgradeAvailable _automationsUpgradeAvailable;
 
-    private void OnEnable()
-    {
-        _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
-        FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
-    }
+        private AutomationsData _automationsData;
 
-    private void OnDisable()
-    {
-        _automationsData.CanUpgradeSomethingChanged -= FetchUpgradeAvailability;
-    }
+        public void Init(AutomationsData automationsData)
+        {
+            _automationsData = automationsData;
+        }
 
-    private void FetchUpgradeAvailability(bool canUpgradeSomething)
-    {
-        _upgradeAvailabilityImage.gameObject.SetActive(canUpgradeSomething);
+        private void OnEnable()
+        {
+            _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
+            FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
+        }
+
+        private void OnDisable()
+        {
+            _automationsData.CanUpgradeSomethingChanged -= FetchUpgradeAvailability;
+        }
+
+        private void FetchUpgradeAvailability(bool canUpgradeSomething)
+        {
+            _automationsUpgradeAvailable?.Invoke(canUpgradeSomething);
+        }
     }
 }

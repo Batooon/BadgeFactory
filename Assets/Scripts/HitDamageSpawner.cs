@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Automations;
 using UnityEngine;
 
 public class HitDamageSpawner : MonoBehaviour

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BadgeImplementation
+namespace Badge
 {
     public class ClickPresentation : MonoBehaviour, IClickEffect
     {

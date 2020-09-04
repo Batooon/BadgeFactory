@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BadgeImplementation
+namespace Badge
 {
     public interface IBadgeBusinessOutput
     {

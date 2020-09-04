@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using AutomationImplementation;
 
-namespace AutomationsImplementation
+namespace Automations
 {
     public class AutomationsPresentation : MonoBehaviour
     {

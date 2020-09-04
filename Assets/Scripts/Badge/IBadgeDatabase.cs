@@ -1,4 +1,4 @@
-﻿namespace BadgeImplementation
+﻿namespace Badge
 {
     public interface IBadgeDatabase
     {

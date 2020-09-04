@@ -1,10 +1,8 @@
-﻿using BadgeImplementation.BusinessRules;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace BadgeImplementation
+namespace Badge
 {
     public class BadgePresentation : MonoBehaviour
     {

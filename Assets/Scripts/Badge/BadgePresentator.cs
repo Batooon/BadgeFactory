@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DroppableItems;
 using UnityEngine.U2D;
 
-namespace BadgeImplementation
+namespace Badge
 {
     public class BadgePresentator : IBadgeBusinessOutput
     {
