@@ -18,7 +18,6 @@ namespace DroppableItems
 
         public void Init(in long reward, PlayerData playerData, AudioService audioService)
         {
-            Debug.Log($"{this} Initialized");
             _audioService = audioService;
             _costReward = reward;
             _playerData = playerData;
@@ -50,7 +49,6 @@ namespace DroppableItems
         private void Collect()
         {
             _playerData.Gold += _costReward;
-            Debug.Log($"{this} Collected");
         }
     }
 

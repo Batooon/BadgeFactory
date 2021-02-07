@@ -5,9 +5,11 @@ using UnityEngine.Events;
 namespace Automations
 {
     [Serializable]
-    public class AutomationsUpgradeAvailable : UnityEvent<bool> { }
+    public class AutomationsUpgradeAvailable : UnityEvent<bool>
+    {
+    }
 
-    public class AutomationsUpgradeAvailableChecker : MonoBehaviour
+    public class AutomationsUpgradeAvailableChecker : MonoBehaviour, IObserver
     {
         [SerializeField] private AutomationsUpgradeAvailable _automationsUpgradeAvailable;
 
@@ -20,18 +22,24 @@ namespace Automations
 
         private void OnEnable()
         {
-            _automationsData.CanUpgradeSomethingChanged += FetchUpgradeAvailability;
+            _automationsData.Attach(this);
+
             FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
         }
 
         private void OnDisable()
         {
-            _automationsData.CanUpgradeSomethingChanged -= FetchUpgradeAvailability;
+            _automationsData.Detach(this);
         }
 
         private void FetchUpgradeAvailability(bool canUpgradeSomething)
         {
             _automationsUpgradeAvailable?.Invoke(canUpgradeSomething);
+        }
+
+        public void Fetch(ISubject subject)
+        {
+            FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
         }
     }
 }

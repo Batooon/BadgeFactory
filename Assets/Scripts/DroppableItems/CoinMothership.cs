@@ -8,7 +8,6 @@ namespace DroppableItems
         {
             if (Random.value <= _chanceToSpawn)
             {
-                Debug.Log("spawning coins");
                 int coinsToSpawn = Random.Range(_amountOfObjectsToSpawn.MinValue, _amountOfObjectsToSpawn.MaxValue);
                 long oneCoinCost;
                 if (_badgeData.CoinsReward >= coinsToSpawn)
@@ -21,9 +20,7 @@ namespace DroppableItems
 
                 for (int i = 0; i < coinsToSpawn; i++)
                 {
-                    Debug.Log($"Using {_objectPooler} to pool coins");
                     GameObject spawnedCoin = _objectPooler.GetPooledObjects();
-                    Debug.Log($"pooled coin {spawnedCoin}");
                     if (spawnedCoin != null)
                     {
                         spawnedCoin.transform.position = position;
@@ -31,7 +28,6 @@ namespace DroppableItems
                         spawnedCoin.SetActive(true);
                     }
 
-                    //GameObject spawnedCoin = Instantiate(_itemToSpawn, position, _itemToSpawn.transform.rotation) as GameObject;
                     ICollectable collectableComponent = spawnedCoin.GetComponent<ICollectable>();
                     SetCoinReward(in oneCoinCost, collectableComponent);
                 }

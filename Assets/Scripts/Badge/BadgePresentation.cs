@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Badge
 {
-    public class BadgePresentation : MonoBehaviour
+    public class BadgePresentation : MonoBehaviour, IObserver
     {
         [SerializeField] private SpriteRenderer _badgeSprite;
         [SerializeField] private SpriteRenderer _badgeStand;
         [SerializeField] private UnityEvent _badgeCreated;
+        [SerializeField] private UnityEvent _bossCreated;
         [SerializeField] private List<SpriteRenderer> _badgeSpriteComponents;
 
         private BadgeData _badgeData;
@@ -20,18 +22,20 @@ namespace Badge
             _badgeBusinessRules = businessRules;
 
             if (_badgeSpriteComponents.Contains(_badgeSprite) == false)
-                Debug.LogError("BadgeSticker is not assigned!");
+                throw new Exception("BadgeSticker is not assigned!");
             _badgeSpriteComponents[_badgeSpriteComponents.IndexOf(_badgeSprite)] = _badgeSprite;
         }
 
         private void OnEnable()
         {
+            _badgeBusinessRules.BossCreated += OnBossCreated;
             _badgeBusinessRules.BadgeCreated += OnBadgeCreated;
             _badgeData.HpChanged += UpdateBadgeProgress;
         }
 
         private void OnDisable()
         {
+            _badgeBusinessRules.BossCreated -= OnBossCreated;
             _badgeBusinessRules.BadgeCreated -= OnBadgeCreated;
             _badgeData.HpChanged -= UpdateBadgeProgress;
         }
@@ -40,7 +44,7 @@ namespace Badge
         {
             int i = 0;
             float currentComponentProgress = _badgeData.MaxHp / _badgeSpriteComponents.Count;
-            if (_badgeData.CurrentHp > currentComponentProgress * (i + 1)) 
+            if (_badgeData.CurrentHp > currentComponentProgress * (i + 1))
                 i += 1;
 
             float alpha = Mathf.Clamp01(Mathf.InverseLerp(0, currentComponentProgress * (i + 1), _badgeData.CurrentHp));
@@ -53,31 +57,36 @@ namespace Badge
 
         public void ShowNewBadge(Sprite sprite, Sprite badgeStand)
         {
-            int badgeSrickerIndex = _badgeSpriteComponents.IndexOf(_badgeSprite);
+            int badgeStickerIndex = _badgeSpriteComponents.IndexOf(_badgeSprite);
             _badgeSprite.sprite = sprite;
-            _badgeSpriteComponents[badgeSrickerIndex] = _badgeSprite;
+            _badgeSpriteComponents[badgeStickerIndex] = _badgeSprite;
 
             int badgeStandIndex = _badgeSpriteComponents.IndexOf(_badgeStand);
             _badgeStand.sprite = badgeStand;
             _badgeSpriteComponents[badgeStandIndex] = _badgeStand;
 
-            for (int i = 0; i < _badgeSpriteComponents.Count; i++)
+            foreach (var spriteRenderer in _badgeSpriteComponents)
             {
-                Color tempColor = _badgeSpriteComponents[i].color;
+                Color tempColor = spriteRenderer.color;
                 tempColor.a = 0f;
 
-                _badgeSpriteComponents[i].color = tempColor;
+                spriteRenderer.color = tempColor;
             }
         }
 
-        public void OnBadgeCreated()
+        private void OnBossCreated()
+        {
+            _bossCreated?.Invoke();
+        }
+
+        private void OnBadgeCreated()
         {
             _badgeCreated?.Invoke();
         }
-    }
 
-    public interface IClickEffect
-    {
-        void SpawnEffect(Vector2 position);
+        public void Fetch(ISubject subject)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

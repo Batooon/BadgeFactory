@@ -97,6 +97,15 @@ namespace Badge
 
         private void HandlePlayerInput()
         {
+#if UNITY_EDITOR||UNITY_STANDALONE_WIN
+            if (Input.GetMouseButtonDown(0)==false) return;
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            OnPlayerClicked();
+#endif
+
+#if UNITY_ANDROID
             Touch[] touches = Input.touches;
 
             if (touches.Length > 0)
@@ -108,12 +117,17 @@ namespace Badge
                         if (EventSystem.current.IsPointerOverGameObject(touches[i].fingerId))
                             return;
 
-                        _badgeBusinessInput.ClickProgress();
-                        _clicked?.Invoke(_badgeBusinessInput.CurrentClickHitValue);
-                        //_hitDamageSpawner.SpawnText(_badgeBusinessInput.CurrentClickHitValue);
+                        OnPlayerClicked();
                     }
                 }
             }
+#endif
+        }
+
+        private void OnPlayerClicked()
+        {
+            _badgeBusinessInput.ClickProgress();
+            _clicked?.Invoke(_badgeBusinessInput.CurrentClickHitValue);
         }
 
         private void OnBadgeCreated()

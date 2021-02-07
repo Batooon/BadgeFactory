@@ -1,100 +1,85 @@
-﻿using OdinSerializer;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using System;
+using System.Numerics;
 
 namespace Automations
 {
-    [RequireComponent(typeof(AutomationPresentation)), RequireComponent(typeof(IAutomation))]
-    public class AutomationLogic : SerializedMonoBehaviour
+    public class AutomationLogic : IObserver, IDisposable
     {
-        [SerializeField] private int _automationId;
-        [SerializeField] private List<UpgradeComponent> _upgradeComponents;
-        [SerializeField] private UnityEvent _automationUnlocked;
-        [SerializeField] private UnityEvent _automationUpgraded;
-
-        private AutomationsData _automationsData;
-        private PlayerData _playerData;
+        private const int LevelToGetPoint = 2000;
+        private const int PointsIncrease = 1;
+        private readonly AutomationsData _automationsData;
+        private readonly PlayerData _playerData;
         private Automation _automationData;
-
-        private AutomationBusinessRules _automationBusinessRules;
-        private AutomationPresentator _automationPresentator;
-        private AutomationPresentation _automationPresentation;
+        private readonly AutomationPresentation _automationPresentation;
         private IAutomation _automation;
 
-        public int AutomationId => _automationId;
-
-        public void Init(PlayerData playerData, AutomationsData automationsData, Automation automationData)
+        public AutomationLogic(PlayerData playerData, AutomationsData automationsData,
+            AutomationPresentation automationPresentation, Automation automationData)
         {
-            _automation = GetComponent<IAutomation>();
             _playerData = playerData;
             _automationsData = automationsData;
+            _automationPresentation = automationPresentation;
             _automationData = automationData;
-
-            _automationPresentation = GetComponent<AutomationPresentation>();
-            _automationPresentator = new AutomationPresentator(_automationPresentation, _automationData);
-
-            _automationBusinessRules = new AutomationBusinessRules(
-                _automationPresentator,
-                _playerData,
-                _automationData,
-                _automationsData);
-
-            for (int i = 0; i < _upgradeComponents.Count; i++)
-                _upgradeComponents[i].Init(_playerData, _automationsData, _automationData, _automationData.UpgradeComponents[i], _automationId);
-            _automationPresentation.Init(_automationData);
+            
+            _automationPresentation.UpgradeButtonPressed += TryUpgradeAutomation;
+            _playerData.Attach(this);
+            _automationData.Attach(this);
+            OnGoldAmountUpdated(_playerData.Gold);
+            _automationPresentation.gameObject.SetActive(_automationData.IsUnlocked);
+        }
+        
+        public void Dispose()
+        {
+            _automationPresentation.UpgradeButtonPressed -= TryUpgradeAutomation;
+            _playerData.Detach(this);
+            _automationData.Detach(this);
         }
 
-        private void OnEnable()
+        public void SetAutomation(IAutomation automation)
         {
-            _playerData.GoldChanged += OnGoldAmountUpdated;
-            _automationData.CostChanged += FetchCost;
-            _automationsData.LevelsToUpgradeChanged += RecalculateCost;
-            _automationData.PowerUpPercentageChanged += OnAutomationPowerChanged;
-
-            OnGoldAmountUpdated(_playerData.Gold);
-            FetchCost(_automationData.CurrentCost);
+            _automation = automation;
             RecalculateCost(_automationsData.LevelsToUpgrade);
         }
 
-        private void OnDisable()
+        public void Fetch(ISubject subject)
         {
-            _playerData.GoldChanged -= OnGoldAmountUpdated;
-            _automationData.CostChanged -= FetchCost;
-            _automationsData.LevelsToUpgradeChanged -= RecalculateCost;
-            _automationData.PowerUpPercentageChanged -= OnAutomationPowerChanged;
+            switch (subject)
+            {
+                case PlayerData _:
+                    OnGoldAmountUpdated(_playerData.Gold);
+                    break;
+                case AutomationsData _:
+                    RecalculateCost(_automationsData.LevelsToUpgrade);
+                    break;
+            }
         }
 
-        private void Start()
+        private void TryUpgradeAutomation(Action<bool> upgradeResult)
         {
-            if (_automationData.IsUnlocked == false)
-                gameObject.SetActive(false);
+            var result = IsEnoughMoneyToUpgrade();
+            upgradeResult?.Invoke(result);
+            if (result == false)
+                return;
+
+            _playerData.Gold -= _automationData.CurrentCost;
+            _automation.Upgrade(_automationData, _automationsData);
+            if (_automationData.Level % LevelToGetPoint == 0)
+                _playerData.BadgePoints += PointsIncrease;
         }
 
-        public void OnUpgradeButtonPressed()
+        private void OnGoldAmountUpdated(BigInteger goldAmount)
         {
-            _automationBusinessRules.TryUpgradeAutomation(_automationId, _automation, _automationUnlocked, _automationUpgraded);
-        }
-
-        public void OnGoldAmountUpdated(long goldAmount)
-        {
-            _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, goldAmount);
-        }
-
-        private void OnAutomationPowerChanged(float percentage)
-        {
-            _automationBusinessRules.RecalculateAutomationPower(_automationId, percentage);
-        }
-
-        private void FetchCost(long cost)
-        {
-            _automationPresentation.FetchCost(cost);
+            _automationData.CanUpgrade = goldAmount >= _automationData.CurrentCost;
         }
 
         private void RecalculateCost(int levelsToUpgrade)
         {
             _automation.RecalculateCost(levelsToUpgrade, _automationData);
-            _automationBusinessRules.CheckIfUpgradeAvailable(_automationId, _playerData.Gold);
+        }
+
+        private bool IsEnoughMoneyToUpgrade()
+        {
+            return _playerData.Gold >= _automationData.CurrentCost;
         }
     }
 }

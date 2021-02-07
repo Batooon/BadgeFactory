@@ -13,14 +13,36 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/AutomationBusinessRules.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0847A0FA-F944-44CC-BAF1-958021B27F54/1d/07ba3ed5/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/21/b169fbb0/Math.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Core/AutomationBusinessRules.cs" />
-      </list>
-    </option>
+    <changedPaths>
+      <option value="$PROJECT_DIR$/Assets/Scripts/Utils/ValueConverter.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerStatsPresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Player/PlayerData.cs" />
+      <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.3/Scripts/Editor/TMP_PackageUtilities.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationsData.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationsService.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UpgradeComponentPresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Editor/SkillComponentInspector.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Badge/BadgeBusinessRules.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/ClickAutomation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UsualAutomation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/ClickPowerAutomationUpgrader.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationPowerUpgrader.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationsDamageUpgrader.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/ClickPowerUpgrader.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UpgradeComponent.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UpgradeComponentData.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/Automation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/Skill.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/SkillIconPresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EntryPoint.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationPresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationLogic.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationBuilder.cs" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1azZH0ZyTzpXvBwNgecdFT1iYlT" />
   <component name="ProjectViewState">
@@ -29,34 +51,62 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6072">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="6072" />
+      <option name="selectedOptions">
+        <list />
+      </option>
       <method v="2" />
     </configuration>
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="selectedOptions">
+        <list />
+      </option>
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a28886b3-cdf2-4c52-880e-5ecf10dd63b8" name="Default Changelist" comment="" />
+      <created>1611553444393</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611553444393</updated>
+      <workItem from="1611553508187" duration="6341000" />
+      <workItem from="1611671173764" duration="4795000" />
+      <workItem from="1611754176008" duration="166000" />
+      <workItem from="1611754488466" duration="905000" />
+      <workItem from="1611760439220" duration="3802000" />
+      <workItem from="1611838249948" duration="4278000" />
+      <workItem from="1611914262238" duration="2525000" />
+      <workItem from="1612098677057" duration="3174000" />
+      <workItem from="1612185249579" duration="5311000" />
+      <workItem from="1612254337722" duration="2870000" />
+      <workItem from="1612368467017" duration="13168000" />
+      <workItem from="1612557901891" duration="5101000" />
+      <workItem from="1612607675223" duration="18446000" />
+      <workItem from="1612646367255" duration="5679000" />
+      <workItem from="1612713480363" duration="6247000" />
+    </task>
+    <servers />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="301" y="74" key="SettingsEditor" timestamp="1587742253720">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state x="301" y="74" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1587742253720" />
   </component>
 </project>

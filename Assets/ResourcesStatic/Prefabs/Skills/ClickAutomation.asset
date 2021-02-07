@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ClickAutomation
+  m_EditorClassIdentifier: Assembly-CSharp:Automations:AutomationData
+  _automationData:
+    _canUpgrade: 1
+    _startingDamage: 0
+    _startingCost: 0
+    _level: 0
+    _currentCost: 0
+    _currentDamage: 0
+    _isUnlocked: 0
+    _powerUpPercentage: 0
+    _upgradeComponents:
+    - _skillType: 0
+      _iconSkillPath: Skill Icon
+      _skillPrefabPath: 
+      _levelToUnlock: 0
+      _upgradeCost: 0
+      _percentage: 0
+      _isComponentUnlocked: 0
+      _isUpgradeComponentPurchased: 0
+  _automationType: 0

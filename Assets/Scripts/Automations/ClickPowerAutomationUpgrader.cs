@@ -2,17 +2,18 @@
 
 namespace Automations
 {
-    public class ClickPowerAutomationUpgrader : MonoBehaviour, IUpgrade
+    public interface IAutomationCommand
     {
-        public void Upgrade(AutomationsData automationsData, float percentage, int automationIndex)
+        void Execute(UpgradeComponent upgradeComponent, float percentageToUpgrade);
+    }
+
+    public class ClickPowerAutomationUpgrader : IAutomationCommand
+    {
+        public void Execute(UpgradeComponent upgradeComponent, float percentageToUpgrade)
         {
-            long automationDamage = automationsData.Automations[automationIndex].CurrentDamage;
-
-            automationsData.ClickPower -= automationDamage;
-
-            automationsData.Automations[automationIndex].PowerUpPercentage += percentage;
-
-            automationsData.ClickPower += automationsData.Automations[automationIndex].CurrentDamage;
+            Automation data = upgradeComponent.AutomationData;
+            data.PowerUpPercentage += percentageToUpgrade;
+            data.CurrentDamage += Mathf.RoundToInt(data.CurrentDamage * percentageToUpgrade * .01f);
         }
     }
 }

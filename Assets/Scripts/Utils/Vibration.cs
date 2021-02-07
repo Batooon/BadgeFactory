@@ -43,9 +43,8 @@ public class Vibration : MonoBehaviour
     {
         if (initialized) return;
 
-        _settingsData = settingsData;
-
 #if UNITY_ANDROID&&!UNITY_EDITOR
+        _settingsData = settingsData;
 
         if (Application.isMobilePlatform)
         {
@@ -134,7 +133,7 @@ public class Vibration : MonoBehaviour
 #elif UNITY_IOS
         Handheld.Vibrate();
 #else
-        Handheld.Vibrate ();
+        //Handheld.Vibrate ();
 #endif
 #endif
         }
@@ -164,7 +163,7 @@ public class Vibration : MonoBehaviour
 #elif UNITY_IOS
         Handheld.Vibrate();
 #else
-        Handheld.Vibrate ();
+        //Handheld.Vibrate ();
 #endif
         }
     }
@@ -215,11 +214,11 @@ public class Vibration : MonoBehaviour
 
 
     public static void Vibrate()
-    {
+    {/*
         if (CanVibrate())
         {
             Handheld.Vibrate();
-        }
+        }*/
     }
 
     public static int AndroidVersion
@@ -239,6 +238,12 @@ public class Vibration : MonoBehaviour
 
     private static bool CanVibrate()
     {
+        return false;/*
+#if UNITY_ANDROID
         return Application.isMobilePlatform && _settingsData.VibrationOff == false;
+#endif
+#if UNITY_EDITOR
+        return false;
+#endif*/
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Automations;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class HitDamagePresentation : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HitDamagePresentation : MonoBehaviour
     [SerializeField] private string _textTemplate;
     [SerializeField] private TextMeshProUGUI _hitText;
     [SerializeField] private float _movingTime;
+    [Range(2f, 5f)] [SerializeField] private float _movingOffset;
 
     private AutomationsData _automationsData;
 
@@ -24,6 +26,8 @@ public class HitDamagePresentation : MonoBehaviour
         _hitText.color = _textColorsBasedOnDamageAmount.Evaluate(value);
         _hitText.text = string.Format(_textTemplate, currentHitValue.ConvertValue());
         gameObject.SetActive(true);
-        LeanTween.move(gameObject, new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f)), _movingTime).setOnComplete(() => gameObject.SetActive(false));
+        float x = Random.Range(transform.position.x - _movingOffset, transform.position.x + _movingOffset);
+        float y = Random.Range(transform.position.y - _movingOffset, transform.position.y + _movingOffset);
+        transform.DOMove(new Vector3(x, y, transform.position.z), _movingTime).OnComplete(() => gameObject.SetActive(false));
     }
 }

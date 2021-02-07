@@ -1,9 +1,29 @@
-﻿using Automations;
+﻿using System.Collections.Generic;
+using Automations;
 using Badge;
 using UnityEngine;
 
+public enum SkillType
+{
+    AutomationClickPower,
+    AutomationsPower,
+    AutomationPower,
+    ClickPower
+}
+
+public enum AutomationType
+{
+    ClickAutomation,
+    UsualAutomation
+}
+
 public class EntryPoint : MonoBehaviour
 {
+    [Header("Automation Parameters")] 
+    [SerializeField] private AutomationPresentation _automationPrefab;
+    [SerializeField] private Transform _automationsParent;
+    [SerializeField] private AutomationData[] _automationData;
+    [Space(10)]
     [SerializeField] private bool _deleteExistingDataOnDevice;
     [SerializeField] private string _playerDataFileName;
     [SerializeField] private string _automationsDataFileName;
@@ -19,8 +39,6 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private AdsManager _adsManager;
     [SerializeField] private FarmLevelButton _farmLevelButton;
     [SerializeField] private AudioService _audioService;
-    [SerializeField] private PlayGamesAuthenticator _playGamesAuthenticator;
-    [SerializeField] private bool _playGamesDebugMode;
     [SerializeField] private Tutorial _tutorial;
 #if UNITY_EDITOR
     [SerializeField] private GodMode _godMode;
@@ -31,12 +49,21 @@ public class EntryPoint : MonoBehaviour
     [SerializeField]private BadgeData _badgeData;
     [SerializeField]private SettingsData _settingsData;
 
+    private readonly Dictionary<AutomationType, IAutomation> _automationType = new Dictionary<AutomationType, IAutomation>();
+    private readonly Dictionary<SkillType, IAutomationCommand> _skillType = new Dictionary<SkillType, IAutomationCommand>();
+
     private void Awake()
     {
-#if UNITY_ANDROID
+        _automationType.Add(AutomationType.ClickAutomation, new ClickAutomation());
+        _automationType.Add(AutomationType.UsualAutomation, new UsualAutomation());
+        
+        _skillType.Add(SkillType.AutomationPower,new AutomationPowerUpgrader());
+        _skillType.Add(SkillType.AutomationsPower, new AutomationsDamageUpgrader());
+        _skillType.Add(SkillType.ClickPower, new ClickPowerUpgrader());
+        _skillType.Add(SkillType.AutomationClickPower, new ClickPowerAutomationUpgrader());
+
         if (_deleteExistingDataOnDevice)
             DeleteData();
-#endif
 
         if (FileOperations.IsFileExist(_settingsDataFileName) == false)
         {
@@ -51,6 +78,20 @@ public class EntryPoint : MonoBehaviour
 #if UNITY_EDITOR
         _godMode.Init(_playerData);
 #endif
+
+        var builder = new AutomationBuilder(_playerData, _automationsData, _automationPrefab);
+        foreach (var automationData in _automationData)
+        {
+            builder.InstantiateAutomation(_automationsParent, automationData.Data);
+            builder.SetAutomationType(_automationType[automationData.AutomationType]);
+            //List<IAutomationCommand> commands = new List<IAutomationCommand>();
+            var skillsData = automationData.Data.UpgradeComponents;
+            foreach (var skill in skillsData)
+            {
+                builder.AddSkill(_skillType[skill.Skill], skill);
+            }
+        }
+
         _tutorial.Init(_playerData);
         _audioService.Init();
         _settings.Init(_settingsData);
@@ -65,33 +106,34 @@ public class EntryPoint : MonoBehaviour
             _defaultAutomationsData);
         _playerStatsPresentation.Init(_playerData);
         _badge.Init(_playerData, _automationsData, _badgeData);
-        _automationsService.Init(_playerData, _automationsData);
+        _automationsService = new AutomationsService(_playerData, _automationsData);
+        //_automationsService.Init(_playerData, _automationsData);
         _playerData.IsReturningPlayer = true;
     }
 
     private void Start()
     {
-        PlayGames.Initialize(_playGamesDebugMode);
-        PlayGames.Authenticate((bool value) =>
-        {
-            Debug.Log(value);
-        });
-        _playGamesAuthenticator.Init();
+        TinySauce.OnGameStarted();
     }
 
     private void OnApplicationQuit()
     {
-        RememberPlayer();
-        SaveData();
+        SavePlayerProgress();
     }
 
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            RememberPlayer();
-            SaveData();
+            SavePlayerProgress();
         }
+    }
+
+    private void SavePlayerProgress()
+    {
+        RememberPlayer();
+        SaveData();
+        TinySauce.OnGameFinished(_playerData.Level.ToString(), _playerData.LevelProgress);
     }
 
     private void SaveData()

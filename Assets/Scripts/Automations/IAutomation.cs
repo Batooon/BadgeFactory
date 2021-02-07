@@ -1,6 +1,4 @@
-﻿
-
-using Automations;
+﻿using Automations;
 
 public interface IAutomation
 {
