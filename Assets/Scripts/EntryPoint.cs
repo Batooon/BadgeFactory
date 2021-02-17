@@ -84,7 +84,6 @@ public class EntryPoint : MonoBehaviour
         {
             builder.InstantiateAutomation(_automationsParent, automationData.Data);
             builder.SetAutomationType(_automationType[automationData.AutomationType]);
-            //List<IAutomationCommand> commands = new List<IAutomationCommand>();
             var skillsData = automationData.Data.UpgradeComponents;
             foreach (var skill in skillsData)
             {
