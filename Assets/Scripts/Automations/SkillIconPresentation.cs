@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Automations
@@ -13,17 +11,21 @@ namespace Automations
         public void Init(UpgradeComponentData upgradeComponentData)
         {
             _upgradeComponentData = upgradeComponentData;
+            _upgradeComponentData.Attach(this);
+            Fetch(_upgradeComponentData);
         }
 
         private void OnEnable()
         {
+            if (_upgradeComponentData == null)
+                return;
             _upgradeComponentData.Attach(this);
             Fetch(_upgradeComponentData);
         }
 
         private void OnDisable()
         {
-            _upgradeComponentData.Detach(this);
+            _upgradeComponentData?.Detach(this);
         }
 
         public void Fetch(ISubject subject)
@@ -111,29 +113,6 @@ namespace Automations
                 _componentBecomesInvisible?.Invoke();
             OnGoldAmountChanged(_playerData.Gold);
         }*/
-    }
-
-    public class AutomationUpgradeComponentPresenter : MonoBehaviour
-    {
-        //private IAutomationCommand _upgradeCommand;
-        public event Action UpgradeButtonPressed;
-        private UpgradeComponentData _upgradeComponentData;
-
-        public void PressUpgradeButton()
-        {
-            UpgradeButtonPressed?.Invoke();
-            //_upgradeCommand.Execute();
-        }
-
-        /*public void SetAutomationUpgradeCommand(IAutomationCommand command)
-        {
-            _upgradeCommand = command;
-        }*/
-
-        public void SetUpgradeComponentData(UpgradeComponentData skillData)
-        {
-            _upgradeComponentData = skillData;
-        }
     }
 
     public interface IAutomationBuilder
