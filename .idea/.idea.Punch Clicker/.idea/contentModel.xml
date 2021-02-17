@@ -367,6 +367,7 @@
             <e p="Automation.cs" t="Include" />
             <e p="AutomationBuilder.cs" t="Include" />
             <e p="AutomationBusinessRules.cs" t="Include" />
+            <e p="AutomationData.cs" t="Include" />
             <e p="AutomationInitializer.cs" t="Include" />
             <e p="AutomationLogic.cs" t="Include" />
             <e p="AutomationPowerUpgrader.cs" t="Include" />
@@ -376,6 +377,7 @@
             <e p="AutomationsPresentation.cs" t="Include" />
             <e p="AutomationsService.cs" t="Include" />
             <e p="AutomationsUpgradeAvailableChecker.cs" t="Include" />
+            <e p="AutomationUpgradeComponentPresenter.cs" t="Include" />
             <e p="ClickAutomation.cs" t="Include" />
             <e p="ClickPowerAutomationUpgrader.cs" t="Include" />
             <e p="ClickPowerUpgrader.cs" t="Include" />
@@ -383,7 +385,6 @@
             <e p="IAutomationBusinessInput.cs" t="Include" />
             <e p="IAutomationBusinessOutput.cs" t="Include" />
             <e p="IAutomationUpgrader.cs" t="Include" />
-            <e p="Skill.cs" t="Include" />
             <e p="SkillIconPresentation.cs" t="Include" />
             <e p="UpgradeComponent.cs" t="Include" />
             <e p="UpgradeComponentData.cs" t="Include" />

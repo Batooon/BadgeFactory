@@ -13,8 +13,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0847A0FA-F944-44CC-BAF1-958021B27F54/1d/07ba3ed5/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/62FFEEB7-EC02-4BEA-B61E-5FBF8D44AC5B/21/b169fbb0/Math.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -34,14 +40,18 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationsDamageUpgrader.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Automations/ClickPowerUpgrader.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UpgradeComponent.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UpgradeComponentData.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Automations/Automation.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/Skill.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/SkillIconPresentation.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/EntryPoint.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationPresentation.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationLogic.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Badge/BadgePresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationUpgradeComponentPresenter.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/Skill.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EntryPoint.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationsPresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationPresentation.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationsUpgradeAvailableChecker.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Automations/AutomationBuilder.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/UpgradeComponentData.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Automations/SkillIconPresentation.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1azZH0ZyTzpXvBwNgecdFT1iYlT" />
@@ -51,18 +61,19 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
-    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34940413" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.4729144" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.31578946" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6072">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="9672">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="6072" />
+      <option name="pid" value="9672" />
       <option name="selectedOptions">
         <list />
       </option>
@@ -100,7 +111,9 @@
       <workItem from="1612557901891" duration="5101000" />
       <workItem from="1612607675223" duration="18446000" />
       <workItem from="1612646367255" duration="5679000" />
-      <workItem from="1612713480363" duration="6247000" />
+      <workItem from="1612713480363" duration="8944000" />
+      <workItem from="1612854803291" duration="1776000" />
+      <workItem from="1613593909228" duration="5727000" />
     </task>
     <servers />
   </component>
@@ -108,5 +121,17 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#Automations.SkillIconPresentation" memberName="_upgradeComponentData" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
+        <watch expression="_upgradeComponentData" language="C#" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
