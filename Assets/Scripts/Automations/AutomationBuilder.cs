@@ -37,7 +37,7 @@ namespace Automations
 
         public void AddSkill(IAutomationCommand command, UpgradeComponentData skillData)
         {
-            SpawnSkillIcon(_product.SkillIconsParent, skillData.IconSkillPath);
+            SpawnSkillIcon(_product.SkillIconsParent, skillData.IconSkillPath, skillData);
             _product.AddSkillPrefab(InitializeSkill(skillData.SkillPrefabPath, command, skillData));
         }
 
@@ -62,24 +62,26 @@ namespace Automations
             {
                 var skillPrefab = Resources.Load<AutomationUpgradeComponentPresenter>(skillPath);
                 skillPrefab.SetUpgradeComponentData(skillData);
-                var upgradeComponent = new UpgradeComponent(_playerData, _automationsData, _automation, skillData,
+                var _ = new UpgradeComponent(_playerData, _automationsData, _automation, skillData,
                     skillCommand,
                     skillPrefab);
 
                 return skillPrefab;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Debug.LogError("Skill prefab Path is null");
+                Debug.LogError("Something wrong with skill initialization:");
+                Debug.LogError(e);
             }
 
             return null;
         }
 
-        private void SpawnSkillIcon(Transform parent, string prefabPath)
+        private void SpawnSkillIcon(Transform parent, string prefabPath, UpgradeComponentData skillData)
         {
             var skillIcon = Resources.Load<SkillIconPresentation>(prefabPath);
             Object.Instantiate(skillIcon.gameObject, parent);
+            skillIcon.Init(skillData);
         }
     }
 }
