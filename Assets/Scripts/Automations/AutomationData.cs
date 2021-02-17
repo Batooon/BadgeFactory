@@ -2,7 +2,7 @@
 
 namespace Automations
 {
-    [CreateAssetMenu(fileName = "New Automation")]
+    [CreateAssetMenu(fileName = "New Automation", menuName="New Automation")]
     public class AutomationData : ScriptableObject
     {
         [SerializeField] private Automation _automationData;
