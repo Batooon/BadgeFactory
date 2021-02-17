@@ -19,15 +19,15 @@ MonoBehaviour:
     _level: 0
     _currentCost: 0
     _currentDamage: 0
-    _isUnlocked: 0
+    _isUnlocked: 1
     _powerUpPercentage: 0
     _upgradeComponents:
     - _skillType: 0
       _iconSkillPath: Skill Icon
-      _skillPrefabPath: 
+      _skillPrefabPath: Skill
       _levelToUnlock: 0
       _upgradeCost: 0
       _percentage: 0
-      _isComponentUnlocked: 0
+      _isComponentUnlocked: 1
       _isUpgradeComponentPurchased: 0
   _automationType: 0
