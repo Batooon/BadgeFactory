@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Automations
 {
@@ -43,7 +42,7 @@ namespace Automations
             }
         }
 
-        private List<IObserver> _observers;
+        private List<IObserver> _observers = new List<IObserver>();
 
         public void ResetData()
         {
