@@ -453,6 +453,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _skillsParent: {fileID: 5318832882614362943}
+  _automationUpgraded:
+    m_PersistentCalls:
+      m_Calls: []
+  _automationNotUpgraded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &7628710997137923969
 CanvasRenderer:
   m_ObjectHideFlags: 0
