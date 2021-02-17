@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 namespace Automations
 {
-#pragma warning disable 649
     public class AutomationPresentation : MonoBehaviour,IObserver
     {
         public event Action<Action<bool>> UpgradeButtonPressed;
@@ -24,6 +23,8 @@ namespace Automations
         [SerializeField] private List<Image> _starPlaceholders;
         [SerializeField] private UnityEvent _automationUnlocked;
         [SerializeField] private Transform _skillsParent;
+        [SerializeField] private UnityEvent _automationUpgraded;
+        [SerializeField] private UnityEvent _automationNotUpgraded;
         private List<AutomationUpgradeComponentPresenter> _skillsPrefabs;
         
         private Automation _automation;
@@ -33,25 +34,25 @@ namespace Automations
         public void Init(Automation automation)
         {
             _automation = automation;
-            _automation.Attach(this);
-            TickEvents();
+            /*_automation.Attach(this);
+            TickEvents();*/
         }
 
         public void Fetch(ISubject subject)
         {
-            if ((subject is Automation) == false)
+            if (subject is Automation == false)
                 return;
             
             TickEvents();
         }
 
-        public void SetSkillPrefabs(IEnumerable<AutomationUpgradeComponentPresenter> skillPrefabs)
-        {
-            _skillsPrefabs = new List<AutomationUpgradeComponentPresenter>(skillPrefabs.ToArray());
-        }
-
         public void AddSkillPrefab(AutomationUpgradeComponentPresenter skillPrefab)
         {
+            if (_skillsPrefabs == null)
+            {
+                SetSkillPrefabs(new[] {skillPrefab});
+                return;
+            }
             _skillsPrefabs.Add(skillPrefab);
         }
 
@@ -59,14 +60,7 @@ namespace Automations
         {
             _automation?.Attach(this);
 
-            if (_automation == null)
-                return;
-            
-            OnCostChanged(_automation.CurrentCost);
-            OnDamageChanged(_automation.CurrentDamage);
-            OnLevelChanged(_automation.Level);
-            OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
-            OnUnlockedChanged(_automation.IsUnlocked);
+            TickEvents();
         }
 
         private void OnDisable()
@@ -88,6 +82,11 @@ namespace Automations
             OnLevelChanged(_automation.Level);
             OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
             OnUnlockedChanged(_automation.IsUnlocked);
+        }
+        
+        private void SetSkillPrefabs(IEnumerable<AutomationUpgradeComponentPresenter> skillPrefabs)
+        {
+            _skillsPrefabs = new List<AutomationUpgradeComponentPresenter>(skillPrefabs.ToArray());
         }
 
         private void OnCostChanged(long newCost)
@@ -130,15 +129,13 @@ namespace Automations
 
         private void UpgradeResult(bool result)
         {
-            if (result)
+            if (result == false)
             {
-                Debug.Log("Automation upgraded");
+                _automationNotUpgraded?.Invoke();
+                return;
             }
-            else
-            {
-                Debug.Log("Can't upgrade automation");
-            }
+
+            _automationUpgraded?.Invoke();
         }
     }
-#pragma warning restore 649
 }
