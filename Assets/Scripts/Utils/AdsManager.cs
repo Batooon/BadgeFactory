@@ -2,21 +2,16 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
-using GoogleMobileAds.Api;
-using GoogleMobileAds.Placement;
-
-//Developer: Antoshka
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
     public static AdsManager Instance;
 
     [SerializeField] private BannerPosition _bottomBannerPosition;
-    [SerializeField] private BannerAdGameObject _banner;
 
 #if UNITY_EDITOR
     public bool _testMode = true;
-#else
+#elif UNITY_ANDROID
     public bool _testMode = false;
 #endif
 
@@ -44,17 +39,20 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         }
 
         Advertisement.AddListener(this);
+#if UNITY_ANDROID
         Advertisement.Initialize(_storeId, _testMode);
-        MobileAds.Initialize((initStatus) =>
-        {
-            Debug.Log("Google ads initialization completed");
-        });
+#endif
     }
 
     private void Start()
     {
-        StartCoroutine(ActivateBanners());
-        _banner.LoadAd();
+        StartCoroutine(ActivateBanner());
+    }
+
+    public void ShowAd()
+    {
+        if (Advertisement.IsReady(_adVideoPlacement))
+            Advertisement.Show(_adVideoPlacement);
     }
 
     public void ShowRewardedAd(UnityEvent adFinished)
@@ -70,18 +68,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (Advertisement.IsReady(_bottomBannerPlacement)) 
             Advertisement.Banner.Show(_bottomBannerPlacement);
-        //_banner.LoadAd();
-        _banner.Show();
     }
 
     public void HideBanner()
     {
         Advertisement.Banner.Hide();
-    }
-
-    public void HideBottomBanner()
-    {
-        _banner.Hide();
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
@@ -99,7 +90,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     public void OnUnityAdsDidStart(string placementId) { }
     public void OnUnityAdsDidError(string message) { }
 
-    private IEnumerator ActivateBanners()
+    private IEnumerator ActivateBanner()
     {
         while (Advertisement.IsReady(_bottomBannerPlacement) == false)
             yield return new WaitForSeconds(.5f);

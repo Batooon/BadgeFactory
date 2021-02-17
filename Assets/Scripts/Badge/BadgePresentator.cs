@@ -42,7 +42,7 @@ namespace Badge
         public void OnBadgeCreated(BadgeData badgeData)
         {
             Debug.Log("Badge Created?????");
-            _badgePresentation.OnBadgeCreated();
+            //_badgePresentation.OnBadgeCreated();
             foreach (var mothership in _droppable)
             {
                 mothership.Spawn(mothership.transform.position);

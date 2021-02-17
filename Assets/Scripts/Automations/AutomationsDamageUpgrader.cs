@@ -2,11 +2,15 @@
 
 namespace Automations
 {
-    public class AutomationsDamageUpgrader : MonoBehaviour, IUpgrade
+
+    public class AutomationsDamageUpgrader : IAutomationCommand
     {
-        public void Upgrade(AutomationsData automationsData, float percentage, int automationIndex)
+        public void Execute(UpgradeComponent upgradeComponent, float percentageToUpgrade)
         {
-            automationsData.AutomationsPowerPercentageIncrease += percentage;
+            AutomationsData automationsData = upgradeComponent.AutomationsData;
+            automationsData.AutomationsPowerPercentageIncrease += percentageToUpgrade;
+            automationsData.AutomationsPower +=
+                Mathf.RoundToInt(automationsData.AutomationsPower * percentageToUpgrade * .01f);
         }
     }
 }

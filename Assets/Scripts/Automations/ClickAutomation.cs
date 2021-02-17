@@ -2,9 +2,9 @@
 
 namespace Automations
 {
-    public class ClickAutomation : MonoBehaviour, IAutomation
+    public class ClickAutomation : IAutomation
     {
-        private const float _upgradeFactor = 1.07f;
+        private const float UpgradeFactor = 1.07f;
 
         public void RecalculateCost(int levelsToUpgrade, Automation automationData)
         {
@@ -21,12 +21,12 @@ namespace Automations
             {
                 if (level < 15)
                 {
-                    newCost += Mathf.FloorToInt((5 + level) * Mathf.Pow(_upgradeFactor, level - 1));
+                    newCost += Mathf.FloorToInt((5 + level) * Mathf.Pow(UpgradeFactor, level - 1));
                     level += 1;
                 }
                 else
                 {
-                    newCost += Mathf.FloorToInt(20 * Mathf.Pow(_upgradeFactor, level - 1));
+                    newCost += Mathf.FloorToInt(20 * Mathf.Pow(UpgradeFactor, level - 1));
                     level += 1;
                 }
             }
@@ -47,7 +47,7 @@ namespace Automations
                     automationsData.ClickPowerCriticalHitChance += .1f;
                 }
                 automationData.Level += 1;
-                newDamage += Mathf.RoundToInt(automationData.StartingDamage * _upgradeFactor * automationData.Level);
+                newDamage += Mathf.RoundToInt(automationData.StartingDamage * UpgradeFactor * automationData.Level);
 
                 foreach (var item in automationData.UpgradeComponents)
                 {

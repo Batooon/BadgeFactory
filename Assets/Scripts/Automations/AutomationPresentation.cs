@@ -1,61 +1,92 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public struct AutomationViewModel
-{
-    public string AutomationCost;
-    public string AutomationDamage;
-    public bool IsEnoughMoney;
-}
 namespace Automations
 {
-    public class AutomationPresentation : MonoBehaviour
+    public class AutomationPresentation : MonoBehaviour,IObserver
     {
+        public event Action<Action<bool>> UpgradeButtonPressed;
         [SerializeField] private TextMeshProUGUI _damageText;
+        [SerializeField] private string _damageTextTemplate;
         [SerializeField] private TextMeshProUGUI _upgradeCostText;
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private string _levelTextTemplate;
-        [SerializeField] private string _damageTextTemplate;
         [SerializeField] private Color _notEnoughMoneyColorText;
         [SerializeField] private Color _defaultMoneyColorText;
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private List<int> _starsLevels;
         [SerializeField] private List<Image> _starPlaceholders;
         [SerializeField] private UnityEvent _automationUnlocked;
-        [SerializeField] private UnityEvent _automationLocked;
-
+        [SerializeField] private Transform _skillsParent;
+        [SerializeField] private UnityEvent _automationUpgraded;
+        [SerializeField] private UnityEvent _automationNotUpgraded;
+        private List<AutomationUpgradeComponentPresenter> _skillsPrefabs;
+        
         private Automation _automation;
+
+        public Transform SkillIconsParent => _skillsParent;
 
         public void Init(Automation automation)
         {
             _automation = automation;
-            OnUnlockedChanged(_automation.IsUnlocked);
+            /*_automation.Attach(this);
+            TickEvents();*/
+        }
+
+        public void Fetch(ISubject subject)
+        {
+            if (subject is Automation == false)
+                return;
+            
+            TickEvents();
+        }
+
+        public void AddSkillPrefab(AutomationUpgradeComponentPresenter skillPrefab)
+        {
+            if (_skillsPrefabs == null)
+            {
+                SetSkillPrefabs(new[] {skillPrefab});
+                return;
+            }
+            _skillsPrefabs.Add(skillPrefab);
         }
 
         private void OnEnable()
         {
-            _automation.CanUpgradeChanged += OnUpgradeAvailabilityChanged;
-            _automation.CostChanged += OnCostChanged;
-            _automation.DamageChanged += OnDamageChanged;
-            _automation.LevelChanged += OnLevelChanged;
-            _automation.UnlockChanged += OnUnlockedChanged;
+            _automation?.Attach(this);
 
-            OnCostChanged(_automation.CurrentCost);
-            OnDamageChanged(_automation.CurrentDamage);
-            OnLevelChanged(_automation.Level);
-            OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
+            TickEvents();
         }
 
         private void OnDisable()
         {
-            _automation.CanUpgradeChanged -= OnUpgradeAvailabilityChanged;
-            _automation.CostChanged -= OnCostChanged;
-            _automation.DamageChanged -= OnDamageChanged;
-            _automation.LevelChanged -= OnLevelChanged;
-            _automation.UnlockChanged -= OnUnlockedChanged;
+            _automation.Detach(this);
+        }
+
+        public void PressUpgradeButton()
+        {
+            UpgradeButtonPressed?.Invoke(UpgradeResult);
+        }
+
+        private void TickEvents()
+        {
+            if (_automation == null)
+                return;
+            OnCostChanged(_automation.CurrentCost);
+            OnDamageChanged(_automation.CurrentDamage);
+            OnLevelChanged(_automation.Level);
+            OnUpgradeAvailabilityChanged(_automation.CanUpgrade);
+            OnUnlockedChanged(_automation.IsUnlocked);
+        }
+        
+        private void SetSkillPrefabs(IEnumerable<AutomationUpgradeComponentPresenter> skillPrefabs)
+        {
+            _skillsPrefabs = new List<AutomationUpgradeComponentPresenter>(skillPrefabs.ToArray());
         }
 
         private void OnCostChanged(long newCost)
@@ -67,8 +98,7 @@ namespace Automations
         {
             if (newLevel >= 1)
                 _automationUnlocked?.Invoke();
-            else
-                _automationLocked?.Invoke();
+
             _levelText.text = string.Format(_levelTextTemplate, newLevel);
             for (int i = _starsLevels.Count - 1; i >= 0; i--)
             {
@@ -88,6 +118,7 @@ namespace Automations
 
         private void OnUpgradeAvailabilityChanged(bool canUpgrade)
         {
+            _upgradeButton.interactable = canUpgrade;
             _upgradeCostText.color = canUpgrade ? _defaultMoneyColorText : _notEnoughMoneyColorText;
         }
 
@@ -96,29 +127,15 @@ namespace Automations
             gameObject.SetActive(unlocked);
         }
 
-        public void SetUpAutomation(AutomationViewModel automationParams)
+        private void UpgradeResult(bool result)
         {
-        }
+            if (result == false)
+            {
+                _automationNotUpgraded?.Invoke();
+                return;
+            }
 
-        public void OnAutomationUpgraded(AutomationViewModel automationParams)
-        {
-        }
-
-        public void OnAutomationNotUpgraded()
-        {
-            //проиграть анимацию кнопки улучшения, тип что нельзя улучшить
-            //предложить докупить валюту за кристалы
-            //Посмотреть какое-то количество рекламы или задонатить хехехехе ✪ ω ✪
-        }
-
-        public void FetchUpgradeButton(bool isInteractable)
-        {
-            _upgradeButton.interactable = isInteractable;
-            _upgradeCostText.color = isInteractable ? _defaultMoneyColorText : _notEnoughMoneyColorText;
-        }
-
-        public void FetchCost(long cost)
-        {
+            _automationUpgraded?.Invoke();
         }
     }
 }

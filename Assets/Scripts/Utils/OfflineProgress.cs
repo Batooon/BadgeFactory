@@ -41,6 +41,6 @@ public class OfflineProgress : MonoBehaviour
         double secondsToCreateBadge = _badgeData.MaxHp / _automationsData.AutomationsPower;
         int createdBadges = (int)(timeDifference.TotalSeconds / secondsToCreateBadge);
         Debug.Log(createdBadges);
-        return _earnedGold = _badgeData.CoinsReward * createdBadges;
+        return _badgeData.CoinsReward * createdBadges;
     }
 }

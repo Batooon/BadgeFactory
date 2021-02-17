@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Automations
 {
-    public class AutomationsPresentation : MonoBehaviour
+    public class AutomationsPresentation : MonoBehaviour,IObserver
     {
         [SerializeField] private TextMeshProUGUI _clickPowerText;
         [SerializeField] private TextMeshProUGUI _automationsPowerText;
@@ -25,17 +25,15 @@ namespace Automations
 
         private void OnEnable()
         {
-            _automationsData.AutomationsPowerChanged += OnAutomationsPowerChanged;
-            _automationsData.ClickPowerChanged += OnClickPowerChanged;
+            /*_automationsData.Attach(this);
 
             OnAutomationsPowerChanged(_automationsData.AutomationsPower);
-            OnClickPowerChanged(_automationsData.ClickPower);
+            OnClickPowerChanged(_automationsData.ClickPower);*/
         }
 
         private void OnDisable()
         {
-            _automationsData.AutomationsPowerChanged -= OnAutomationsPowerChanged;
-            _automationsData.ClickPowerChanged -= OnClickPowerChanged;
+            //_automationsData.Detach(this);
         }
 
         private void OnAutomationsPowerChanged(long newPower)
@@ -57,6 +55,12 @@ namespace Automations
         public void UnlockNewAutomation(int newAutomationId)
         {
             _automationObjects[newAutomationId].SetActive(true);
+        }
+
+        public void Fetch(ISubject subject)
+        {
+            OnAutomationsPowerChanged(_automationsData.AutomationsPower);
+            OnClickPowerChanged(_automationsData.ClickPower);
         }
     }
 }

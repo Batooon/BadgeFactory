@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bosses
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 6182919318665267967, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+  - {fileID: -3821077931811553793, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+  - {fileID: 8902484048589734468, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+  - {fileID: -5085733121788595118, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+  - {fileID: 3083027245638692531, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+  - {fileID: -6875970122957547919, guid: 9cbb5e1f815054a42bb49e1bc69394b1, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_2"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_3"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_0"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_1"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_4"
+  - "\u0441\u043C\u0430\u0439\u043B\u0438_5"
+  m_Tag: Bosses
+  m_IsVariant: 0

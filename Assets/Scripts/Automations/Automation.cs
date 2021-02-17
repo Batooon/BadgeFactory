@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Automations
 {
     [Serializable]
-    public class Automation
+    public class Automation : ISubject
     {
-        [SerializeField] private bool _canUpgrade;
+        [SerializeField, HideInInspector] private bool _canUpgrade;
         [SerializeField] private long _startingDamage;
         [SerializeField] private long _startingCost;
         [SerializeField] private int _level;
@@ -15,15 +16,8 @@ namespace Automations
         [SerializeField] private bool _isUnlocked;
         [SerializeField] private float _powerUpPercentage;
         [SerializeField] private UpgradeComponentData[] _upgradeComponents;
-        //[SerializeField] private bool[] _isPowerUpUnlocked;
 
-        public event Action<bool> CanUpgradeChanged;
-        public event Action<int> LevelChanged;
-        public event Action<long> CostChanged;
-        public event Action<long> DamageChanged;
-        public event Action<bool> UnlockChanged;
-        public event Action<float> PowerUpPercentageChanged;
-        public event Action<bool, int> IsPowerUpUnlockedChanged;
+        private List<IObserver> _observers = new List<IObserver>();
 
         public bool CanUpgrade
         {
@@ -31,41 +25,59 @@ namespace Automations
             set
             {
                 _canUpgrade = value;
-                CanUpgradeChanged?.Invoke(_canUpgrade);
+                Notify();
             }
         }
-        public long StartingDamage { get => _startingDamage; set => _startingDamage = value; }
-        public long StartingCost { get => _startingCost; set => _startingCost = value; }
+
+        public long StartingDamage
+        {
+            get => _startingDamage;
+            set => _startingDamage = value;
+        }
+
+        public long StartingCost
+        {
+            get => _startingCost;
+            set => _startingCost = value;
+        }
+
         public int Level
         {
-            get => _level; set
+            get => _level;
+            set
             {
                 _level = value;
-                LevelChanged?.Invoke(_level);
+                Notify();
             }
         }
+
         public long CurrentCost
         {
-            get => _currentCost; set
+            get => _currentCost;
+            set
             {
                 _currentCost = value;
-                CostChanged?.Invoke(_currentCost);
+                Notify();
             }
         }
+
         public long CurrentDamage
         {
-            get => _currentDamage; set
+            get => _currentDamage;
+            set
             {
                 _currentDamage = value;
-                DamageChanged?.Invoke(_currentDamage);
+                Notify();
             }
         }
+
         public bool IsUnlocked
         {
-            get => _isUnlocked; set
+            get => _isUnlocked;
+            set
             {
                 _isUnlocked = value;
-                UnlockChanged?.Invoke(_isUnlocked);
+                Notify();
             }
         }
 
@@ -76,11 +88,9 @@ namespace Automations
             {
                 float addedPercentage = value - _powerUpPercentage;
                 _powerUpPercentage = value;
-                PowerUpPercentageChanged?.Invoke(addedPercentage);
+                Notify();
             }
         }
-
-        //public bool[] IsPowerUpUnlocked => _isPowerUpUnlocked;
 
         public UpgradeComponentData[] UpgradeComponents => _upgradeComponents;
 
@@ -95,8 +105,6 @@ namespace Automations
             _startingLevel = _level;
             _startingIsUnlocked = _isUnlocked;
             _startingPowerUpPercentage = _powerUpPercentage;
-            foreach (var item in UpgradeComponents)
-                item.Init();
         }
 
         public void ResetData()
@@ -119,6 +127,24 @@ namespace Automations
             CurrentDamage = _startingDamage;
             PowerUpPercentage = 0;
             IsUnlocked = defaultAutomation.IsUnlocked;
+        }
+
+        public void Attach(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void Notify()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Fetch(this);
+            }
         }
     }
 }

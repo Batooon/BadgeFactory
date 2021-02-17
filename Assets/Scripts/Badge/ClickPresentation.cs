@@ -2,7 +2,7 @@
 
 namespace Badge
 {
-    public class ClickPresentation : MonoBehaviour, IClickEffect
+    public class ClickPresentation : MonoBehaviour
     {
         [SerializeField]
         private GameObject _particleEffect;

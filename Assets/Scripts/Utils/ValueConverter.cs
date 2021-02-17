@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Globalization;
+using System.Numerics;
 
 //Developer: Antoshka
 
 internal static class ValueConverter
 {
-    public static char[] suffixes = new char[] { ' ', 'K', 'M', 'B', 'T', 'q', 'Q', 's', 'S', 'O', 'N', 'd', 'U' };
+    private static char[] _suffixes = new char[] { ' ', 'K', 'M', 'B', 'T', 'q', 'Q', 's', 'S', 'O', 'N', 'd', 'U' };
 
-    public static string ConvertValue(this int origin)
+    public static string ConvertValue(this BigInteger origin)
     {
-        float number = origin;
         int thousands = 0;
 
-        while (number > 1000)
+        while (origin > 1000)
         {
-            number /= 1000;
+            origin /= 1000;
             thousands += 1;
         }
 
-        string value = number.ToString("F", CultureInfo.InstalledUICulture) + suffixes[thousands];
+        string value = origin.ToString("F", CultureInfo.InstalledUICulture) + _suffixes[thousands];
 
         return value;
     }
@@ -38,7 +38,7 @@ internal static class ValueConverter
             thousands += 1;
         }
 
-        string value = number.ToString("F", CultureInfo.InstalledUICulture) + suffixes[thousands];
+        string value = number.ToString("F", CultureInfo.InstalledUICulture) + _suffixes[thousands];
 
         return value;
     }

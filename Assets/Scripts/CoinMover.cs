@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using DroppableItems;
-using System;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class CoinMover : MonoBehaviour, IItemTweener
 {
     [SerializeField] private UnityEvent _finished;
-    [SerializeField] private LeanTweenType _easeType;
-    [SerializeField] private AnimationCurve _animationCurve;
+    [SerializeField] private AnimationCurve _easeCurve;
     [SerializeField] private float _duration;
     [SerializeField] private float _groundYCoordinate;
     [SerializeField] private float _groundXMaxCoordinate;
@@ -15,20 +14,15 @@ public class CoinMover : MonoBehaviour, IItemTweener
 
     public void StartMotion()
     {
-        if (_easeType == LeanTweenType.animationCurve)
-        {
-            LeanTween.moveY(gameObject, _groundYCoordinate, _duration).setEase(_animationCurve).setOnComplete(_finished.Invoke);
-            LeanTween.moveX(gameObject, UnityEngine.Random.Range(_groundXMinCoordinate, _groundXMaxCoordinate), _duration * 0.5f);
-        }
-        else
-        {
-            LeanTween.move(gameObject,
-            new Vector2(UnityEngine.Random.Range(_groundXMinCoordinate, _groundXMaxCoordinate),
-            _groundYCoordinate),
-            _duration)
-            .setEase(_easeType)
-            .setOnComplete(_finished.Invoke);
-        }
+        Sequence coinMove = DOTween.Sequence();
+        coinMove.Append(transform
+                .DOMoveY(_groundYCoordinate, _duration)
+                .SetEase(_easeCurve));
+
+        coinMove.Join(transform
+                .DOMoveX(Random.Range(_groundXMinCoordinate, _groundXMaxCoordinate), _duration));
+
+        coinMove.OnComplete(_finished.Invoke);
     }
 
     public void Init() { }

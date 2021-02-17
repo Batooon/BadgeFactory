@@ -17,8 +17,7 @@ public class HitDamageSpawner : MonoBehaviour
     public void SpawnText(long hitValue)
     {
         GameObject hitText = _hitTextPooler.GetPooledObjects();
-        hitText.transform.localPosition = transform.localPosition;
-        Debug.Log(hitText.transform.localPosition);
+        hitText.transform.position = transform.position;
         HitDamagePresentation hitDamagePresentation;
         if (hitText.TryGetComponent(out hitDamagePresentation))
         {

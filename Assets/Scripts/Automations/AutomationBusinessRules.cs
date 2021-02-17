@@ -28,7 +28,7 @@ namespace Automations
             _automationOutput.FetchUpgradeButton(_automation.CanUpgrade);
         }
 
-        public void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUnlocked, UnityEvent automationUpgraded)
+        public void TryUpgradeAutomation(int automationId, IAutomation automation, UnityEvent automationUpgraded)
         {
             if (_playerData.Gold >= _automation.CurrentCost)
             {

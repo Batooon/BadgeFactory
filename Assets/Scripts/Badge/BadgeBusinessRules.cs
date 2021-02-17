@@ -7,6 +7,7 @@ namespace Badge
     public class BadgeBusinessRules : IBadgeBusinessInput
     {
         public event Action BadgeCreated;
+        public event Action BossCreated;
         public event Action CreateBadgeEvent;
         public event Action CreateBossEvent;
 
@@ -18,8 +19,7 @@ namespace Badge
         private long _currentClickHitValue;
 
         public long CurrentClickHitValue => _currentClickHitValue;
-
-        //TODO: Fluent builder?
+        
         public BadgeBusinessRules(PlayerData playerData,
                                   BadgeData badgeData,
                                   AutomationsData automationsData,
@@ -36,25 +36,19 @@ namespace Badge
             ResetBadgeHp();
             ResetBadgeCoinsReward();
             if (_playerData.Level % 5 == 0)
-            {
                 InitBoss();
-            }
             else
-            {
                 InitBadge();
-            }
         }
 
         public void InitBoss()
         {
-            //_badgeOutput.SpawnBoss();
             CreateBossEvent?.Invoke();
             _bossCountdown.StartCountdown(_playerData.BossCountdownTime);
         }
 
         public void InitBadge()
         {
-            //_badgeOutput.SpawnBadge();
             CreateBadgeEvent?.Invoke();
         }
 
@@ -93,9 +87,7 @@ namespace Badge
         {
             float exponent = 1f;
             for (int i = 0; i < _playerData.Level - 1; i++)
-            {
                 exponent *= 1.55f;
-            }
             int maxBadgeHp = (int)(10 * ((_playerData.Level - 1) + exponent));
             if (_playerData.Level % 5 == 0)
                 maxBadgeHp *= 10;
@@ -120,10 +112,13 @@ namespace Badge
                 if (_playerData.Level == 60)
                     _playerData.BadgePoints += 1;
 
+                if (_playerData.Level % 5 == 0)
+                    BossCreated?.Invoke();
+                else
+                    BadgeCreated?.Invoke();
+
                 IncreaseLevel();
-                
                 CreateNewBadge();
-                BadgeCreated?.Invoke();
             }
         }
 
@@ -141,10 +136,13 @@ namespace Badge
                         _playerData.MaxLevelProgress = 10;
                 }
                 else
-                {
                     _playerData.LevelProgress += 1;
-                }
             }
         }
+    }
+
+    public interface IBadgeState
+    {
+        void SpawnNewBadge();
     }
 }
