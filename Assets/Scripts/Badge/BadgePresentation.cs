@@ -42,14 +42,14 @@ namespace Badge
 
         private void UpdateBadgeProgress(float newHp)
         {
-            int i = 0;
-            float currentComponentProgress = _badgeData.MaxHp / _badgeSpriteComponents.Count;
-            if (_badgeData.CurrentHp > currentComponentProgress * (i + 1))
+            var i = 0;
+            var currentComponentProgress = _badgeData.MaxHp / (float) _badgeSpriteComponents.Count;
+            if (_badgeData.CurrentHp > currentComponentProgress)
                 i += 1;
 
-            float alpha = Mathf.Clamp01(Mathf.InverseLerp(0, currentComponentProgress * (i + 1), _badgeData.CurrentHp));
+            var alpha = Mathf.Clamp01(Mathf.InverseLerp(0, currentComponentProgress * (i + 1), _badgeData.CurrentHp));
 
-            Color tempColor = _badgeSpriteComponents[i].color;
+            var tempColor = _badgeSpriteComponents[i].color;
             tempColor.a = alpha;
 
             _badgeSpriteComponents[i].color = tempColor;
@@ -86,7 +86,6 @@ namespace Badge
 
         public void Fetch(ISubject subject)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
