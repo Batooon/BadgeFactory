@@ -25,15 +25,15 @@ namespace Automations
 
         private void OnEnable()
         {
-            _automationsData.Attach(this);
+            /*_automationsData.Attach(this);
 
             OnAutomationsPowerChanged(_automationsData.AutomationsPower);
-            OnClickPowerChanged(_automationsData.ClickPower);
+            OnClickPowerChanged(_automationsData.ClickPower);*/
         }
 
         private void OnDisable()
         {
-            _automationsData.Detach(this);
+            //_automationsData.Detach(this);
         }
 
         private void OnAutomationsPowerChanged(long newPower)

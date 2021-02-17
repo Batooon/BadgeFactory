@@ -22,14 +22,14 @@ namespace Automations
 
         private void OnEnable()
         {
-            _automationsData.Attach(this);
+            //_automationsData.Attach(this);
 
-            FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
+            //FetchUpgradeAvailability(_automationsData.CanUpgradeSomething);
         }
 
         private void OnDisable()
         {
-            _automationsData.Detach(this);
+            //_automationsData.Detach(this);
         }
 
         private void FetchUpgradeAvailability(bool canUpgradeSomething)
